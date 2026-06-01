@@ -20,8 +20,12 @@ const briefOutput = document.querySelector(".brief-output");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
 const magneticButtons = document.querySelectorAll(".button");
-const dockGuardTargets = document.querySelectorAll("#work, #payments, #brief, #contact, .site-footer");
+const dockGuardTargets = document.querySelectorAll(
+  "#services, .delivery-section, #work, #process, .quality-section, #pricing, #payments, #faq, #brief, #contact, .site-footer",
+);
 const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
+const processTrack = document.querySelector("[data-process-track]");
+const processSteps = processTrack?.querySelectorAll("[data-process-step]") || [];
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
@@ -107,9 +111,31 @@ const updateScrollState = () => {
     return bounds.top < window.innerHeight - 72 && bounds.bottom > 96;
   });
   const shouldShowDock =
+    window.innerWidth > 700 &&
     scrollTop > Math.max(420, window.innerHeight * 0.55) &&
     !dockBlocked &&
     !document.body.classList.contains("menu-open");
+  let processProgress = 0;
+
+  if (processTrack && processSteps.length) {
+    const processBounds = processTrack.getBoundingClientRect();
+    const start = window.innerHeight * 0.78;
+    const end = window.innerHeight * 0.24;
+    processProgress = (start - processBounds.top) / (start - end + processBounds.height * 0.45);
+    processProgress = Math.min(Math.max(processProgress, 0), 1);
+    processTrack.style.setProperty("--process-progress", processProgress.toFixed(3));
+    const activeIndex =
+      processProgress > 0.03
+        ? Math.min(processSteps.length - 1, Math.floor(processProgress * (processSteps.length - 1) + 0.001))
+        : -1;
+
+    processSteps.forEach((step, index) => {
+      const stepPoint = processSteps.length === 1 ? 1 : index / (processSteps.length - 1);
+
+      step.classList.toggle("is-process-active", index === activeIndex);
+      step.classList.toggle("is-process-complete", processProgress >= stepPoint);
+    });
+  }
 
   if (progress) {
     progress.style.transform = `scaleX(${Math.min(Math.max(ratio, 0), 1)})`;
