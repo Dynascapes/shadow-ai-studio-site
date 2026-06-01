@@ -126,6 +126,7 @@ const briefData = {
     copy: "Review an AI-built app, website, or workflow and receive a clear fix list with next steps.",
     price: "$49 USD",
     time: "1-3 business days",
+    emailGoal: "Find launch blockers before publishing",
     items: ["Current setup review", "Prioritized fix list", "Next-step launch notes"],
     subject: "Launch Audit",
     article: "a",
@@ -140,6 +141,7 @@ const briefData = {
     copy: "A compact public service website with responsive pages, contact paths, SEO basics, and launch checks.",
     price: "$99 USD",
     time: "3-7 business days",
+    emailGoal: "Launch a compact public service site",
     items: ["Up to three public pages", "Responsive layout and contact path", "Policy, pricing, and launch checks"],
     subject: "Starter Website",
     article: "a",
@@ -154,6 +156,7 @@ const briefData = {
     copy: "One repeatable workflow that connects tools, reduces a manual task, and includes setup notes.",
     price: "$149 USD",
     time: "Scope dependent",
+    emailGoal: "Automate one repeatable manual task",
     items: ["Trigger and output defined", "Workflow setup and test run", "Usage notes for handoff"],
     subject: "Automation Project",
     article: "an",
@@ -168,6 +171,7 @@ const briefData = {
     copy: "Focused cleanup for bugs, deploy issues, broken forms, API errors, or reliability problems.",
     price: "$299 USD",
     time: "Scope dependent",
+    emailGoal: "Fix a stuck app or workflow",
     items: ["Issue review and risk notes", "Focused fixes and verification", "Summary of changes and next steps"],
     subject: "Troubleshooting Request",
     article: "a",
@@ -711,6 +715,10 @@ const updateBrief = (key) => {
   document.querySelector("[data-brief-meter-complexity]").textContent = data.meter.complexity[0];
   document.querySelector("[data-brief-meter-turnaround]").textContent = data.meter.turnaround[0];
   document.querySelector("[data-brief-meter-handoff]").textContent = data.meter.handoff[0];
+  document.querySelector("[data-brief-email-subject]").textContent = data.subject;
+  document.querySelector("[data-brief-email-goal]").textContent = data.emailGoal;
+  document.querySelector("[data-brief-email-timeline]").textContent = data.time;
+  document.querySelector("[data-brief-email-budget]").textContent = `Starting at ${data.price}`;
   document
     .querySelector("[data-brief-meter-complexity-bar]")
     ?.style.setProperty("--meter-width", data.meter.complexity[1]);
@@ -721,7 +729,7 @@ const updateBrief = (key) => {
     .querySelector("[data-brief-meter-handoff-bar]")
     ?.style.setProperty("--meter-width", data.meter.handoff[1]);
 
-  const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal:\nCurrent site/app link:\nDeadline:\n`;
+  const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal:\nCurrent site/app link:\nDeadline or timeline:\nPackage or project type: ${data.title}\nBudget range:\n`;
   document
     .querySelector("[data-brief-link]")
     ?.setAttribute(
