@@ -1,7 +1,44 @@
 const root = document.documentElement;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const themeToggles = document.querySelectorAll("[data-theme-toggle]");
+const themeToggleText = document.querySelectorAll("[data-theme-toggle-text]");
+const themeColorMeta = document.querySelector("meta[name='theme-color']");
 
 root.classList.add("js-ready");
+
+const getActiveTheme = () => (root.dataset.theme === "dark" ? "dark" : "light");
+
+const syncThemeControls = () => {
+  const activeTheme = getActiveTheme();
+  const nextLabel = activeTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+
+  root.style.colorScheme = activeTheme;
+  themeColorMeta?.setAttribute("content", activeTheme === "dark" ? "#07111d" : "#0d1b2a");
+  themeToggles.forEach((toggle) => {
+    toggle.setAttribute("aria-label", nextLabel);
+    toggle.setAttribute("aria-pressed", String(activeTheme === "dark"));
+  });
+  themeToggleText.forEach((label) => {
+    label.textContent = activeTheme === "dark" ? "Light mode" : "Dark mode";
+  });
+};
+
+const setTheme = (theme) => {
+  const nextTheme = theme === "dark" ? "dark" : "light";
+  root.dataset.theme = nextTheme;
+  try {
+    window.localStorage.setItem("shadow-theme", nextTheme);
+  } catch {
+    // Theme persistence is optional; the visible toggle should still work.
+  }
+  syncThemeControls();
+};
+
+if (!root.dataset.theme) {
+  setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+} else {
+  syncThemeControls();
+}
 
 const progress = document.querySelector(".scroll-progress");
 const header = document.querySelector(".site-header");
@@ -95,6 +132,10 @@ const paymentSteps = paymentFlow?.querySelectorAll("[data-payment-step]") || [];
 const contactRoute = document.querySelector("[data-contact-route]");
 const contactSteps = contactRoute?.querySelectorAll("[data-contact-step]") || [];
 const contactBox = document.querySelector(".contact-box");
+const contactStatus = document.querySelector("[data-contact-status]");
+const contactSubject = document.querySelector("[data-contact-subject]");
+const contactFields = document.querySelector("[data-contact-fields]");
+const contactLink = document.querySelector("[data-contact-link]");
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
@@ -116,6 +157,7 @@ let pricingSequenceTimers = [];
 let faqSyncing = false;
 let scopeHandoffTimer;
 let scopeHandoffQueueTimers = [];
+let contactDraftTimer;
 const workflowDuration = 2300;
 
 const heroStatusData = [
@@ -309,7 +351,7 @@ const detailFocusData = [
   {
     title: "Secure checkout",
     label: "Protected checkout",
-    copy: "Card details are handled by third-party payment providers, while this site keeps the service request path simple.",
+    copy: "Card details are handled through Stripe-hosted checkout or invoice links, while this site keeps the service request path simple.",
     check: "Provider-hosted payment",
     action: "Use sent checkout link",
     record: "Card data not stored here",
@@ -909,19 +951,30 @@ if (hoverCards.length && !reduceMotion) {
 
 if (magneticButtons.length && !reduceMotion) {
   magneticButtons.forEach((button) => {
-    button.addEventListener("pointermove", (event) => {
+    const updateButtonMagnet = (event) => {
       const bounds = button.getBoundingClientRect();
       const x = (event.clientX - bounds.left) / bounds.width - 0.5;
       const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      const glowX = ((event.clientX - bounds.left) / bounds.width) * 100;
+      const glowY = ((event.clientY - bounds.top) / bounds.height) * 100;
 
       button.style.setProperty("--button-x", `${(x * 5).toFixed(2)}px`);
       button.style.setProperty("--button-y", `${(y * 4).toFixed(2)}px`);
-    });
+      button.style.setProperty("--button-glow-x", `${glowX.toFixed(1)}%`);
+      button.style.setProperty("--button-glow-y", `${glowY.toFixed(1)}%`);
+    };
 
-    button.addEventListener("pointerleave", () => {
+    const resetButtonMagnet = () => {
       button.style.setProperty("--button-x", "0px");
       button.style.setProperty("--button-y", "0px");
-    });
+      button.style.setProperty("--button-glow-x", "50%");
+      button.style.setProperty("--button-glow-y", "50%");
+    };
+
+    button.addEventListener("pointermove", updateButtonMagnet);
+    button.addEventListener("mousemove", updateButtonMagnet);
+    button.addEventListener("pointerleave", resetButtonMagnet);
+    button.addEventListener("mouseleave", resetButtonMagnet);
   });
 }
 
@@ -1183,12 +1236,24 @@ const updateBrief = (key, handoffOptions = {}) => {
     ?.style.setProperty("--meter-width", data.meter.handoff[1]);
 
   const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal:\nCurrent site/app link:\nDeadline or timeline:\nPackage or project type: ${data.title}\nBudget range:\n`;
-  document
-    .querySelector("[data-brief-link]")
-    ?.setAttribute(
-      "href",
-      `mailto:dynascapes@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`,
-    );
+  const mailtoHref = `mailto:dynascapes@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
+
+  document.querySelector("[data-brief-link]")?.setAttribute("href", mailtoHref);
+
+  contactBox?.classList.remove("is-draft-updating");
+  if (shouldAnimate && contactBox) {
+    void contactBox.offsetWidth;
+    contactBox.classList.add("is-draft-updating");
+    window.clearTimeout(contactDraftTimer);
+    contactDraftTimer = window.setTimeout(() => {
+      contactBox.classList.remove("is-draft-updating");
+    }, 900);
+  }
+
+  if (contactStatus) contactStatus.textContent = `${data.title} ready`;
+  if (contactSubject) contactSubject.textContent = data.subject;
+  if (contactFields) contactFields.textContent = `Goal, link, timeline, ${data.title}, budget`;
+  contactLink?.setAttribute("href", mailtoHref);
 
   scheduleScopeHandoff(handoffOptions);
 };
@@ -1237,6 +1302,12 @@ showcaseCta?.addEventListener("click", () => {
 
 backTopButton?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+});
+
+themeToggles.forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    setTheme(getActiveTheme() === "dark" ? "light" : "dark");
+  });
 });
 
 copyEmailButton?.addEventListener("click", async () => {

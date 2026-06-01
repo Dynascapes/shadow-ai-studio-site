@@ -10,14 +10,27 @@
     />
     <meta name="theme-color" content="#0d1b2a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260601-29" />
-    <script src="script.js?v=20260601-29" defer></script>
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("shadow-theme");
+          const preferredTheme =
+            savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.dataset.theme = preferredTheme;
+          document.documentElement.style.colorScheme = preferredTheme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260601-32" />
+    <script src="script.js?v=20260601-32" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
     <div class="action-dock" aria-label="Quick actions">
       <a class="dock-primary" href="#brief">Build Brief</a>
-      <a href="mailto:dynascapes@gmail.com?subject=Project%20request">Email</a>
+      <a href="#contact">Contact</a>
       <button type="button" data-back-top aria-label="Back to top">Top</button>
     </div>
     <header class="site-header">
@@ -39,7 +52,14 @@
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="button button-small" href="mailto:dynascapes@gmail.com?subject=Project%20request">Get Started</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
+          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
+          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
+        </svg>
+      </button>
+      <a class="button button-small" href="#brief">Build Project Brief</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
         <span class="sr-only">Open menu</span>
         <span aria-hidden="true"></span>
@@ -62,7 +82,15 @@
         <a href="privacy-policy.html">Privacy</a>
         <a href="terms.html">Terms</a>
       </div>
-      <a class="button" href="mailto:dynascapes@gmail.com?subject=Project%20request">Get Started</a>
+      <button class="theme-toggle mobile-theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
+          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
+          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
+        </svg>
+        <span data-theme-toggle-text>Dark mode</span>
+      </button>
+      <a class="button" href="#brief">Build Project Brief</a>
     </div>
 
     <main>
@@ -77,7 +105,7 @@
             your business already uses.
           </p>
           <div class="hero-actions" data-reveal data-reveal-delay="260">
-            <a class="button" href="mailto:dynascapes@gmail.com?subject=Project%20request">Get Started</a>
+            <a class="button" href="#brief">Build Project Brief</a>
             <a class="button button-secondary" href="#services">View Services</a>
           </div>
           <div class="hero-status" data-hover-card data-hero-status aria-label="Project readiness path">
@@ -665,7 +693,7 @@
             </ul>
             <p class="price">Starting at <strong>$49 USD</strong></p>
             <p class="price-note">1-3 business days</p>
-            <a class="button" href="#brief" data-pricing-brief="audit">Get Started</a>
+            <a class="button" href="#brief" data-pricing-brief="audit">Build Brief</a>
           </article>
           <article class="price-card price-card-featured" data-reveal data-hover-card data-price-card>
             <span class="price-kicker">Website</span>
@@ -683,7 +711,7 @@
             </ul>
             <p class="price">Starting at <strong>$99 USD</strong></p>
             <p class="price-note">3-7 business days</p>
-            <a class="button" href="#brief" data-pricing-brief="website">Get Started</a>
+            <a class="button" href="#brief" data-pricing-brief="website">Build Brief</a>
           </article>
           <article class="price-card" data-reveal data-hover-card data-price-card>
             <span class="price-kicker">Workflow</span>
@@ -700,7 +728,7 @@
             </ul>
             <p class="price">Starting at <strong>$149 USD</strong></p>
             <p class="price-note">Scope dependent</p>
-            <a class="button" href="#brief" data-pricing-brief="automation">Get Started</a>
+            <a class="button" href="#brief" data-pricing-brief="automation">Build Brief</a>
           </article>
           <article class="price-card" data-reveal data-hover-card data-price-card>
             <span class="price-kicker">Repair</span>
@@ -717,7 +745,7 @@
             </ul>
             <p class="price">Starting at <strong>$299 USD</strong></p>
             <p class="price-note">Scope dependent</p>
-            <a class="button" href="#brief" data-pricing-brief="fix">Get Started</a>
+            <a class="button" href="#brief" data-pricing-brief="fix">Build Brief</a>
           </article>
         </div>
       </section>
@@ -767,7 +795,7 @@
           <article data-reveal data-hover-card data-detail-card tabindex="0">
             <span class="detail-status">Protected checkout</span>
             <h3>Secure checkout</h3>
-            <p>Card payment information is processed by third-party payment providers. This site does not store card numbers.</p>
+            <p>Card details are handled through Stripe-hosted checkout or invoice links. This site does not store card numbers.</p>
           </article>
           <article data-reveal data-hover-card data-detail-card tabindex="0">
             <span class="detail-status">Written handoff</span>
@@ -930,7 +958,7 @@
               data-brief-link
               href="mailto:dynascapes@gmail.com?subject=Launch%20Audit&body=Hi%20Shadow%20AI%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20Launch%20Audit.%0A%0AGoal%3A%0ACurrent%20site%2Fapp%20link%3A%0ADeadline%20or%20timeline%3A%0APackage%20or%20project%20type%3A%20Launch%20Audit%0ABudget%20range%3A%0A"
             >
-              Request this scope
+              Email selected scope
             </a>
           </div>
         </div>
@@ -962,7 +990,7 @@
         <div class="contact-box" data-reveal data-reveal-delay="120" data-hover-card>
           <div class="contact-card-top">
             <span>Project request</span>
-            <strong>Start by email</strong>
+            <strong data-contact-status>Launch Audit ready</strong>
           </div>
           <div class="contact-email-row">
             <a class="contact-email" href="mailto:dynascapes@gmail.com">dynascapes@gmail.com</a>
@@ -977,19 +1005,20 @@
           <div class="contact-draft" aria-label="Email draft preview">
             <div>
               <span>Subject</span>
-              <strong>Project request</strong>
+              <strong data-contact-subject>Launch Audit</strong>
             </div>
             <div>
               <span>Body fields</span>
-              <strong>Goal, link, deadline, package, budget</strong>
+              <strong data-contact-fields>Goal, link, timeline, Launch Audit, budget</strong>
             </div>
           </div>
           <p class="contact-response"><span>Typical reply</span><strong>Within 24 hours on business days</strong></p>
           <a
             class="button"
-            href="mailto:dynascapes@gmail.com?subject=Project%20request&body=Hi%20Shadow%20AI%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20project.%0A%0AGoal%3A%0ACurrent%20site%2Fapp%20link%3A%0ADeadline%20or%20timeline%3A%0APackage%20or%20project%20type%3A%0ABudget%20range%3A%0A"
+            data-contact-link
+            href="mailto:dynascapes@gmail.com?subject=Launch%20Audit&body=Hi%20Shadow%20AI%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20Launch%20Audit.%0A%0AGoal%3A%0ACurrent%20site%2Fapp%20link%3A%0ADeadline%20or%20timeline%3A%0APackage%20or%20project%20type%3A%20Launch%20Audit%0ABudget%20range%3A%0A"
           >
-            Email project request
+            Email selected scope
           </a>
         </div>
       </section>

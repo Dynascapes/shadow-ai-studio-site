@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Privacy Policy | Shadow AI Studio</title>
     <meta name="description" content="Privacy policy for Shadow AI Studio." />
+    <meta name="theme-color" content="#0d1b2a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260601-29" />
-    <script src="script.js?v=20260601-29" defer></script>
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("shadow-theme");
+          const preferredTheme =
+            savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.dataset.theme = preferredTheme;
+          document.documentElement.style.colorScheme = preferredTheme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260601-32" />
+    <script src="script.js?v=20260601-32" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -24,7 +38,14 @@
         <a href="index.html#payments">Payments</a>
         <a href="index.html#contact">Contact</a>
       </nav>
-      <a class="button button-small" href="mailto:dynascapes@gmail.com?subject=Project%20request">Get Started</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
+          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
+          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
+        </svg>
+      </button>
+      <a class="button button-small" href="index.html#brief">Build Project Brief</a>
     </header>
     <main class="policy-page">
       <section class="policy-hero" data-reveal>
