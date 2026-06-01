@@ -43,6 +43,7 @@ const showcaseData = {
     label: "Launch checklist",
     state: "Ready",
     progress: "78%",
+    bars: ["88%", "68%", "78%"],
     foot: ["Policies linked", "Mobile checked"],
   },
   rescue: {
@@ -53,6 +54,7 @@ const showcaseData = {
     label: "Fix sprint board",
     state: "Mapped",
     progress: "64%",
+    bars: ["76%", "86%", "54%"],
     foot: ["Errors grouped", "Next steps written"],
   },
   automation: {
@@ -63,6 +65,7 @@ const showcaseData = {
     label: "Automation run",
     state: "Tested",
     progress: "86%",
+    bars: ["92%", "62%", "82%"],
     foot: ["Trigger checked", "Docs included"],
   },
 };
@@ -351,7 +354,17 @@ const updateShowcase = (key) => {
   document.querySelector("[data-preview-state]").textContent = data.state;
   document.querySelector("[data-preview-foot-1]").textContent = data.foot[0];
   document.querySelector("[data-preview-foot-2]").textContent = data.foot[1];
-  document.querySelector(".interface-preview")?.style.setProperty("--preview-progress", data.progress);
+  const preview = document.querySelector(".interface-preview");
+  if (preview) {
+    preview.dataset.previewMode = key;
+    preview.style.setProperty("--preview-progress", data.progress);
+    preview.classList.remove("is-morphing");
+    void preview.offsetWidth;
+    preview.classList.add("is-morphing");
+    preview.querySelectorAll(".preview-bars span").forEach((bar, index) => {
+      bar.style.setProperty("--bar-width", data.bars[index] || "72%");
+    });
+  }
 };
 
 if (showcaseTabs.length) {
