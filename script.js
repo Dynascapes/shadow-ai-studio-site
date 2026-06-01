@@ -22,6 +22,8 @@ const showcasePanel = document.querySelector(".showcase-panel");
 const showcaseCta = document.querySelector("[data-showcase-cta]");
 const pricingGrid = document.querySelector("[data-pricing-grid]");
 const pricingCards = pricingGrid?.querySelectorAll("[data-price-card]") || [];
+const pricingGuide = document.querySelector("[data-pricing-guide]");
+const pricingGuideSteps = pricingGuide?.querySelectorAll("[data-pricing-guide-step]") || [];
 const faqList = document.querySelector("[data-faq-list]");
 const faqDetails = faqList?.querySelectorAll("[data-faq-item]") || [];
 const menuToggle = document.querySelector(".menu-toggle");
@@ -344,12 +346,32 @@ const playContactRoute = () => {
 };
 
 const setPricingCard = (activeIndex) => {
+  const progress = pricingCards.length > 1 ? activeIndex / (pricingCards.length - 1) : 1;
+
+  pricingGrid?.style.setProperty("--pricing-progress", progress.toFixed(3));
+  pricingGuide?.style.setProperty("--pricing-progress", progress.toFixed(3));
   pricingCards.forEach((card, index) => {
-    card.classList.toggle("is-price-active", index === activeIndex);
+    const isActive = index === activeIndex;
+    card.classList.toggle("is-price-active", isActive);
+    if (isActive) {
+      card.setAttribute("aria-current", "true");
+    } else {
+      card.removeAttribute("aria-current");
+    }
+  });
+  pricingGuideSteps.forEach((step, index) => {
+    const isActive = index === activeIndex;
+    step.classList.toggle("is-pricing-guide-active", isActive);
+    step.classList.toggle("is-pricing-guide-complete", index <= activeIndex);
+    if (isActive) {
+      step.setAttribute("aria-current", "true");
+    } else {
+      step.removeAttribute("aria-current");
+    }
   });
 };
 
-const getPreferredPricingIndex = () => (window.innerWidth <= 700 ? 0 : Math.min(1, pricingCards.length - 1));
+const getPreferredPricingIndex = () => Math.min(1, pricingCards.length - 1);
 
 const clearPricingSequence = () => {
   pricingSequenceTimers.forEach((timer) => window.clearTimeout(timer));
@@ -361,14 +383,7 @@ const playPricingSequence = () => {
   pricingSequencePlayed = true;
   clearPricingSequence();
 
-  if (window.innerWidth <= 700) {
-    setPricingCard(0);
-    return;
-  }
-
-  [0, 1, 2, 3, 1].forEach((cardIndex, sequenceIndex) => {
-    pricingSequenceTimers.push(window.setTimeout(() => setPricingCard(cardIndex), sequenceIndex * 430));
-  });
+  setPricingCard(getPreferredPricingIndex());
 };
 
 const syncFaqState = (activeDetails) => {
@@ -409,7 +424,7 @@ if (reduceMotion) {
           entry.target.classList.add("is-visible");
           if (entry.target === serviceCards[0]) playServiceSequence();
           if (entry.target === deliveryBoard) playDeliverySequence();
-          if (entry.target === pricingCards[0]) playPricingSequence();
+          if (entry.target === pricingGuide || entry.target === pricingCards[0]) playPricingSequence();
           if (entry.target === paymentFlow) playPaymentFlow();
           if (entry.target === contactRoute) playContactRoute();
           revealObserver.unobserve(entry.target);
