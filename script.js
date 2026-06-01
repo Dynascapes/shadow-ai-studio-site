@@ -37,6 +37,20 @@ const pricingFocusTags = [
   document.querySelector("[data-pricing-focus-tag-2]"),
   document.querySelector("[data-pricing-focus-tag-3]"),
 ];
+const detailCards = document.querySelectorAll("[data-detail-card]");
+const detailFocus = document.querySelector("[data-detail-focus]");
+const detailFocusTitle = document.querySelector("[data-detail-focus-title]");
+const detailFocusLabel = document.querySelector("[data-detail-focus-label]");
+const detailFocusCopy = document.querySelector("[data-detail-focus-copy]");
+const detailFocusCheck = document.querySelector("[data-detail-focus-check]");
+const detailFocusAction = document.querySelector("[data-detail-focus-action]");
+const detailFocusRecord = document.querySelector("[data-detail-focus-record]");
+const detailFocusMeter = document.querySelector("[data-detail-focus-meter]");
+const detailFocusTags = [
+  document.querySelector("[data-detail-focus-tag-1]"),
+  document.querySelector("[data-detail-focus-tag-2]"),
+  document.querySelector("[data-detail-focus-tag-3]"),
+];
 const faqList = document.querySelector("[data-faq-list]");
 const faqDetails = faqList?.querySelectorAll("[data-faq-item]") || [];
 const menuToggle = document.querySelector(".menu-toggle");
@@ -236,6 +250,49 @@ const pricingFocusData = [
     fit: "Stuck prototype cleanup",
     level: "88%",
     tags: ["Issue review", "Focused fixes", "Fix summary"],
+  },
+];
+
+const detailFocusData = [
+  {
+    title: "Payment terms",
+    label: "Before payment",
+    copy: "Written price, timeline, and deliverables are confirmed before any payment link or invoice is sent.",
+    check: "Scope confirmed first",
+    action: "Review written quote",
+    record: "Price and timeline saved",
+    level: "78%",
+    tags: ["Written quote", "Scope first", "No surprise hourly billing"],
+  },
+  {
+    title: "Secure checkout",
+    label: "Protected checkout",
+    copy: "Card details are handled by third-party payment providers, while this site keeps the service request path simple.",
+    check: "Provider-hosted payment",
+    action: "Use sent checkout link",
+    record: "Card data not stored here",
+    level: "88%",
+    tags: ["Provider checkout", "No card storage", "Invoice/link after scope"],
+  },
+  {
+    title: "Delivery timeline",
+    label: "Written handoff",
+    copy: "Small audits have a typical delivery window, while build and fix work is scheduled around the agreed scope.",
+    check: "Timeline stated",
+    action: "Confirm delivery path",
+    record: "Files and notes included",
+    level: "72%",
+    tags: ["Delivery notes", "Shared files", "Scope dependent"],
+  },
+  {
+    title: "Customer support",
+    label: "Support channel",
+    copy: "Project support stays anchored to email so requests, updates, and next steps remain easy to reference.",
+    check: "Support email visible",
+    action: "Send project update",
+    record: "Reply path documented",
+    level: "82%",
+    tags: ["Email support", "Clear next steps", "Request history"],
   },
 ];
 
@@ -463,6 +520,37 @@ const playPricingSequence = () => {
   setPricingCard(getPreferredPricingIndex());
 };
 
+const setDetailCard = (activeIndex) => {
+  const focusData = detailFocusData[activeIndex];
+
+  detailCards.forEach((card, index) => {
+    const isActive = index === activeIndex;
+    card.classList.toggle("is-detail-active", isActive);
+    if (isActive) {
+      card.setAttribute("aria-current", "true");
+    } else {
+      card.removeAttribute("aria-current");
+    }
+  });
+
+  if (detailFocus && focusData) {
+    detailFocus.classList.remove("is-swapping");
+    void detailFocus.offsetWidth;
+    detailFocus.classList.add("is-swapping");
+    detailFocus.style.setProperty("--detail-focus-level", focusData.level);
+    if (detailFocusTitle) detailFocusTitle.textContent = focusData.title;
+    if (detailFocusLabel) detailFocusLabel.textContent = focusData.label;
+    if (detailFocusCopy) detailFocusCopy.textContent = focusData.copy;
+    if (detailFocusCheck) detailFocusCheck.textContent = focusData.check;
+    if (detailFocusAction) detailFocusAction.textContent = focusData.action;
+    if (detailFocusRecord) detailFocusRecord.textContent = focusData.record;
+    detailFocusMeter?.style.setProperty("--detail-focus-level", focusData.level);
+    detailFocusTags.forEach((tag, index) => {
+      if (tag) tag.textContent = focusData.tags[index] || "";
+    });
+  }
+};
+
 const syncFaqState = (activeDetails) => {
   if (!faqDetails.length) return;
   const activeIndex = Math.max(0, Array.from(faqDetails).indexOf(activeDetails));
@@ -487,6 +575,7 @@ if (reduceMotion) {
   if (serviceCards.length) setServiceCard(window.innerWidth <= 940 ? 0 : 1);
   if (deliveryRows.length) setDeliveryRow(deliveryRows.length - 1);
   if (pricingCards.length) setPricingCard(getPreferredPricingIndex());
+  if (detailCards.length) setDetailCard(0);
   if (paymentSteps.length) setPaymentStep(paymentSteps.length - 1);
   if (contactSteps.length) setContactStep(0);
 } else {
@@ -546,6 +635,14 @@ if (pricingCards.length && !reduceMotion) {
       clearPricingSequence();
       setPricingCard(index);
     });
+  });
+}
+
+if (detailCards.length && !reduceMotion) {
+  detailCards.forEach((card, index) => {
+    card.addEventListener("pointerenter", () => setDetailCard(index));
+    card.addEventListener("focusin", () => setDetailCard(index));
+    card.addEventListener("click", () => setDetailCard(index));
   });
 }
 
