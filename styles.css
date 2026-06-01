@@ -2163,10 +2163,15 @@ h3 {
   right: 10%;
   left: 10%;
   height: 2px;
+  transform-origin: left;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--preview-accent), var(--preview-signal));
   content: "";
   opacity: 0.7;
+}
+
+.interface-preview.is-morphing .preview-stage::before {
+  animation: preview-stage-run 760ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .preview-stage span {
@@ -2189,6 +2194,18 @@ h3 {
   background: var(--preview-accent);
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--preview-accent) 18%, transparent);
   content: "";
+}
+
+.interface-preview.is-morphing .preview-stage span::before {
+  animation: preview-stage-dot 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.interface-preview.is-morphing .preview-stage span:nth-child(2)::before {
+  animation-delay: 110ms;
+}
+
+.interface-preview.is-morphing .preview-stage span:nth-child(3)::before {
+  animation-delay: 220ms;
 }
 
 .preview-grid {
@@ -2290,11 +2307,16 @@ h3 {
   display: block;
   width: var(--preview-progress);
   height: 100%;
+  transform-origin: left;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--preview-accent), var(--preview-signal));
   transition:
     width 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
     background 220ms ease;
+}
+
+.interface-preview.is-morphing .preview-progress span {
+  animation: preview-progress-run 820ms 80ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .preview-artifact-stack {
@@ -2388,6 +2410,18 @@ h3 {
     background 220ms ease;
 }
 
+.interface-preview.is-morphing .preview-bars span {
+  animation: preview-bar-run 560ms 140ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.interface-preview.is-morphing .preview-bars span:nth-child(2) {
+  animation-delay: 210ms;
+}
+
+.interface-preview.is-morphing .preview-bars span:nth-child(3) {
+  animation-delay: 280ms;
+}
+
 .preview-inspector {
   display: grid;
   gap: 8px;
@@ -2456,6 +2490,11 @@ h3 {
   animation: preview-piece-in 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+.interface-preview.is-morphing .preview-artifact-stack span,
+.interface-preview.is-morphing .preview-inspector span {
+  animation: preview-chip-settle 480ms 160ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
 .interface-preview.is-morphing .preview-side {
   animation-delay: 45ms;
 }
@@ -2465,11 +2504,15 @@ h3 {
 }
 
 .interface-preview.is-morphing .preview-inspector span:nth-child(2) {
-  animation-delay: 70ms;
+  animation-delay: 230ms;
 }
 
 .interface-preview.is-morphing .preview-inspector span:nth-child(3) {
-  animation-delay: 110ms;
+  animation-delay: 300ms;
+}
+
+.interface-preview.is-morphing .preview-artifact-stack span:nth-child(2) {
+  animation-delay: 230ms;
 }
 
 @keyframes showcase-shell-sweep {
@@ -2495,6 +2538,80 @@ h3 {
 @keyframes panel-swap {
   0% {
     opacity: 0.58;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes preview-stage-run {
+  0% {
+    opacity: 0.28;
+    transform: scaleX(0);
+  }
+
+  72% {
+    opacity: 0.86;
+    transform: scaleX(1.04);
+  }
+
+  100% {
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes preview-stage-dot {
+  0% {
+    transform: scale(0.72);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--preview-accent) 0%, transparent);
+  }
+
+  64% {
+    transform: scale(1.14);
+    box-shadow: 0 0 0 9px color-mix(in srgb, var(--preview-accent) 22%, transparent);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes preview-progress-run {
+  0% {
+    filter: saturate(0.7);
+    transform: scaleX(0.08);
+  }
+
+  72% {
+    filter: saturate(1.2);
+    transform: scaleX(1.035);
+  }
+
+  100% {
+    filter: saturate(1);
+    transform: scaleX(1);
+  }
+}
+
+@keyframes preview-bar-run {
+  0% {
+    opacity: 0.42;
+    transform: scaleX(0.28);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes preview-chip-settle {
+  0% {
+    opacity: 0.42;
     transform: translateY(8px);
   }
 
@@ -6249,13 +6366,26 @@ h3 {
   .hero-media.is-visible .hero-signal-grid em,
   .process-grid article.is-process-active::after,
   .workflow-snapshot.is-advancing .workflow-timer span,
-  .workflow-snapshot li.is-active::after {
+  .workflow-snapshot li.is-active::after,
+  .interface-preview.is-morphing::after,
+  .interface-preview.is-morphing .preview-stage::before,
+  .interface-preview.is-morphing .preview-stage span::before,
+  .interface-preview.is-morphing .preview-progress span,
+  .interface-preview.is-morphing .preview-bars span,
+  .interface-preview.is-morphing .preview-artifact-stack span,
+  .interface-preview.is-morphing .preview-inspector span {
     animation: none !important;
     box-shadow: none !important;
   }
 
   .workflow-snapshot.is-advancing .workflow-timer span,
-  .workflow-snapshot li.is-active::after {
+  .workflow-snapshot li.is-active::after,
+  .interface-preview.is-morphing .preview-stage::before,
+  .interface-preview.is-morphing .preview-stage span::before,
+  .interface-preview.is-morphing .preview-progress span,
+  .interface-preview.is-morphing .preview-bars span,
+  .interface-preview.is-morphing .preview-artifact-stack span,
+  .interface-preview.is-morphing .preview-inspector span {
     transform: none !important;
   }
 

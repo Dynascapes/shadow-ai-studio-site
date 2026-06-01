@@ -16,6 +16,7 @@ const serviceCards = serviceGrid?.querySelectorAll("[data-service-card]") || [];
 const deliveryBoard = document.querySelector("[data-delivery-board]");
 const deliveryRows = deliveryBoard?.querySelectorAll("[data-delivery-row]") || [];
 const deliveryState = document.querySelector("[data-delivery-state]");
+const showcaseShell = document.querySelector(".showcase-shell");
 const showcaseTabs = document.querySelectorAll("[data-showcase]");
 const showcaseTabsContainer = document.querySelector(".showcase-tabs");
 const showcasePanel = document.querySelector(".showcase-panel");
@@ -80,6 +81,9 @@ let serviceSequencePlayed = false;
 let serviceSequenceTimers = [];
 let deliverySequencePlayed = false;
 let deliverySequenceTimers = [];
+let showcaseSequencePlayed = false;
+let showcaseSequenceTimers = [];
+let showcaseUserControlled = false;
 let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
 let pricingSequencePlayed = false;
@@ -512,6 +516,16 @@ const clearPricingSequence = () => {
   pricingSequenceTimers = [];
 };
 
+const clearShowcaseSequence = () => {
+  showcaseSequenceTimers.forEach((timer) => window.clearTimeout(timer));
+  showcaseSequenceTimers = [];
+};
+
+const markShowcaseUserControlled = () => {
+  showcaseUserControlled = true;
+  clearShowcaseSequence();
+};
+
 const playPricingSequence = () => {
   if (!pricingCards.length || pricingSequencePlayed) return;
   pricingSequencePlayed = true;
@@ -570,6 +584,18 @@ const syncFaqState = (activeDetails) => {
   });
 };
 
+const playShowcaseSequence = () => {
+  if (!showcaseTabs.length || showcaseSequencePlayed || showcaseUserControlled) return;
+
+  showcaseSequencePlayed = true;
+  ["rescue", "automation", "site"].forEach((key, index) => {
+    const timer = window.setTimeout(() => {
+      if (!showcaseUserControlled) updateShowcase(key, { source: "auto" });
+    }, 1400 + index * 1500);
+    showcaseSequenceTimers.push(timer);
+  });
+};
+
 if (reduceMotion) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
   if (serviceCards.length) setServiceCard(window.innerWidth <= 940 ? 0 : 1);
@@ -590,6 +616,7 @@ if (reduceMotion) {
           entry.target.classList.add("is-visible");
           if (entry.target === serviceCards[0]) playServiceSequence();
           if (entry.target === deliveryBoard) playDeliverySequence();
+          if (entry.target === showcaseShell) playShowcaseSequence();
           if (entry.target === pricingGuide || entry.target === pricingCards[0]) playPricingSequence();
           if (entry.target === paymentFlow) playPaymentFlow();
           if (entry.target === contactRoute) playContactRoute();
@@ -778,9 +805,11 @@ const syncAllActiveIndicators = () => {
   syncActiveIndicator(briefOptionsContainer, document.querySelector(".brief-option.is-active"));
 };
 
-const updateShowcase = (key) => {
+const updateShowcase = (key, options = {}) => {
   const data = showcaseData[key];
   if (!data || !showcasePanel) return;
+
+  if (options.source !== "auto") markShowcaseUserControlled();
 
   showcaseTabs.forEach((tab) => {
     const isActive = tab.dataset.showcase === key;
@@ -832,18 +861,23 @@ const updateShowcase = (key) => {
   if (preview) {
     preview.dataset.previewMode = key;
     preview.style.setProperty("--preview-progress", data.progress);
-    preview.classList.remove("is-morphing");
-    void preview.offsetWidth;
-    preview.classList.add("is-morphing");
     preview.querySelectorAll(".preview-bars span").forEach((bar, index) => {
       bar.style.setProperty("--bar-width", data.bars[index] || "72%");
     });
+    preview.classList.remove("is-morphing");
+    void preview.offsetWidth;
+    preview.classList.add("is-morphing");
   }
 };
 
 if (showcaseTabs.length) {
+  showcaseShell?.addEventListener("pointerenter", markShowcaseUserControlled);
+  showcaseShell?.addEventListener("focusin", markShowcaseUserControlled);
+
   showcaseTabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => updateShowcase(tab.dataset.showcase));
+    tab.addEventListener("click", () => updateShowcase(tab.dataset.showcase, { source: "user" }));
+    tab.addEventListener("focusin", markShowcaseUserControlled);
+    tab.addEventListener("pointerenter", markShowcaseUserControlled);
 
     tab.addEventListener("keydown", (event) => {
       if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
@@ -856,7 +890,7 @@ if (showcaseTabs.length) {
       if (event.key === "End") nextIndex = showcaseTabs.length - 1;
 
       showcaseTabs[nextIndex].focus();
-      updateShowcase(showcaseTabs[nextIndex].dataset.showcase);
+      updateShowcase(showcaseTabs[nextIndex].dataset.showcase, { source: "user" });
     });
   });
 }
