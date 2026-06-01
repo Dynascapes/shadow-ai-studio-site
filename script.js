@@ -66,6 +66,7 @@ const mobileMenu = document.querySelector(".mobile-menu");
 const briefButtons = document.querySelectorAll("[data-brief]");
 const briefOptionsContainer = document.querySelector(".brief-options");
 const briefOutput = document.querySelector(".brief-output");
+const pricingBriefLinks = document.querySelectorAll("[data-pricing-brief]");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
 const copyEmailButton = document.querySelector("[data-copy-email]");
@@ -113,6 +114,8 @@ let contactRoutePlayed = false;
 let pricingSequencePlayed = false;
 let pricingSequenceTimers = [];
 let faqSyncing = false;
+let scopeHandoffTimer;
+let scopeHandoffQueueTimers = [];
 const workflowDuration = 2300;
 
 const heroStatusData = [
@@ -120,6 +123,8 @@ const heroStatusData = [
   { title: "Build checked", label: "Step 02" },
   { title: "Handoff ready", label: "Step 03" },
 ];
+
+const pricingBriefKeys = ["audit", "website", "automation", "fix"];
 
 const showcaseData = {
   site: {
@@ -647,6 +652,39 @@ const markShowcaseUserControlled = () => {
   clearShowcaseSequence();
 };
 
+const triggerScopeHandoff = () => {
+  const confirmStep = paymentSteps[0];
+  if (!confirmStep && !contactBox) return;
+
+  setPaymentStep(0);
+  confirmStep?.classList.remove("is-packet-highlight");
+  contactBox?.classList.remove("is-scope-synced");
+  window.clearTimeout(scopeHandoffTimer);
+
+  if (reduceMotion) return;
+
+  void confirmStep?.offsetWidth;
+  confirmStep?.classList.add("is-packet-highlight");
+  contactBox?.classList.add("is-scope-synced");
+  scopeHandoffTimer = window.setTimeout(() => {
+    confirmStep?.classList.remove("is-packet-highlight");
+    contactBox?.classList.remove("is-scope-synced");
+  }, 1500);
+};
+
+const scheduleScopeHandoff = ({ extended = false } = {}) => {
+  scopeHandoffQueueTimers.forEach((timer) => window.clearTimeout(timer));
+  scopeHandoffQueueTimers = [];
+  triggerScopeHandoff();
+
+  if (reduceMotion) return;
+
+  const replayDelays = extended ? [720, 1320, 2200, 3200] : [720, 1320];
+  replayDelays.forEach((delay) => {
+    scopeHandoffQueueTimers.push(window.setTimeout(triggerScopeHandoff, delay));
+  });
+};
+
 const playPricingSequence = () => {
   if (!pricingCards.length || pricingSequencePlayed) return;
   pricingSequencePlayed = true;
@@ -790,6 +828,7 @@ if (pricingCards.length && !reduceMotion) {
     card.addEventListener("focusin", () => {
       clearPricingSequence();
       setPricingCard(index);
+      updateBrief(pricingBriefKeys[index], { extended: true });
     });
   });
 }
@@ -1099,7 +1138,7 @@ if (showcaseTabs.length) {
   updateShowcase(showcaseCommittedKey, { source: "init", markUser: false, animate: false });
 }
 
-const updateBrief = (key) => {
+const updateBrief = (key, handoffOptions = {}) => {
   const data = briefData[key];
   if (!data || !briefOutput) return;
 
@@ -1110,9 +1149,14 @@ const updateBrief = (key) => {
   });
   syncActiveIndicator(briefOptionsContainer, document.querySelector(".brief-option.is-active"));
 
+  const shouldAnimate = !reduceMotion;
   briefOutput.classList.remove("is-swapping");
-  void briefOutput.offsetWidth;
-  briefOutput.classList.add("is-swapping");
+  briefOptionsContainer?.classList.remove("is-settling");
+  if (shouldAnimate) {
+    void briefOutput.offsetWidth;
+    briefOutput.classList.add("is-swapping");
+    briefOptionsContainer?.classList.add("is-settling");
+  }
 
   document.querySelector("[data-brief-title]").textContent = data.title;
   document.querySelector("[data-brief-copy]").textContent = data.copy;
@@ -1145,6 +1189,8 @@ const updateBrief = (key) => {
       "href",
       `mailto:dynascapes@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`,
     );
+
+  scheduleScopeHandoff(handoffOptions);
 };
 
 if (briefButtons.length) {
@@ -1171,6 +1217,18 @@ if (briefButtons.length) {
     });
   });
 }
+
+pricingBriefLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    const briefKey = link.dataset.pricingBrief;
+    const pricingIndex = pricingBriefKeys.indexOf(briefKey);
+    if (pricingIndex >= 0) {
+      clearPricingSequence();
+      setPricingCard(pricingIndex);
+    }
+    updateBrief(briefKey, { extended: true });
+  });
+});
 
 showcaseCta?.addEventListener("click", () => {
   const briefKey = showcasePanel?.dataset.briefKey;
