@@ -137,8 +137,10 @@ summary:focus-visible {
   padding: 6px;
   border: 1px solid rgba(207, 220, 228, 0.92);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--shadow-strong);
+  background:
+    linear-gradient(135deg, rgba(0, 115, 148, 0.08), transparent 48%),
+    rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 44px rgba(13, 27, 42, 0.16);
   opacity: 0;
   pointer-events: none;
   transform: translateY(16px);
@@ -163,13 +165,13 @@ body.menu-open .action-dock {
 .action-dock a,
 .action-dock button {
   display: inline-flex;
-  min-height: 38px;
+  min-height: 42px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   border: 0;
   border-radius: 6px;
-  padding: 0 13px;
+  padding: 0 14px;
   background: transparent;
   color: var(--text-2);
   font: inherit;
@@ -181,7 +183,7 @@ body.menu-open .action-dock {
     transform 160ms ease;
 }
 
-.action-dock a:nth-child(2) {
+.action-dock .dock-primary {
   background: var(--accent);
   color: #fff;
   box-shadow: 0 10px 22px rgba(0, 115, 148, 0.18);
@@ -192,13 +194,13 @@ body.menu-open .action-dock {
   transform: translateY(-1px);
 }
 
-.action-dock a:first-child:hover,
+.action-dock a:not(.dock-primary):hover,
 .action-dock button:hover {
   background: var(--soft);
   color: var(--accent-dark);
 }
 
-.action-dock a:nth-child(2):hover {
+.action-dock .dock-primary:hover {
   background: var(--accent-dark);
   color: #fff;
 }

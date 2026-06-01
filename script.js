@@ -22,9 +22,7 @@ const briefOutput = document.querySelector(".brief-output");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
 const magneticButtons = document.querySelectorAll(".button");
-const dockGuardTargets = document.querySelectorAll(
-  "#services, .delivery-section, #work, #process, .quality-section, #pricing, #payments, #faq, #brief, #contact, .site-footer",
-);
+const dockGuardTargets = document.querySelectorAll("#services, #work, #pricing, #payments, #brief, #contact, .site-footer");
 const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
 const processTrack = document.querySelector("[data-process-track]");
 const processSteps = processTrack?.querySelectorAll("[data-process-step]") || [];
