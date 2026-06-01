@@ -14,6 +14,8 @@ const showcaseTabs = document.querySelectorAll("[data-showcase]");
 const showcasePanel = document.querySelector(".showcase-panel");
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
+const briefButtons = document.querySelectorAll("[data-brief]");
+const briefOutput = document.querySelector(".brief-output");
 let ticking = false;
 
 const showcaseData = {
@@ -46,6 +48,45 @@ const showcaseData = {
     state: "Tested",
     progress: "86%",
     foot: ["Trigger checked", "Docs included"],
+  },
+};
+
+const briefData = {
+  audit: {
+    title: "Launch Audit",
+    copy: "Review an AI-built app, website, or workflow and receive a clear fix list with next steps.",
+    price: "$49 USD",
+    time: "1-3 business days",
+    items: ["Current setup review", "Prioritized fix list", "Next-step launch notes"],
+    subject: "Launch Audit",
+    article: "a",
+  },
+  website: {
+    title: "Starter Website",
+    copy: "A compact public service website with responsive pages, contact paths, SEO basics, and launch checks.",
+    price: "$99 USD",
+    time: "3-7 business days",
+    items: ["Up to three public pages", "Responsive layout and contact path", "Policy, pricing, and launch checks"],
+    subject: "Starter Website",
+    article: "a",
+  },
+  automation: {
+    title: "Automation Workflow",
+    copy: "One repeatable workflow that connects tools, reduces a manual task, and includes setup notes.",
+    price: "$149 USD",
+    time: "Scope dependent",
+    items: ["Trigger and output defined", "Workflow setup and test run", "Usage notes for handoff"],
+    subject: "Automation Project",
+    article: "an",
+  },
+  fix: {
+    title: "Fix Sprint",
+    copy: "Focused cleanup for bugs, deploy issues, broken forms, API errors, or reliability problems.",
+    price: "$299 USD",
+    time: "Scope dependent",
+    items: ["Issue review and risk notes", "Focused fixes and verification", "Summary of changes and next steps"],
+    subject: "Troubleshooting Request",
+    article: "a",
   },
 };
 
@@ -184,6 +225,43 @@ if (showcaseTabs.length) {
       showcaseTabs[nextIndex].focus();
       updateShowcase(showcaseTabs[nextIndex].dataset.showcase);
     });
+  });
+}
+
+const updateBrief = (key) => {
+  const data = briefData[key];
+  if (!data || !briefOutput) return;
+
+  briefButtons.forEach((button) => {
+    const isActive = button.dataset.brief === key;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  briefOutput.classList.remove("is-swapping");
+  void briefOutput.offsetWidth;
+  briefOutput.classList.add("is-swapping");
+
+  document.querySelector("[data-brief-title]").textContent = data.title;
+  document.querySelector("[data-brief-copy]").textContent = data.copy;
+  document.querySelector("[data-brief-price]").textContent = data.price;
+  document.querySelector("[data-brief-time]").textContent = data.time;
+  document.querySelector("[data-brief-item-1]").textContent = data.items[0];
+  document.querySelector("[data-brief-item-2]").textContent = data.items[1];
+  document.querySelector("[data-brief-item-3]").textContent = data.items[2];
+
+  const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal:\nCurrent site/app link:\nDeadline:\n`;
+  document
+    .querySelector("[data-brief-link]")
+    ?.setAttribute(
+      "href",
+      `mailto:dynascapes@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`,
+    );
+};
+
+if (briefButtons.length) {
+  briefButtons.forEach((button) => {
+    button.addEventListener("click", () => updateBrief(button.dataset.brief));
   });
 }
 
