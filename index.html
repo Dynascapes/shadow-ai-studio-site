@@ -9,8 +9,8 @@
       content="Shadow AI Studio provides AI-assisted web development, automation workflows, and software troubleshooting for small businesses and solo founders."
     />
     <meta name="theme-color" content="#0d1b2a" />
-    <link rel="stylesheet" href="styles.css?v=20260601-11" />
-    <script src="script.js?v=20260601-11" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260601-12" />
+    <script src="script.js?v=20260601-12" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -139,32 +139,40 @@
           <h2>Services</h2>
           <p>Practical, results-focused work to help your business move forward.</p>
         </div>
-        <div class="service-grid">
-          <article class="service-item" data-reveal data-hover-card>
+        <div class="service-grid" data-service-grid>
+          <article class="service-item" data-reveal data-hover-card data-service-card>
             <svg viewBox="0 0 40 40" aria-hidden="true">
               <path d="M9 8h22v24H9z" />
               <path d="M14 15h12M14 21h7M25 24l5 5M30 24l-5 5" />
             </svg>
             <h3>AI app rescue</h3>
             <p>Launch audits and fix plans for apps or websites that were started with AI but got stuck.</p>
+            <div class="service-fit">
+              <span>Outcome</span>
+              <strong>Fix list and launch path</strong>
+            </div>
             <div class="service-action">
               <span>Best start: Launch Audit</span>
               <a href="#brief">Build brief</a>
             </div>
           </article>
-          <article class="service-item" data-reveal data-hover-card>
+          <article class="service-item" data-reveal data-hover-card data-service-card>
             <svg viewBox="0 0 40 40" aria-hidden="true">
               <rect x="5" y="8" width="30" height="24" rx="3" />
               <path d="M5 15h30M11 22h8M23 22h7M11 27h19" />
             </svg>
             <h3>Website setup</h3>
             <p>Compact public sites with responsive pages, contact paths, SEO basics, and launch checks.</p>
+            <div class="service-fit">
+              <span>Outcome</span>
+              <strong>Public page ready for review</strong>
+            </div>
             <div class="service-action">
               <span>Best start: Starter Website</span>
               <a href="#brief">Build brief</a>
             </div>
           </article>
-          <article class="service-item" data-reveal data-hover-card>
+          <article class="service-item" data-reveal data-hover-card data-service-card>
             <svg viewBox="0 0 40 40" aria-hidden="true">
               <circle cx="10" cy="20" r="4" />
               <circle cx="30" cy="11" r="4" />
@@ -173,18 +181,26 @@
             </svg>
             <h3>Automation workflows</h3>
             <p>Simple workflows that reduce repetitive work across forms, email, sheets, and business tools.</p>
+            <div class="service-fit">
+              <span>Outcome</span>
+              <strong>Repeatable workflow and notes</strong>
+            </div>
             <div class="service-action">
               <span>Best start: Automation</span>
               <a href="#brief">Build brief</a>
             </div>
           </article>
-          <article class="service-item" data-reveal data-hover-card>
+          <article class="service-item" data-reveal data-hover-card data-service-card>
             <svg viewBox="0 0 40 40" aria-hidden="true">
               <path d="m25 7 8 8-7 7-3-3-10 10-4-4 10-10-3-3 9-5Z" />
               <path d="M6 34h28" />
             </svg>
             <h3>Software troubleshooting</h3>
             <p>Bug fixes, broken forms, deploy errors, API issues, and cleanup for AI-built projects.</p>
+            <div class="service-fit">
+              <span>Outcome</span>
+              <strong>Focused fix sprint handoff</strong>
+            </div>
             <div class="service-action">
               <span>Best start: Fix Sprint</span>
               <a href="#brief">Build brief</a>

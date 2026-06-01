@@ -11,6 +11,8 @@ const navLinks = document.querySelectorAll("nav a[href^='#']");
 const tiltTarget = document.querySelector("[data-tilt]");
 const spotlightTargets = document.querySelectorAll("[data-spotlight]");
 const hoverCards = document.querySelectorAll("[data-hover-card]");
+const serviceGrid = document.querySelector("[data-service-grid]");
+const serviceCards = serviceGrid?.querySelectorAll("[data-service-card]") || [];
 const showcaseTabs = document.querySelectorAll("[data-showcase]");
 const showcaseTabsContainer = document.querySelector(".showcase-tabs");
 const showcasePanel = document.querySelector(".showcase-panel");
@@ -40,6 +42,8 @@ let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
 let workflowStepIndex = 0;
+let serviceSequencePlayed = false;
+let serviceSequenceTimers = [];
 let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
 let pricingSequencePlayed = false;
@@ -202,6 +206,32 @@ const requestScrollUpdate = () => {
   }
 };
 
+const setServiceCard = (activeIndex) => {
+  serviceCards.forEach((card, index) => {
+    card.classList.toggle("is-service-active", index === activeIndex);
+  });
+};
+
+const clearServiceSequence = () => {
+  serviceSequenceTimers.forEach((timer) => window.clearTimeout(timer));
+  serviceSequenceTimers = [];
+};
+
+const playServiceSequence = () => {
+  if (!serviceCards.length || serviceSequencePlayed) return;
+  serviceSequencePlayed = true;
+  clearServiceSequence();
+
+  if (window.innerWidth <= 940) {
+    setServiceCard(0);
+    return;
+  }
+
+  [0, 1, 2, 3, 1].forEach((cardIndex, sequenceIndex) => {
+    serviceSequenceTimers.push(window.setTimeout(() => setServiceCard(cardIndex), sequenceIndex * 430));
+  });
+};
+
 const setPaymentStep = (activeIndex) => {
   paymentSteps.forEach((step, index) => {
     const isActive = index === activeIndex;
@@ -296,6 +326,7 @@ const syncFaqState = (activeDetails) => {
 
 if (reduceMotion) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
+  if (serviceCards.length) setServiceCard(window.innerWidth <= 940 ? 0 : 1);
   if (pricingCards.length) setPricingCard(getPreferredPricingIndex());
   if (paymentSteps.length) setPaymentStep(paymentSteps.length - 1);
   if (contactSteps.length) setContactStep(contactSteps.length - 1);
@@ -309,6 +340,7 @@ if (reduceMotion) {
             entry.target.style.transitionDelay = `${Number(delay) || 0}ms`;
           }
           entry.target.classList.add("is-visible");
+          if (entry.target === serviceCards[0]) playServiceSequence();
           if (entry.target === pricingCards[0]) playPricingSequence();
           if (entry.target === paymentFlow) playPaymentFlow();
           if (entry.target === contactRoute) playContactRoute();
@@ -320,6 +352,19 @@ if (reduceMotion) {
   );
 
   revealItems.forEach((item) => revealObserver.observe(item));
+}
+
+if (serviceCards.length && !reduceMotion) {
+  serviceCards.forEach((card, index) => {
+    card.addEventListener("pointerenter", () => {
+      clearServiceSequence();
+      setServiceCard(index);
+    });
+    card.addEventListener("focusin", () => {
+      clearServiceSequence();
+      setServiceCard(index);
+    });
+  });
 }
 
 if (pricingCards.length && !reduceMotion) {
