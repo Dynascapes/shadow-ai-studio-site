@@ -14,6 +14,8 @@ const hoverCards = document.querySelectorAll("[data-hover-card]");
 const showcaseTabs = document.querySelectorAll("[data-showcase]");
 const showcaseTabsContainer = document.querySelector(".showcase-tabs");
 const showcasePanel = document.querySelector(".showcase-panel");
+const pricingGrid = document.querySelector("[data-pricing-grid]");
+const pricingCards = pricingGrid?.querySelectorAll("[data-price-card]") || [];
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const briefButtons = document.querySelectorAll("[data-brief]");
@@ -38,6 +40,8 @@ let actionDockVisible;
 let workflowStepIndex = 0;
 let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
+let pricingSequencePlayed = false;
+let pricingSequenceTimers = [];
 const workflowDuration = 2300;
 
 const showcaseData = {
@@ -240,8 +244,37 @@ const playContactRoute = () => {
   });
 };
 
+const setPricingCard = (activeIndex) => {
+  pricingCards.forEach((card, index) => {
+    card.classList.toggle("is-price-active", index === activeIndex);
+  });
+};
+
+const getPreferredPricingIndex = () => (window.innerWidth <= 700 ? 0 : Math.min(1, pricingCards.length - 1));
+
+const clearPricingSequence = () => {
+  pricingSequenceTimers.forEach((timer) => window.clearTimeout(timer));
+  pricingSequenceTimers = [];
+};
+
+const playPricingSequence = () => {
+  if (!pricingCards.length || pricingSequencePlayed) return;
+  pricingSequencePlayed = true;
+  clearPricingSequence();
+
+  if (window.innerWidth <= 700) {
+    setPricingCard(0);
+    return;
+  }
+
+  [0, 1, 2, 3, 1].forEach((cardIndex, sequenceIndex) => {
+    pricingSequenceTimers.push(window.setTimeout(() => setPricingCard(cardIndex), sequenceIndex * 430));
+  });
+};
+
 if (reduceMotion) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
+  if (pricingCards.length) setPricingCard(getPreferredPricingIndex());
   if (paymentSteps.length) setPaymentStep(paymentSteps.length - 1);
   if (contactSteps.length) setContactStep(contactSteps.length - 1);
 } else {
@@ -254,6 +287,7 @@ if (reduceMotion) {
             entry.target.style.transitionDelay = `${Number(delay) || 0}ms`;
           }
           entry.target.classList.add("is-visible");
+          if (entry.target === pricingCards[0]) playPricingSequence();
           if (entry.target === paymentFlow) playPaymentFlow();
           if (entry.target === contactRoute) playContactRoute();
           revealObserver.unobserve(entry.target);
@@ -264,6 +298,19 @@ if (reduceMotion) {
   );
 
   revealItems.forEach((item) => revealObserver.observe(item));
+}
+
+if (pricingCards.length && !reduceMotion) {
+  pricingCards.forEach((card, index) => {
+    card.addEventListener("pointerenter", () => {
+      clearPricingSequence();
+      setPricingCard(index);
+    });
+    card.addEventListener("focusin", () => {
+      clearPricingSequence();
+      setPricingCard(index);
+    });
+  });
 }
 
 if (sections.length && navLinks.length) {
