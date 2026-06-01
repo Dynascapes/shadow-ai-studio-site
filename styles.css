@@ -698,6 +698,7 @@ h1 {
 }
 
 .workflow-snapshot {
+  --workflow-duration: 2300ms;
   position: absolute;
   right: clamp(16px, 3vw, 34px);
   bottom: -34px;
@@ -708,6 +709,23 @@ h1 {
   background: rgba(255, 255, 255, 0.93);
   box-shadow: 0 18px 45px rgba(13, 27, 42, 0.15);
   backdrop-filter: blur(16px);
+}
+
+.workflow-snapshot::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, rgba(0, 115, 148, 0.08), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent);
+  content: "";
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.workflow-snapshot > * {
+  position: relative;
+  z-index: 1;
 }
 
 .snapshot-status {
@@ -728,6 +746,30 @@ h1 {
   box-shadow: 0 0 0 6px rgba(17, 138, 95, 0.1);
 }
 
+.workflow-timer {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: rgba(207, 220, 228, 0.58);
+}
+
+.workflow-timer span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--signal));
+  box-shadow: 0 0 18px rgba(0, 115, 148, 0.22);
+}
+
+.workflow-snapshot.is-advancing .workflow-timer span {
+  animation: workflow-timer-fill var(--workflow-duration) linear forwards;
+}
+
 .workflow-snapshot ol {
   display: grid;
   gap: 10px;
@@ -742,7 +784,9 @@ h1 {
   grid-template-columns: 72px 1fr;
   gap: 12px;
   overflow: hidden;
-  padding: 10px 8px 0;
+  isolation: isolate;
+  min-height: 42px;
+  padding: 10px 8px 8px;
   border-top: 1px solid var(--line);
   border-radius: 6px;
   transition:
@@ -753,6 +797,7 @@ h1 {
 
 .workflow-snapshot li::before {
   position: absolute;
+  z-index: 1;
   top: -1px;
   bottom: 0;
   left: 0;
@@ -764,23 +809,49 @@ h1 {
   transition: transform 360ms ease;
 }
 
+.workflow-snapshot li::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, rgba(0, 115, 148, 0.12), rgba(200, 113, 30, 0.08), transparent);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
 .workflow-snapshot li.is-active {
   background: rgba(220, 239, 245, 0.48);
   border-color: rgba(0, 115, 148, 0.22);
   transform: translateX(3px);
 }
 
-.workflow-snapshot li.is-active::before {
+.workflow-snapshot li.is-active::before,
+.workflow-snapshot li.is-complete::before {
   transform: scaleY(1);
 }
 
+.workflow-snapshot li.is-active::after {
+  opacity: 1;
+  animation: workflow-row-fill var(--workflow-duration) linear forwards;
+}
+
+.workflow-snapshot li.is-complete {
+  background: rgba(220, 239, 245, 0.25);
+}
+
 .workflow-snapshot strong {
+  position: relative;
+  z-index: 2;
   color: var(--text);
   font-size: 14px;
   line-height: 1.25;
 }
 
 .workflow-snapshot li span {
+  position: relative;
+  z-index: 2;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.35;
@@ -788,6 +859,30 @@ h1 {
 
 .workflow-snapshot li.is-active strong {
   color: var(--accent-dark);
+}
+
+.workflow-snapshot li.is-complete strong {
+  color: var(--accent-dark);
+}
+
+.workflow-snapshot li.is-complete span {
+  color: var(--text-2);
+}
+
+@keyframes workflow-timer-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes workflow-row-fill {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 .proof-strip {
@@ -3304,8 +3399,15 @@ h3 {
 
   .scan-line::before,
   .quality-row::after,
-  .quality-row span {
+  .quality-row span,
+  .workflow-snapshot.is-advancing .workflow-timer span,
+  .workflow-snapshot li.is-active::after {
     animation: none !important;
     box-shadow: none !important;
+  }
+
+  .workflow-snapshot.is-advancing .workflow-timer span,
+  .workflow-snapshot li.is-active::after {
+    transform: none !important;
   }
 }

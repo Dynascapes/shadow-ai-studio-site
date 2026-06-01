@@ -28,11 +28,13 @@ const dockGuardTargets = document.querySelectorAll(
 const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
 const processTrack = document.querySelector("[data-process-track]");
 const processSteps = processTrack?.querySelectorAll("[data-process-step]") || [];
+const workflowSnapshot = document.querySelector("[data-workflow-snapshot]");
 const workflowSteps = document.querySelectorAll("[data-workflow-step]");
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
 let workflowStepIndex = 0;
+const workflowDuration = 2300;
 
 const showcaseData = {
   site: {
@@ -295,15 +297,34 @@ if (magneticButtons.length && !reduceMotion) {
   });
 }
 
+const setWorkflowStep = (nextIndex) => {
+  workflowStepIndex = nextIndex;
+  workflowSteps.forEach((step, index) => {
+    const isActive = index === workflowStepIndex;
+    step.classList.toggle("is-active", isActive);
+    step.classList.toggle("is-complete", index < workflowStepIndex);
+    if (isActive) {
+      step.setAttribute("aria-current", "step");
+    } else {
+      step.removeAttribute("aria-current");
+    }
+  });
+
+  if (workflowSnapshot) {
+    workflowSnapshot.style.setProperty("--workflow-duration", `${workflowDuration}ms`);
+    workflowSnapshot.classList.remove("is-advancing");
+    void workflowSnapshot.offsetWidth;
+    workflowSnapshot.classList.add("is-advancing");
+  }
+};
+
 if (workflowSteps.length) {
-  workflowSteps[0].classList.add("is-active");
+  setWorkflowStep(0);
 
   if (!reduceMotion) {
     window.setInterval(() => {
-      workflowSteps[workflowStepIndex].classList.remove("is-active");
-      workflowStepIndex = (workflowStepIndex + 1) % workflowSteps.length;
-      workflowSteps[workflowStepIndex].classList.add("is-active");
-    }, 2300);
+      setWorkflowStep((workflowStepIndex + 1) % workflowSteps.length);
+    }, workflowDuration);
   }
 }
 
