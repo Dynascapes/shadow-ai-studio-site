@@ -10,6 +10,7 @@ const sections = document.querySelectorAll("main section[id]");
 const navLinks = document.querySelectorAll("nav a[href^='#']");
 const tiltTarget = document.querySelector("[data-tilt]");
 const spotlightTargets = document.querySelectorAll("[data-spotlight]");
+const hoverCards = document.querySelectorAll("[data-hover-card]");
 const showcaseTabs = document.querySelectorAll("[data-showcase]");
 const showcasePanel = document.querySelector(".showcase-panel");
 const menuToggle = document.querySelector(".menu-toggle");
@@ -18,7 +19,12 @@ const briefButtons = document.querySelectorAll("[data-brief]");
 const briefOutput = document.querySelector(".brief-output");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
+const magneticButtons = document.querySelectorAll(".button");
+const dockGuardTargets = document.querySelectorAll("#work, #payments, #brief, #contact, .site-footer");
+const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
 let ticking = false;
+let menuCloseTimer;
+let actionDockVisible;
 
 const showcaseData = {
   site: {
@@ -96,13 +102,30 @@ const updateScrollState = () => {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
   const ratio = pageHeight > 0 ? scrollTop / pageHeight : 0;
+  const dockBlocked = Array.from(dockGuardTargets).some((target) => {
+    const bounds = target.getBoundingClientRect();
+    return bounds.top < window.innerHeight - 72 && bounds.bottom > 96;
+  });
+  const shouldShowDock =
+    scrollTop > Math.max(420, window.innerHeight * 0.55) &&
+    !dockBlocked &&
+    !document.body.classList.contains("menu-open");
 
   if (progress) {
     progress.style.transform = `scaleX(${Math.min(Math.max(ratio, 0), 1)})`;
   }
 
   header?.classList.toggle("is-scrolled", scrollTop > 18);
-  actionDock?.classList.toggle("is-visible", scrollTop > Math.max(420, window.innerHeight * 0.55));
+
+  if (actionDock && shouldShowDock !== actionDockVisible) {
+    actionDock.classList.toggle("is-visible", shouldShowDock);
+    actionDock.setAttribute("aria-hidden", String(!shouldShowDock));
+    actionDockItems.forEach((item) => {
+      item.tabIndex = shouldShowDock ? 0 : -1;
+    });
+    actionDockVisible = shouldShowDock;
+  }
+
   ticking = false;
 };
 
@@ -180,6 +203,41 @@ if (spotlightTargets.length && !reduceMotion) {
 
     target.addEventListener("pointerleave", () => {
       target.style.setProperty("--shine-x", "-140%");
+    });
+  });
+}
+
+if (hoverCards.length && !reduceMotion) {
+  hoverCards.forEach((card) => {
+    const updateHoverPosition = (event) => {
+      const bounds = card.getBoundingClientRect();
+      card.style.setProperty("--hover-x", `${(event.clientX - bounds.left).toFixed(1)}px`);
+      card.style.setProperty("--hover-y", `${(event.clientY - bounds.top).toFixed(1)}px`);
+      card.classList.add("is-hovering");
+    };
+
+    card.addEventListener("pointermove", updateHoverPosition);
+    card.addEventListener("pointerenter", updateHoverPosition);
+    card.addEventListener("pointerleave", () => {
+      card.classList.remove("is-hovering");
+    });
+  });
+}
+
+if (magneticButtons.length && !reduceMotion) {
+  magneticButtons.forEach((button) => {
+    button.addEventListener("pointermove", (event) => {
+      const bounds = button.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+      button.style.setProperty("--button-x", `${(x * 5).toFixed(2)}px`);
+      button.style.setProperty("--button-y", `${(y * 4).toFixed(2)}px`);
+    });
+
+    button.addEventListener("pointerleave", () => {
+      button.style.setProperty("--button-x", "0px");
+      button.style.setProperty("--button-y", "0px");
     });
   });
 }
@@ -275,9 +333,33 @@ backTopButton?.addEventListener("click", () => {
 const setMenuOpen = (isOpen) => {
   if (!menuToggle || !mobileMenu) return;
 
+  window.clearTimeout(menuCloseTimer);
   menuToggle.setAttribute("aria-expanded", String(isOpen));
   menuToggle.querySelector(".sr-only").textContent = isOpen ? "Close menu" : "Open menu";
-  mobileMenu.hidden = !isOpen;
+  document.body.classList.toggle("menu-open", isOpen);
+  updateScrollState();
+
+  if (isOpen) {
+    mobileMenu.hidden = false;
+    window.requestAnimationFrame(() => {
+      mobileMenu.classList.add("is-open");
+    });
+    return;
+  }
+
+  mobileMenu.classList.remove("is-open");
+  if (reduceMotion) {
+    mobileMenu.hidden = true;
+    return;
+  }
+
+  menuCloseTimer = window.setTimeout(() => {
+    if (menuToggle.getAttribute("aria-expanded") !== "true") {
+      mobileMenu.hidden = true;
+    }
+  }, 190);
+
+  updateScrollState();
 };
 
 if (menuToggle && mobileMenu) {

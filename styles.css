@@ -57,6 +57,27 @@ body::before {
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.86), transparent 62%);
 }
 
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  pointer-events: none;
+  background: rgba(10, 21, 34, 0.16);
+  content: "";
+  opacity: 0;
+  backdrop-filter: blur(2px);
+  transition: opacity 180ms ease;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+body.menu-open::after {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 ::selection {
   background: var(--accent-soft);
   color: var(--accent-dark);
@@ -132,6 +153,11 @@ summary:focus-visible {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+}
+
+body.menu-open .action-dock {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .action-dock a,
@@ -274,6 +300,9 @@ nav a.is-active::after,
 }
 
 .button {
+  --button-x: 0px;
+  --button-y: 0px;
+  --button-lift: 0px;
   position: relative;
   display: inline-flex;
   min-height: 48px;
@@ -288,6 +317,7 @@ nav a.is-active::after,
   font-size: 15px;
   font-weight: 850;
   box-shadow: 0 10px 24px rgba(0, 115, 148, 0.2);
+  transform: translate3d(var(--button-x), calc(var(--button-y) - var(--button-lift)), 0);
   transition:
     transform 160ms ease,
     background 160ms ease,
@@ -305,7 +335,7 @@ nav a.is-active::after,
 }
 
 .button:hover {
-  transform: translateY(-2px);
+  --button-lift: 2px;
   background: var(--accent-dark);
   border-color: var(--accent-dark);
   box-shadow: 0 16px 30px rgba(0, 115, 148, 0.24);
@@ -410,11 +440,24 @@ nav a.is-active::after,
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.96);
   box-shadow: var(--shadow-strong);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px) scale(0.985);
+  transform-origin: top right;
   backdrop-filter: blur(18px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
 .mobile-menu[hidden] {
   display: none;
+}
+
+.mobile-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 .mobile-menu nav {
@@ -437,6 +480,51 @@ nav a.is-active::after,
 
 .mobile-menu .button {
   width: 100%;
+}
+
+[data-hover-card] {
+  --hover-x: 50%;
+  --hover-y: 50%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+[data-hover-card] > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-hover-card]::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(0, 115, 148, 0.13), rgba(200, 113, 30, 0.08));
+  content: "";
+  opacity: 0;
+  transition: opacity 180ms ease;
+  mask-image: radial-gradient(
+    circle 190px at var(--hover-x) var(--hover-y),
+    #000 0%,
+    rgba(0, 0, 0, 0.74) 36%,
+    transparent 76%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 190px at var(--hover-x) var(--hover-y),
+    #000 0%,
+    rgba(0, 0, 0, 0.74) 36%,
+    transparent 76%
+  );
+}
+
+[data-hover-card].is-hovering::after {
+  opacity: 1;
+}
+
+.delivery-board[data-hover-card]::after,
+.quality-panel[data-hover-card]::after {
+  background: linear-gradient(135deg, rgba(154, 219, 233, 0.2), rgba(255, 255, 255, 0.05));
 }
 
 .hero {
@@ -746,6 +834,7 @@ h2 {
 
 .service-item::before {
   position: absolute;
+  z-index: 2;
   top: -1px;
   right: 20%;
   left: 20%;
@@ -1469,6 +1558,7 @@ h3 {
 
 .price-card::before {
   position: absolute;
+  z-index: 2;
   top: 0;
   right: 0;
   left: 0;
