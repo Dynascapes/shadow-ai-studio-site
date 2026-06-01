@@ -12,10 +12,12 @@ const tiltTarget = document.querySelector("[data-tilt]");
 const spotlightTargets = document.querySelectorAll("[data-spotlight]");
 const hoverCards = document.querySelectorAll("[data-hover-card]");
 const showcaseTabs = document.querySelectorAll("[data-showcase]");
+const showcaseTabsContainer = document.querySelector(".showcase-tabs");
 const showcasePanel = document.querySelector(".showcase-panel");
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const briefButtons = document.querySelectorAll("[data-brief]");
+const briefOptionsContainer = document.querySelector(".brief-options");
 const briefOutput = document.querySelector(".brief-output");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
@@ -302,6 +304,23 @@ if (workflowSteps.length) {
   }
 }
 
+const syncActiveIndicator = (container, activeItem) => {
+  if (!container || !activeItem) return;
+
+  const containerBounds = container.getBoundingClientRect();
+  const activeBounds = activeItem.getBoundingClientRect();
+
+  container.style.setProperty("--indicator-x", `${(activeBounds.left - containerBounds.left).toFixed(1)}px`);
+  container.style.setProperty("--indicator-y", `${(activeBounds.top - containerBounds.top).toFixed(1)}px`);
+  container.style.setProperty("--indicator-w", `${activeBounds.width.toFixed(1)}px`);
+  container.style.setProperty("--indicator-h", `${activeBounds.height.toFixed(1)}px`);
+};
+
+const syncAllActiveIndicators = () => {
+  syncActiveIndicator(showcaseTabsContainer, document.querySelector(".showcase-tab.is-active"));
+  syncActiveIndicator(briefOptionsContainer, document.querySelector(".brief-option.is-active"));
+};
+
 const updateShowcase = (key) => {
   const data = showcaseData[key];
   if (!data || !showcasePanel) return;
@@ -310,7 +329,13 @@ const updateShowcase = (key) => {
     const isActive = tab.dataset.showcase === key;
     tab.classList.toggle("is-active", isActive);
     tab.setAttribute("aria-selected", String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
   });
+  const activeShowcaseTab = document.querySelector(".showcase-tab.is-active");
+  if (activeShowcaseTab?.id) {
+    showcasePanel.setAttribute("aria-labelledby", activeShowcaseTab.id);
+  }
+  syncActiveIndicator(showcaseTabsContainer, activeShowcaseTab);
 
   showcasePanel.classList.remove("is-swapping");
   void showcasePanel.offsetWidth;
@@ -358,6 +383,7 @@ const updateBrief = (key) => {
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
   });
+  syncActiveIndicator(briefOptionsContainer, document.querySelector(".brief-option.is-active"));
 
   briefOutput.classList.remove("is-swapping");
   void briefOutput.offsetWidth;
@@ -395,6 +421,25 @@ const updateBrief = (key) => {
 if (briefButtons.length) {
   briefButtons.forEach((button) => {
     button.addEventListener("click", () => updateBrief(button.dataset.brief));
+
+    button.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+
+      const currentIndex = Array.from(briefButtons).indexOf(button);
+      const columnCount = window.innerWidth <= 620 ? 2 : briefButtons.length;
+      let nextIndex = currentIndex;
+
+      if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + briefButtons.length) % briefButtons.length;
+      if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % briefButtons.length;
+      if (event.key === "ArrowUp") nextIndex = Math.max(0, currentIndex - columnCount);
+      if (event.key === "ArrowDown") nextIndex = Math.min(briefButtons.length - 1, currentIndex + columnCount);
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = briefButtons.length - 1;
+
+      briefButtons[nextIndex].focus();
+      updateBrief(briefButtons[nextIndex].dataset.brief);
+    });
   });
 }
 
@@ -470,4 +515,8 @@ document.querySelectorAll(".faq-list details").forEach((details) => {
 
 window.addEventListener("scroll", requestScrollUpdate, { passive: true });
 window.addEventListener("resize", requestScrollUpdate);
+window.addEventListener("resize", () => {
+  window.requestAnimationFrame(syncAllActiveIndicators);
+});
 updateScrollState();
+syncAllActiveIndicators();

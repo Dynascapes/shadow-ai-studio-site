@@ -1092,15 +1092,47 @@ h3 {
 }
 
 .showcase-tabs {
+  --indicator-x: 16px;
+  --indicator-y: 16px;
+  --indicator-w: 0px;
+  --indicator-h: 42px;
   position: relative;
   z-index: 1;
   display: flex;
   gap: 10px;
   padding: 16px;
   border-bottom: 1px solid var(--line);
+  isolation: isolate;
+}
+
+.showcase-tabs::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: var(--indicator-w);
+  height: var(--indicator-h);
+  border-radius: var(--radius);
+  background: var(--ink);
+  box-shadow: 0 12px 28px rgba(10, 21, 34, 0.18);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(var(--indicator-x), var(--indicator-y), 0);
+  transition:
+    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 160ms ease;
+}
+
+.js-ready .showcase-tabs::after {
+  opacity: 1;
 }
 
 .showcase-tab {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   min-height: 42px;
   cursor: pointer;
@@ -1132,6 +1164,12 @@ h3 {
   background: var(--ink);
   color: #fff;
   box-shadow: 0 12px 28px rgba(10, 21, 34, 0.18);
+}
+
+.js-ready .showcase-tab.is-active {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
 }
 
 .showcase-tab:focus-visible {
@@ -1874,14 +1912,45 @@ h3 {
 }
 
 .brief-options {
+  --indicator-x: 0px;
+  --indicator-y: 0px;
+  --indicator-w: 0px;
+  --indicator-h: 58px;
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   border-bottom: 1px solid var(--line);
   background: var(--line);
+  isolation: isolate;
+}
+
+.brief-options::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: var(--indicator-w);
+  height: var(--indicator-h);
+  background: var(--ink);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(var(--indicator-x), var(--indicator-y), 0);
+  transition:
+    transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 160ms ease;
+}
+
+.js-ready .brief-options::after {
+  opacity: 1;
 }
 
 .brief-option {
+  position: relative;
+  z-index: 1;
   min-height: 58px;
   cursor: pointer;
   border: 0;
@@ -1903,6 +1972,10 @@ h3 {
 .brief-option.is-active {
   background: var(--ink);
   color: #fff;
+}
+
+.js-ready .brief-option.is-active {
+  background: transparent;
 }
 
 .brief-output {

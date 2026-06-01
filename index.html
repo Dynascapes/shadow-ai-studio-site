@@ -219,37 +219,43 @@
         <div class="showcase-shell" data-reveal data-reveal-delay="120" data-spotlight>
           <div class="showcase-tabs" role="tablist" aria-label="Project examples">
             <button
+              id="showcase-tab-site"
               class="showcase-tab is-active"
               type="button"
               role="tab"
               aria-selected="true"
               aria-controls="showcase-panel"
+              tabindex="0"
               data-showcase="site"
             >
               Website launch
             </button>
             <button
+              id="showcase-tab-rescue"
               class="showcase-tab"
               type="button"
               role="tab"
               aria-selected="false"
               aria-controls="showcase-panel"
+              tabindex="-1"
               data-showcase="rescue"
             >
               App rescue
             </button>
             <button
+              id="showcase-tab-automation"
               class="showcase-tab"
               type="button"
               role="tab"
               aria-selected="false"
               aria-controls="showcase-panel"
+              tabindex="-1"
               data-showcase="automation"
             >
               Automation
             </button>
           </div>
-          <div id="showcase-panel" class="showcase-panel" role="tabpanel">
+          <div id="showcase-panel" class="showcase-panel" role="tabpanel" aria-labelledby="showcase-tab-site">
             <div class="showcase-info">
               <span class="showcase-kind" data-showcase-kind>Website launch</span>
               <h3 data-showcase-title>Stripe-ready service page</h3>
