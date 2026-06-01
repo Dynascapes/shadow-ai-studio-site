@@ -638,6 +638,9 @@ h1 {
   font-size: clamp(28px, 4vw, 43px);
   font-weight: 850;
   line-height: 1.12;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .hero-text {
@@ -646,6 +649,7 @@ h1 {
   color: var(--muted);
   font-size: 21px;
   line-height: 1.52;
+  text-wrap: pretty;
 }
 
 .hero-actions {
@@ -1675,12 +1679,13 @@ h3 {
 .showcase-section {
   display: grid;
   grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   gap: clamp(36px, 6vw, 76px);
 }
 
 .showcase-copy {
   max-width: 500px;
+  padding-top: clamp(24px, 4vw, 58px);
   justify-self: end;
 }
 
@@ -1695,13 +1700,16 @@ h3 {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  max-width: 720px;
+  max-width: 760px;
   border: 1px solid rgba(13, 27, 42, 0.12);
   border-radius: var(--radius);
   background:
+    linear-gradient(90deg, rgba(0, 115, 148, 0.05), transparent 42%, rgba(200, 113, 30, 0.06)),
     linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9)),
     #fff;
-  box-shadow: var(--shadow-strong);
+  box-shadow:
+    0 28px 74px rgba(13, 27, 42, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
 }
 
 .showcase-shell::before {
@@ -1729,6 +1737,10 @@ h3 {
   transition: transform 180ms ease;
 }
 
+.showcase-shell.is-visible::after {
+  animation: showcase-shell-sweep 1100ms 220ms ease both;
+}
+
 .showcase-tabs {
   --indicator-x: 16px;
   --indicator-y: 16px;
@@ -1739,7 +1751,7 @@ h3 {
   display: flex;
   gap: 10px;
   padding: 16px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(207, 220, 228, 0.68);
   isolation: isolate;
 }
 
@@ -1794,6 +1806,21 @@ h3 {
     box-shadow 160ms ease;
 }
 
+.showcase-tab::after {
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  left: 14px;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  opacity: 0.3;
+  transition: transform 180ms ease;
+}
+
 .showcase-tab span,
 .showcase-tab small {
   position: relative;
@@ -1826,20 +1853,84 @@ h3 {
   box-shadow: none;
 }
 
+.showcase-tab.is-active::after {
+  transform: scaleX(1);
+}
+
 .showcase-tab:focus-visible {
   outline: 3px solid rgba(0, 115, 148, 0.24);
   outline-offset: 3px;
+}
+
+.showcase-rail {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(207, 220, 228, 0.68);
+}
+
+.showcase-rail::before,
+.showcase-rail::after {
+  position: absolute;
+  top: 26px;
+  right: 11%;
+  left: 11%;
+  height: 2px;
+  border-radius: 999px;
+  content: "";
+  pointer-events: none;
+}
+
+.showcase-rail::before {
+  background: rgba(207, 220, 228, 0.82);
+}
+
+.showcase-rail::after {
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--accent), var(--signal));
+}
+
+.showcase-shell.is-visible .showcase-rail::after {
+  animation: showcase-rail-fill 860ms 180ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.showcase-rail span {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.showcase-rail span::before {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--bg-strong);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--signal));
+  box-shadow: 0 0 0 5px rgba(220, 239, 245, 0.82);
+  content: "";
 }
 
 .showcase-panel {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(300px, 1fr);
+  grid-template-columns: minmax(0, 0.76fr) minmax(330px, 1.08fr);
   gap: 24px;
   align-items: stretch;
-  min-height: 396px;
-  padding: 24px;
+  min-height: 430px;
+  padding: 26px 24px 24px;
 }
 
 .showcase-panel.is-swapping {
@@ -1883,6 +1974,19 @@ h3 {
   align-items: center;
   padding: 12px 0;
   border-top: 1px solid var(--line);
+}
+
+.showcase-panel.is-swapping .showcase-list div,
+.showcase-panel.is-swapping .showcase-cta {
+  animation: preview-piece-in 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.showcase-panel.is-swapping .showcase-list div:nth-child(2) {
+  animation-delay: 50ms;
+}
+
+.showcase-panel.is-swapping .showcase-list div:nth-child(3) {
+  animation-delay: 90ms;
 }
 
 .showcase-list span {
@@ -1958,9 +2062,10 @@ h3 {
   --preview-accent: var(--accent);
   --preview-signal: var(--signal);
   --preview-glow: rgba(0, 115, 148, 0.22);
+  position: relative;
   display: grid;
-  min-height: 294px;
-  grid-template-rows: auto 1fr auto;
+  min-height: 344px;
+  grid-template-rows: auto auto 1fr auto;
   overflow: hidden;
   border-radius: var(--radius);
   background:
@@ -1972,6 +2077,36 @@ h3 {
   transition:
     box-shadow 260ms ease,
     background 260ms ease;
+}
+
+.interface-preview::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+  content: "";
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.interface-preview::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 36%;
+  transform: translateX(-120%) skewX(-12deg);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--preview-accent) 22%, transparent), transparent);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.interface-preview.is-morphing::after {
+  opacity: 1;
+  animation: preview-scan-across 760ms ease forwards;
 }
 
 .interface-preview[data-preview-mode="rescue"] {
@@ -1987,6 +2122,8 @@ h3 {
 }
 
 .preview-toolbar {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2011,7 +2148,52 @@ h3 {
   text-transform: uppercase;
 }
 
+.preview-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 18px 0;
+}
+
+.preview-stage::before {
+  position: absolute;
+  top: 13px;
+  right: 10%;
+  left: 10%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--preview-accent), var(--preview-signal));
+  content: "";
+  opacity: 0.7;
+}
+
+.preview-stage span {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.preview-stage span::before {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  background: var(--preview-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--preview-accent) 18%, transparent);
+  content: "";
+}
+
 .preview-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 0.72fr;
   gap: 16px;
@@ -2029,6 +2211,23 @@ h3 {
 .preview-main {
   display: grid;
   align-content: start;
+}
+
+.preview-module-label {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  min-height: 27px;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0 9px;
+  border: 1px solid color-mix(in srgb, var(--preview-accent) 36%, rgba(255, 255, 255, 0.16));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--preview-accent) 22%, rgba(255, 255, 255, 0.08));
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
 }
 
 .preview-title-line,
@@ -2133,7 +2332,7 @@ h3 {
 .preview-side {
   display: grid;
   align-content: start;
-  gap: 18px;
+  gap: 14px;
 }
 
 .preview-state {
@@ -2149,13 +2348,35 @@ h3 {
   transition: background 220ms ease;
 }
 
+.preview-score {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preview-score span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.preview-score strong {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 850;
+  line-height: 1;
+}
+
 .preview-bars {
   display: grid;
-  gap: 10px;
+  gap: 9px;
 }
 
 .preview-bars span {
-  height: 28px;
+  height: 18px;
   width: var(--bar-width, 78%);
   transform-origin: left;
   border-radius: var(--radius);
@@ -2165,6 +2386,37 @@ h3 {
   transition:
     width 320ms cubic-bezier(0.2, 0.7, 0.2, 1),
     background 220ms ease;
+}
+
+.preview-inspector {
+  display: grid;
+  gap: 8px;
+}
+
+.preview-inspector span {
+  position: relative;
+  min-height: 28px;
+  padding: 7px 8px 7px 25px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.preview-inspector span::before {
+  position: absolute;
+  top: 50%;
+  left: 9px;
+  width: 7px;
+  height: 7px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--preview-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--preview-accent) 18%, transparent);
+  content: "";
 }
 
 .preview-bars span:nth-child(1) {
@@ -2195,6 +2447,7 @@ h3 {
 
 .interface-preview.is-morphing .preview-main,
 .interface-preview.is-morphing .preview-side,
+.interface-preview.is-morphing .preview-stage span,
 .interface-preview.is-morphing .preview-footer span {
   animation: preview-piece-in 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -2209,6 +2462,34 @@ h3 {
 
 .interface-preview.is-morphing .preview-footer span:nth-child(2) {
   animation-delay: 80ms;
+}
+
+.interface-preview.is-morphing .preview-inspector span:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.interface-preview.is-morphing .preview-inspector span:nth-child(3) {
+  animation-delay: 110ms;
+}
+
+@keyframes showcase-shell-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-14deg);
+  }
+
+  100% {
+    transform: translateX(285%) skewX(-14deg);
+  }
+}
+
+@keyframes showcase-rail-fill {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 @keyframes panel-swap {
@@ -2232,6 +2513,16 @@ h3 {
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes preview-scan-across {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+  }
+
+  100% {
+    transform: translateX(360%) skewX(-12deg);
   }
 }
 
@@ -4539,6 +4830,7 @@ h3 {
 
   .showcase-copy {
     max-width: 760px;
+    padding-top: 0;
     justify-self: start;
   }
 

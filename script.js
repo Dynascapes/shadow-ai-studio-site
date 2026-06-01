@@ -70,6 +70,10 @@ const showcaseData = {
     foot: ["Policies linked", "Mobile checked"],
     artifacts: ["Offer copy", "Policy links", "Launch notes"],
     previewCards: ["Public offer page", "Checkout-ready terms"],
+    stages: ["Scope", "Checks", "Handoff"],
+    module: "Launch packet",
+    score: "78%",
+    notes: ["Offer ready", "Policy links checked", "Mobile pass"],
     cta: "Build website brief",
     briefKey: "website",
   },
@@ -85,6 +89,10 @@ const showcaseData = {
     foot: ["Errors grouped", "Next steps written"],
     artifacts: ["Bug map", "Deploy checks", "Fix summary"],
     previewCards: ["Blocked path mapped", "Handoff notes ready"],
+    stages: ["Audit", "Fix", "Verify"],
+    module: "Repair packet",
+    score: "64%",
+    notes: ["Blockers grouped", "Deploy path checked", "Fix notes ready"],
     cta: "Build rescue brief",
     briefKey: "fix",
   },
@@ -100,6 +108,10 @@ const showcaseData = {
     foot: ["Trigger checked", "Docs included"],
     artifacts: ["Trigger plan", "Test run", "Usage notes"],
     previewCards: ["Workflow run logged", "Setup notes delivered"],
+    stages: ["Trigger", "Run", "Document"],
+    module: "Workflow packet",
+    score: "86%",
+    notes: ["Trigger defined", "Test run logged", "Usage notes included"],
     cta: "Build automation brief",
     briefKey: "automation",
   },
@@ -613,6 +625,17 @@ const updateShowcase = (key) => {
   document.querySelector("[data-showcase-artifact-3]").textContent = data.artifacts[2];
   document.querySelector("[data-preview-card-1]").textContent = data.previewCards[0];
   document.querySelector("[data-preview-card-2]").textContent = data.previewCards[1];
+  document.querySelector("[data-showcase-rail-1]").textContent = data.stages[0];
+  document.querySelector("[data-showcase-rail-2]").textContent = data.stages[1];
+  document.querySelector("[data-showcase-rail-3]").textContent = data.stages[2];
+  document.querySelector("[data-preview-stage-1]").textContent = data.stages[0];
+  document.querySelector("[data-preview-stage-2]").textContent = data.stages[1];
+  document.querySelector("[data-preview-stage-3]").textContent = data.stages[2];
+  document.querySelector("[data-preview-module]").textContent = data.module;
+  document.querySelector("[data-preview-score]").textContent = data.score;
+  document.querySelector("[data-preview-note-1]").textContent = data.notes[0];
+  document.querySelector("[data-preview-note-2]").textContent = data.notes[1];
+  document.querySelector("[data-preview-note-3]").textContent = data.notes[2];
   if (showcaseCta) {
     showcaseCta.textContent = data.cta;
   }
