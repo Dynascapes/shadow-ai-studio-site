@@ -9,8 +9,9 @@
       content="Shadow AI Studio provides AI-assisted web development, automation workflows, and software troubleshooting for small businesses and solo founders."
     />
     <meta name="theme-color" content="#0d1b2a" />
-    <link rel="stylesheet" href="styles.css?v=20260601-12" />
-    <script src="script.js?v=20260601-12" defer></script>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=20260601-13" />
+    <script src="script.js?v=20260601-13" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -217,25 +218,52 @@
             handoff notes so the result can actually be used after delivery.
           </p>
         </div>
-        <div class="delivery-board" data-reveal data-reveal-delay="120" data-hover-card aria-label="Typical deliverables">
+        <div
+          class="delivery-board"
+          data-reveal
+          data-reveal-delay="120"
+          data-hover-card
+          data-delivery-board
+          aria-label="Typical deliverables"
+        >
           <div class="board-header">
-            <span>Delivery board</span>
-            <strong>Fixed-scope project</strong>
+            <div>
+              <span>Delivery board</span>
+              <strong>Fixed-scope project</strong>
+            </div>
+            <em data-delivery-state>Milestone 1 of 4</em>
           </div>
-          <div class="delivery-row">
-            <span class="row-title">Scope and price</span>
+          <span class="delivery-progress" aria-hidden="true"><span></span></span>
+          <div class="delivery-row" data-delivery-row>
+            <span class="row-index">01</span>
+            <span class="row-copy">
+              <strong class="row-title">Scope and price</strong>
+              <small>Deliverables, timeline, and quote are agreed first.</small>
+            </span>
             <span class="row-status"><span aria-hidden="true"></span> Ready</span>
           </div>
-          <div class="delivery-row">
-            <span class="row-title">Build or fix work</span>
+          <div class="delivery-row" data-delivery-row>
+            <span class="row-index">02</span>
+            <span class="row-copy">
+              <strong class="row-title">Build or fix work</strong>
+              <small>The scoped website, automation, or fix sprint is completed.</small>
+            </span>
             <span class="row-status"><span aria-hidden="true"></span> In progress</span>
           </div>
-          <div class="delivery-row">
-            <span class="row-title">Testing notes</span>
+          <div class="delivery-row" data-delivery-row>
+            <span class="row-index">03</span>
+            <span class="row-copy">
+              <strong class="row-title">Testing notes</strong>
+              <small>Responsive checks and important findings are summarized.</small>
+            </span>
             <span class="row-status"><span aria-hidden="true"></span> Included</span>
           </div>
-          <div class="delivery-row">
-            <span class="row-title">Handoff and support</span>
+          <div class="delivery-row" data-delivery-row>
+            <span class="row-index">04</span>
+            <span class="row-copy">
+              <strong class="row-title">Handoff and support</strong>
+              <small>Files, next steps, and support expectations are clear.</small>
+            </span>
             <span class="row-status"><span aria-hidden="true"></span> Included</span>
           </div>
         </div>
@@ -261,7 +289,8 @@
               tabindex="0"
               data-showcase="site"
             >
-              Website launch
+              <span>Website launch</span>
+              <small>Stripe-ready page</small>
             </button>
             <button
               id="showcase-tab-rescue"
@@ -273,7 +302,8 @@
               tabindex="-1"
               data-showcase="rescue"
             >
-              App rescue
+              <span>App rescue</span>
+              <small>Launch blockers fixed</small>
             </button>
             <button
               id="showcase-tab-automation"
@@ -285,11 +315,12 @@
               tabindex="-1"
               data-showcase="automation"
             >
-              Automation
+              <span>Automation</span>
+              <small>Repeatable workflow</small>
             </button>
           </div>
-          <div id="showcase-panel" class="showcase-panel" role="tabpanel" aria-labelledby="showcase-tab-site">
-            <div class="showcase-info">
+          <div id="showcase-panel" class="showcase-panel" role="tabpanel" aria-labelledby="showcase-tab-site" data-brief-key="website">
+            <div class="showcase-info" aria-live="polite">
               <span class="showcase-kind" data-showcase-kind>Website launch</span>
               <h3 data-showcase-title>Stripe-ready service page</h3>
               <p data-showcase-copy>
@@ -300,6 +331,12 @@
                 <div><span>02</span><strong data-showcase-item-2>Pricing and delivery terms</strong></div>
                 <div><span>03</span><strong data-showcase-item-3>Desktop and mobile QA</strong></div>
               </div>
+              <div class="showcase-artifacts" aria-label="Typical artifacts">
+                <span data-showcase-artifact-1>Offer copy</span>
+                <span data-showcase-artifact-2>Policy links</span>
+                <span data-showcase-artifact-3>Launch notes</span>
+              </div>
+              <a class="showcase-cta" href="#brief" data-showcase-cta>Build website brief</a>
             </div>
             <div class="interface-preview" data-preview-mode="site" aria-hidden="true">
               <div class="preview-toolbar">
@@ -312,6 +349,10 @@
                   <div class="preview-copy-line"></div>
                   <div class="preview-copy-line short"></div>
                   <div class="preview-progress"><span data-preview-progress></span></div>
+                  <div class="preview-artifact-stack">
+                    <span data-preview-card-1>Public offer page</span>
+                    <span data-preview-card-2>Checkout-ready terms</span>
+                  </div>
                 </div>
                 <div class="preview-side">
                   <span class="preview-state" data-preview-state>Ready</span>

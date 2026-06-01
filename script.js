@@ -13,9 +13,13 @@ const spotlightTargets = document.querySelectorAll("[data-spotlight]");
 const hoverCards = document.querySelectorAll("[data-hover-card]");
 const serviceGrid = document.querySelector("[data-service-grid]");
 const serviceCards = serviceGrid?.querySelectorAll("[data-service-card]") || [];
+const deliveryBoard = document.querySelector("[data-delivery-board]");
+const deliveryRows = deliveryBoard?.querySelectorAll("[data-delivery-row]") || [];
+const deliveryState = document.querySelector("[data-delivery-state]");
 const showcaseTabs = document.querySelectorAll("[data-showcase]");
 const showcaseTabsContainer = document.querySelector(".showcase-tabs");
 const showcasePanel = document.querySelector(".showcase-panel");
+const showcaseCta = document.querySelector("[data-showcase-cta]");
 const pricingGrid = document.querySelector("[data-pricing-grid]");
 const pricingCards = pricingGrid?.querySelectorAll("[data-price-card]") || [];
 const faqList = document.querySelector("[data-faq-list]");
@@ -44,6 +48,8 @@ let actionDockVisible;
 let workflowStepIndex = 0;
 let serviceSequencePlayed = false;
 let serviceSequenceTimers = [];
+let deliverySequencePlayed = false;
+let deliverySequenceTimers = [];
 let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
 let pricingSequencePlayed = false;
@@ -62,6 +68,10 @@ const showcaseData = {
     progress: "78%",
     bars: ["88%", "68%", "78%"],
     foot: ["Policies linked", "Mobile checked"],
+    artifacts: ["Offer copy", "Policy links", "Launch notes"],
+    previewCards: ["Public offer page", "Checkout-ready terms"],
+    cta: "Build website brief",
+    briefKey: "website",
   },
   rescue: {
     kind: "AI app rescue",
@@ -73,6 +83,10 @@ const showcaseData = {
     progress: "64%",
     bars: ["76%", "86%", "54%"],
     foot: ["Errors grouped", "Next steps written"],
+    artifacts: ["Bug map", "Deploy checks", "Fix summary"],
+    previewCards: ["Blocked path mapped", "Handoff notes ready"],
+    cta: "Build rescue brief",
+    briefKey: "fix",
   },
   automation: {
     kind: "Automation workflow",
@@ -84,6 +98,10 @@ const showcaseData = {
     progress: "86%",
     bars: ["92%", "62%", "82%"],
     foot: ["Trigger checked", "Docs included"],
+    artifacts: ["Trigger plan", "Test run", "Usage notes"],
+    previewCards: ["Workflow run logged", "Setup notes delivered"],
+    cta: "Build automation brief",
+    briefKey: "automation",
   },
 };
 
@@ -232,6 +250,36 @@ const playServiceSequence = () => {
   });
 };
 
+const setDeliveryRow = (activeIndex) => {
+  deliveryRows.forEach((row, index) => {
+    row.classList.toggle("is-delivery-active", index === activeIndex);
+    row.classList.toggle("is-delivery-complete", index < activeIndex);
+  });
+
+  if (deliveryBoard && deliveryRows.length) {
+    deliveryBoard.style.setProperty("--delivery-progress", ((activeIndex + 1) / deliveryRows.length).toFixed(3));
+  }
+
+  if (deliveryState) {
+    deliveryState.textContent = `Milestone ${activeIndex + 1} of ${deliveryRows.length}`;
+  }
+};
+
+const clearDeliverySequence = () => {
+  deliverySequenceTimers.forEach((timer) => window.clearTimeout(timer));
+  deliverySequenceTimers = [];
+};
+
+const playDeliverySequence = () => {
+  if (!deliveryRows.length || deliverySequencePlayed) return;
+  deliverySequencePlayed = true;
+  clearDeliverySequence();
+
+  deliveryRows.forEach((_, index) => {
+    deliverySequenceTimers.push(window.setTimeout(() => setDeliveryRow(index), index * 520));
+  });
+};
+
 const setPaymentStep = (activeIndex) => {
   paymentSteps.forEach((step, index) => {
     const isActive = index === activeIndex;
@@ -327,6 +375,7 @@ const syncFaqState = (activeDetails) => {
 if (reduceMotion) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
   if (serviceCards.length) setServiceCard(window.innerWidth <= 940 ? 0 : 1);
+  if (deliveryRows.length) setDeliveryRow(deliveryRows.length - 1);
   if (pricingCards.length) setPricingCard(getPreferredPricingIndex());
   if (paymentSteps.length) setPaymentStep(paymentSteps.length - 1);
   if (contactSteps.length) setContactStep(contactSteps.length - 1);
@@ -341,6 +390,7 @@ if (reduceMotion) {
           }
           entry.target.classList.add("is-visible");
           if (entry.target === serviceCards[0]) playServiceSequence();
+          if (entry.target === deliveryBoard) playDeliverySequence();
           if (entry.target === pricingCards[0]) playPricingSequence();
           if (entry.target === paymentFlow) playPaymentFlow();
           if (entry.target === contactRoute) playContactRoute();
@@ -363,6 +413,15 @@ if (serviceCards.length && !reduceMotion) {
     card.addEventListener("focusin", () => {
       clearServiceSequence();
       setServiceCard(index);
+    });
+  });
+}
+
+if (deliveryRows.length && !reduceMotion) {
+  deliveryRows.forEach((row, index) => {
+    row.addEventListener("pointerenter", () => {
+      clearDeliverySequence();
+      setDeliveryRow(index);
     });
   });
 }
@@ -526,6 +585,7 @@ const updateShowcase = (key) => {
   if (activeShowcaseTab?.id) {
     showcasePanel.setAttribute("aria-labelledby", activeShowcaseTab.id);
   }
+  showcasePanel.dataset.briefKey = data.briefKey;
   syncActiveIndicator(showcaseTabsContainer, activeShowcaseTab);
 
   showcasePanel.classList.remove("is-swapping");
@@ -542,6 +602,14 @@ const updateShowcase = (key) => {
   document.querySelector("[data-preview-state]").textContent = data.state;
   document.querySelector("[data-preview-foot-1]").textContent = data.foot[0];
   document.querySelector("[data-preview-foot-2]").textContent = data.foot[1];
+  document.querySelector("[data-showcase-artifact-1]").textContent = data.artifacts[0];
+  document.querySelector("[data-showcase-artifact-2]").textContent = data.artifacts[1];
+  document.querySelector("[data-showcase-artifact-3]").textContent = data.artifacts[2];
+  document.querySelector("[data-preview-card-1]").textContent = data.previewCards[0];
+  document.querySelector("[data-preview-card-2]").textContent = data.previewCards[1];
+  if (showcaseCta) {
+    showcaseCta.textContent = data.cta;
+  }
   const preview = document.querySelector(".interface-preview");
   if (preview) {
     preview.dataset.previewMode = key;
@@ -643,6 +711,11 @@ if (briefButtons.length) {
     });
   });
 }
+
+showcaseCta?.addEventListener("click", () => {
+  const briefKey = showcasePanel?.dataset.briefKey;
+  if (briefKey) updateBrief(briefKey);
+});
 
 backTopButton?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
