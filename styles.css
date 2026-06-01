@@ -2604,14 +2604,40 @@ h3 {
 }
 
 .faq-list {
+  --faq-progress: 0;
+  position: relative;
   counter-reset: faq-item;
   display: grid;
   gap: 12px;
   max-width: 880px;
   margin: 0 auto;
+  padding-left: 30px;
+}
+
+.faq-list::before,
+.faq-list::after {
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 8px;
+  width: 2px;
+  border-radius: 999px;
+  content: "";
+}
+
+.faq-list::before {
+  background: rgba(207, 220, 228, 0.86);
+}
+
+.faq-list::after {
+  background: linear-gradient(180deg, var(--accent), var(--signal), var(--success));
+  transform: scaleY(var(--faq-progress));
+  transform-origin: top;
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .faq-list details {
+  position: relative;
   counter-increment: faq-item;
   overflow: hidden;
   border: 1px solid rgba(207, 220, 228, 0.92);
@@ -2623,6 +2649,23 @@ h3 {
     box-shadow 180ms ease,
     transform 180ms ease,
     background 180ms ease;
+}
+
+.faq-list details::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--signal));
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.18);
+  transform-origin: left;
+  transition:
+    opacity 180ms ease,
+    transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .faq-list details:hover,
@@ -2640,7 +2683,15 @@ h3 {
   box-shadow: 0 18px 42px rgba(13, 27, 42, 0.1);
 }
 
+.faq-list details[open]::before,
+.faq-list details.is-faq-active::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
 .faq-list summary {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 42px 1fr auto;
   cursor: pointer;
@@ -2659,6 +2710,7 @@ h3 {
 }
 
 .faq-list summary::before {
+  position: relative;
   display: inline-grid;
   width: 36px;
   height: 36px;
@@ -2672,6 +2724,7 @@ h3 {
   transition:
     background 180ms ease,
     color 180ms ease,
+    box-shadow 180ms ease,
     transform 180ms ease;
 }
 
@@ -2690,6 +2743,7 @@ h3 {
   transform: scale(1.08);
   background: linear-gradient(135deg, var(--accent), var(--signal));
   color: #fff;
+  box-shadow: 0 12px 24px rgba(0, 115, 148, 0.18);
 }
 
 .faq-list details[open] summary::after {
@@ -2697,9 +2751,21 @@ h3 {
 }
 
 .faq-list p {
+  position: relative;
+  z-index: 1;
   max-width: 720px;
   padding: 0 24px 24px 80px;
   animation: faq-answer-in 220ms ease;
+}
+
+.faq-list p::before {
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--signal));
+  content: "";
 }
 
 @supports (interpolate-size: allow-keywords) {
@@ -4022,6 +4088,19 @@ h3 {
     text-align: left;
     font-size: 16px;
     line-height: 1.55;
+  }
+
+  .faq-list {
+    padding-left: 18px;
+  }
+
+  .faq-list::before,
+  .faq-list::after {
+    left: 4px;
+  }
+
+  .faq-list p::before {
+    width: 44px;
   }
 
   .policy-page {

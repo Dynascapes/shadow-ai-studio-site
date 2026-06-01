@@ -16,6 +16,8 @@ const showcaseTabsContainer = document.querySelector(".showcase-tabs");
 const showcasePanel = document.querySelector(".showcase-panel");
 const pricingGrid = document.querySelector("[data-pricing-grid]");
 const pricingCards = pricingGrid?.querySelectorAll("[data-price-card]") || [];
+const faqList = document.querySelector("[data-faq-list]");
+const faqDetails = faqList?.querySelectorAll("[data-faq-item]") || [];
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const briefButtons = document.querySelectorAll("[data-brief]");
@@ -24,7 +26,7 @@ const briefOutput = document.querySelector(".brief-output");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
 const magneticButtons = document.querySelectorAll(".button");
-const dockGuardTargets = document.querySelectorAll("#services, #work, #pricing, #payments, #brief, #contact, .site-footer");
+const dockGuardTargets = document.querySelectorAll("#services, #work, #pricing, #payments, #faq, #brief, #contact, .site-footer");
 const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
 const processTrack = document.querySelector("[data-process-track]");
 const processSteps = processTrack?.querySelectorAll("[data-process-step]") || [];
@@ -42,6 +44,7 @@ let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
 let pricingSequencePlayed = false;
 let pricingSequenceTimers = [];
+let faqSyncing = false;
 const workflowDuration = 2300;
 
 const showcaseData = {
@@ -269,6 +272,25 @@ const playPricingSequence = () => {
 
   [0, 1, 2, 3, 1].forEach((cardIndex, sequenceIndex) => {
     pricingSequenceTimers.push(window.setTimeout(() => setPricingCard(cardIndex), sequenceIndex * 430));
+  });
+};
+
+const syncFaqState = (activeDetails) => {
+  if (!faqDetails.length) return;
+  const activeIndex = Math.max(0, Array.from(faqDetails).indexOf(activeDetails));
+  const progress = faqDetails.length > 1 ? activeIndex / (faqDetails.length - 1) : 1;
+
+  faqList?.style.setProperty("--faq-progress", progress.toFixed(3));
+  faqDetails.forEach((details, index) => {
+    const isActive = details.open;
+    details.classList.toggle("is-faq-active", isActive);
+    details.querySelector("summary")?.setAttribute("aria-expanded", String(isActive));
+    if (isActive) {
+      details.querySelector("summary")?.setAttribute("aria-current", "true");
+    } else {
+      details.querySelector("summary")?.removeAttribute("aria-current");
+    }
+    details.style.setProperty("--faq-index", String(index));
   });
 };
 
@@ -635,22 +657,48 @@ if (menuToggle && mobileMenu) {
   });
 }
 
-document.querySelectorAll(".faq-list details").forEach((details) => {
+faqDetails.forEach((details) => {
   const summary = details.querySelector("summary");
   summary?.setAttribute("aria-expanded", String(details.open));
 
-  details.addEventListener("toggle", () => {
-    summary?.setAttribute("aria-expanded", String(details.open));
-    if (!details.open) return;
+  summary?.addEventListener("keydown", (event) => {
+    if (!["Enter", " "].includes(event.key)) return;
+    event.preventDefault();
+    if (!details.open) {
+      details.open = true;
+    }
+    syncFaqState(details);
+  });
 
-    document.querySelectorAll(".faq-list details[open]").forEach((openDetails) => {
+  details.addEventListener("toggle", () => {
+    if (faqSyncing) return;
+    summary?.setAttribute("aria-expanded", String(details.open));
+    if (!details.open) {
+      const openDetails = document.querySelector("[data-faq-item][open]");
+      if (!openDetails) {
+        faqSyncing = true;
+        details.open = true;
+        faqSyncing = false;
+        syncFaqState(details);
+        return;
+      }
+      syncFaqState(openDetails);
+      return;
+    }
+
+    faqSyncing = true;
+    faqDetails.forEach((openDetails) => {
       if (openDetails !== details) {
         openDetails.removeAttribute("open");
         openDetails.querySelector("summary")?.setAttribute("aria-expanded", "false");
       }
     });
+    faqSyncing = false;
+    syncFaqState(details);
   });
 });
+
+syncFaqState(document.querySelector("[data-faq-item][open]") || faqDetails[0]);
 
 window.addEventListener("scroll", requestScrollUpdate, { passive: true });
 window.addEventListener("resize", requestScrollUpdate);
