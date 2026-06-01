@@ -9,8 +9,8 @@
       content="Shadow AI Studio provides AI-assisted web development, automation workflows, and software troubleshooting for small businesses and solo founders."
     />
     <meta name="theme-color" content="#0d1b2a" />
-    <link rel="stylesheet" href="styles.css?v=20260601-8" />
-    <script src="script.js?v=20260601-8" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260601-9" />
+    <script src="script.js?v=20260601-9" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -627,9 +627,27 @@
       </section>
 
       <section id="contact" class="section contact-section">
-        <div data-reveal>
+        <div class="contact-copy" data-reveal>
           <h2>Contact</h2>
           <p>Have a project in mind or need technical help right now? Send a short note and we will reply with next steps.</p>
+          <div class="contact-route" data-reveal data-reveal-delay="120" data-contact-route aria-label="Project request response path">
+            <div class="contact-route-line" aria-hidden="true"></div>
+            <div class="contact-route-step is-active" data-contact-step aria-current="step">
+              <span>01</span>
+              <strong>Request received</strong>
+              <small>Goal, current link, and timeline are reviewed first.</small>
+            </div>
+            <div class="contact-route-step" data-contact-step>
+              <span>02</span>
+              <strong>Scope response</strong>
+              <small>Next steps, estimated price, and delivery path are sent back.</small>
+            </div>
+            <div class="contact-route-step" data-contact-step>
+              <span>03</span>
+              <strong>Start path</strong>
+              <small>Payment link or invoice follows only after the scope is confirmed.</small>
+            </div>
+          </div>
         </div>
         <div class="contact-box" data-reveal data-reveal-delay="120" data-hover-card>
           <div class="contact-card-top">

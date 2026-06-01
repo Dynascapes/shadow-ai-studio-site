@@ -30,11 +30,14 @@ const workflowSnapshot = document.querySelector("[data-workflow-snapshot]");
 const workflowSteps = document.querySelectorAll("[data-workflow-step]");
 const paymentFlow = document.querySelector("[data-payment-flow]");
 const paymentSteps = paymentFlow?.querySelectorAll("[data-payment-step]") || [];
+const contactRoute = document.querySelector("[data-contact-route]");
+const contactSteps = contactRoute?.querySelectorAll("[data-contact-step]") || [];
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
 let workflowStepIndex = 0;
 let paymentFlowPlayed = false;
+let contactRoutePlayed = false;
 const workflowDuration = 2300;
 
 const showcaseData = {
@@ -213,9 +216,34 @@ const playPaymentFlow = () => {
   });
 };
 
+const setContactStep = (activeIndex) => {
+  const progress = contactSteps.length > 1 ? activeIndex / (contactSteps.length - 1) : 1;
+
+  contactRoute?.style.setProperty("--route-progress", progress.toFixed(3));
+  contactSteps.forEach((step, index) => {
+    const isActive = index === activeIndex;
+    step.classList.toggle("is-active", isActive);
+    step.classList.toggle("is-complete", index < activeIndex);
+    if (isActive) {
+      step.setAttribute("aria-current", "step");
+    } else {
+      step.removeAttribute("aria-current");
+    }
+  });
+};
+
+const playContactRoute = () => {
+  if (!contactSteps.length || contactRoutePlayed) return;
+  contactRoutePlayed = true;
+  contactSteps.forEach((_, index) => {
+    window.setTimeout(() => setContactStep(index), index * 560);
+  });
+};
+
 if (reduceMotion) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
   if (paymentSteps.length) setPaymentStep(paymentSteps.length - 1);
+  if (contactSteps.length) setContactStep(contactSteps.length - 1);
 } else {
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -227,6 +255,7 @@ if (reduceMotion) {
           }
           entry.target.classList.add("is-visible");
           if (entry.target === paymentFlow) playPaymentFlow();
+          if (entry.target === contactRoute) playContactRoute();
           revealObserver.unobserve(entry.target);
         }
       });
