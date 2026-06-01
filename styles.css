@@ -1810,7 +1810,7 @@ h3 {
 
 .policy-shortcuts a {
   display: inline-flex;
-  min-height: 38px;
+  min-height: 44px;
   align-items: center;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -1835,26 +1835,50 @@ h3 {
 }
 
 .faq-list {
+  counter-reset: faq-item;
+  display: grid;
+  gap: 12px;
   max-width: 880px;
   margin: 0 auto;
 }
 
 .faq-list details {
-  border-top: 1px solid var(--border);
-  background: transparent;
+  counter-increment: faq-item;
+  overflow: hidden;
+  border: 1px solid rgba(207, 220, 228, 0.92);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 26px rgba(13, 27, 42, 0.04);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
 }
 
-.faq-list details:last-child {
-  border-bottom: 1px solid var(--border);
+.faq-list details:hover,
+.faq-list details:focus-within {
+  border-color: rgba(0, 115, 148, 0.28);
+  box-shadow: 0 16px 34px rgba(13, 27, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.faq-list details[open] {
+  border-color: rgba(0, 115, 148, 0.3);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.88)),
+    #fff;
+  box-shadow: 0 18px 42px rgba(13, 27, 42, 0.1);
 }
 
 .faq-list summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
   cursor: pointer;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 22px 0;
+  gap: 16px;
+  min-height: 78px;
+  padding: 18px 22px;
   color: var(--text);
   font-size: 19px;
   font-weight: 850;
@@ -1863,6 +1887,23 @@ h3 {
 
 .faq-list summary::-webkit-details-marker {
   display: none;
+}
+
+.faq-list summary::before {
+  display: inline-grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  content: counter(faq-item, decimal-leading-zero);
+  font-size: 12px;
+  font-weight: 850;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 .faq-list summary::after {
@@ -1876,12 +1917,52 @@ h3 {
   transition: transform 180ms ease;
 }
 
+.faq-list details[open] summary::before {
+  transform: scale(1.08);
+  background: linear-gradient(135deg, var(--accent), var(--signal));
+  color: #fff;
+}
+
 .faq-list details[open] summary::after {
   transform: rotate(-135deg);
 }
 
 .faq-list p {
-  padding: 0 0 22px;
+  max-width: 720px;
+  padding: 0 24px 24px 80px;
+  animation: faq-answer-in 220ms ease;
+}
+
+@supports (interpolate-size: allow-keywords) {
+  .faq-list {
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-list details::details-content {
+    block-size: 0;
+    opacity: 0;
+    transition:
+      block-size 240ms ease,
+      opacity 180ms ease,
+      content-visibility 240ms allow-discrete;
+  }
+
+  .faq-list details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+}
+
+@keyframes faq-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .brief-section {
@@ -2816,6 +2897,28 @@ h3 {
 
   .contact-box {
     padding: 26px;
+  }
+
+  .faq-list summary {
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    gap: 12px;
+    min-height: 72px;
+    padding: 16px;
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .faq-list summary::before {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .faq-list p {
+    padding: 0 18px 22px;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.55;
   }
 
   .policy-page {

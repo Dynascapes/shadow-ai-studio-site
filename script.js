@@ -502,12 +502,17 @@ if (menuToggle && mobileMenu) {
 }
 
 document.querySelectorAll(".faq-list details").forEach((details) => {
+  const summary = details.querySelector("summary");
+  summary?.setAttribute("aria-expanded", String(details.open));
+
   details.addEventListener("toggle", () => {
+    summary?.setAttribute("aria-expanded", String(details.open));
     if (!details.open) return;
 
     document.querySelectorAll(".faq-list details[open]").forEach((openDetails) => {
       if (openDetails !== details) {
         openDetails.removeAttribute("open");
+        openDetails.querySelector("summary")?.setAttribute("aria-expanded", "false");
       }
     });
   });
