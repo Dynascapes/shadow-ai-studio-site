@@ -193,9 +193,15 @@ const updateScrollState = () => {
 
     processSteps.forEach((step, index) => {
       const stepPoint = processSteps.length === 1 ? 1 : index / (processSteps.length - 1);
+      const isActive = index === activeIndex;
 
-      step.classList.toggle("is-process-active", index === activeIndex);
+      step.classList.toggle("is-process-active", isActive);
       step.classList.toggle("is-process-complete", processProgress >= stepPoint);
+      if (isActive) {
+        step.setAttribute("aria-current", "step");
+      } else {
+        step.removeAttribute("aria-current");
+      }
     });
   }
 
