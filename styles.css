@@ -3187,6 +3187,214 @@ h3 {
   box-shadow: 0 0 0 7px rgba(220, 239, 245, 0.72);
 }
 
+.pricing-focus {
+  --pricing-focus-level: 58%;
+  position: relative;
+  display: grid;
+  max-width: 1120px;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
+  gap: 16px 22px;
+  overflow: hidden;
+  margin: -10px auto 28px;
+  padding: 22px;
+  border: 1px solid rgba(13, 27, 42, 0.12);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(0, 115, 148, 0.13), transparent 30%),
+    linear-gradient(135deg, rgba(10, 21, 34, 0.98), rgba(13, 35, 54, 0.96));
+  color: #fff;
+  box-shadow:
+    0 24px 58px rgba(13, 27, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.pricing-focus::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  content: "";
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.pricing-focus::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 28%;
+  transform: translateX(-120%) skewX(-12deg);
+  background: linear-gradient(90deg, transparent, rgba(154, 219, 233, 0.18), transparent);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pricing-focus.is-visible::after,
+.pricing-focus.is-swapping::after {
+  animation: pricing-focus-scan 760ms ease forwards;
+}
+
+.pricing-focus > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-focus-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pricing-focus-header span {
+  color: #9adbe9;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pricing-focus-header strong {
+  display: block;
+  margin-top: 5px;
+  color: #fff;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.05;
+}
+
+.pricing-focus-header em {
+  display: inline-flex;
+  min-height: 31px;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid rgba(154, 219, 233, 0.2);
+  border-radius: 999px;
+  background: rgba(154, 219, 233, 0.1);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.pricing-focus p {
+  max-width: 520px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.pricing-focus-stats {
+  display: grid;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  align-self: stretch;
+}
+
+.pricing-focus-stats span {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  gap: 6px;
+  min-height: 92px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pricing-focus-stats em {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.pricing-focus-stats strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.pricing-focus-meter {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.pricing-focus-meter span {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pricing-focus-meter em {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.pricing-focus-meter i {
+  display: block;
+  width: var(--pricing-focus-level);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--signal));
+  box-shadow: 0 0 18px rgba(154, 219, 233, 0.26);
+  transition: width 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pricing-focus-tags {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  gap: 8px;
+}
+
+.pricing-focus-tags span {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid rgba(154, 219, 233, 0.18);
+  border-radius: 999px;
+  background: rgba(154, 219, 233, 0.1);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.pricing-focus.is-swapping .pricing-focus-stats span,
+.pricing-focus.is-swapping .pricing-focus-tags span {
+  animation: pricing-focus-piece-in 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pricing-focus.is-swapping .pricing-focus-stats span:nth-child(2),
+.pricing-focus.is-swapping .pricing-focus-tags span:nth-child(2) {
+  animation-delay: 55ms;
+}
+
+.pricing-focus.is-swapping .pricing-focus-stats span:nth-child(3),
+.pricing-focus.is-swapping .pricing-focus-tags span:nth-child(3) {
+  animation-delay: 95ms;
+}
+
 .price-card {
   --package-level: 38%;
   position: relative;
@@ -3475,6 +3683,35 @@ h3 {
   width: 100%;
   margin-top: 14px;
   margin-bottom: 12px;
+}
+
+@keyframes pricing-focus-scan {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-12deg);
+  }
+
+  18%,
+  84% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(390%) skewX(-12deg);
+  }
+}
+
+@keyframes pricing-focus-piece-in {
+  0% {
+    opacity: 0.58;
+    transform: translateY(7px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .details-section {
@@ -5229,6 +5466,18 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .pricing-focus {
+    max-width: 760px;
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-focus-stats,
+  .pricing-focus-meter,
+  .pricing-focus-tags {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .pricing-guide::before,
   .pricing-guide::after {
     display: none;
@@ -5455,6 +5704,29 @@ h3 {
   .pricing-guide span {
     min-height: 72px;
     padding: 14px;
+  }
+
+  .pricing-focus {
+    margin: -4px 0 24px;
+    padding: 18px;
+  }
+
+  .pricing-focus-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pricing-focus-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-focus-stats span {
+    min-height: 0;
+  }
+
+  .pricing-focus-meter {
+    grid-template-columns: 1fr;
+    gap: 9px;
   }
 
   .showcase-tabs {

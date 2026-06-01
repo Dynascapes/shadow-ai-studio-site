@@ -24,6 +24,19 @@ const pricingGrid = document.querySelector("[data-pricing-grid]");
 const pricingCards = pricingGrid?.querySelectorAll("[data-price-card]") || [];
 const pricingGuide = document.querySelector("[data-pricing-guide]");
 const pricingGuideSteps = pricingGuide?.querySelectorAll("[data-pricing-guide-step]") || [];
+const pricingFocus = document.querySelector("[data-pricing-focus]");
+const pricingFocusTitle = document.querySelector("[data-pricing-focus-title]");
+const pricingFocusLabel = document.querySelector("[data-pricing-focus-label]");
+const pricingFocusCopy = document.querySelector("[data-pricing-focus-copy]");
+const pricingFocusPrice = document.querySelector("[data-pricing-focus-price]");
+const pricingFocusTime = document.querySelector("[data-pricing-focus-time]");
+const pricingFocusFit = document.querySelector("[data-pricing-focus-fit]");
+const pricingFocusMeter = document.querySelector("[data-pricing-focus-meter]");
+const pricingFocusTags = [
+  document.querySelector("[data-pricing-focus-tag-1]"),
+  document.querySelector("[data-pricing-focus-tag-2]"),
+  document.querySelector("[data-pricing-focus-tag-3]"),
+];
 const faqList = document.querySelector("[data-faq-list]");
 const faqDetails = faqList?.querySelectorAll("[data-faq-item]") || [];
 const menuToggle = document.querySelector(".menu-toggle");
@@ -182,6 +195,49 @@ const briefData = {
     },
   },
 };
+
+const pricingFocusData = [
+  {
+    title: "Launch Audit",
+    label: "Lowest-risk start",
+    copy: "A focused review for finding launch blockers before choosing a larger build or fix sprint.",
+    price: "$49 USD",
+    time: "1-3 business days",
+    fit: "Finding launch blockers",
+    level: "38%",
+    tags: ["Setup review", "Fix list", "Next steps"],
+  },
+  {
+    title: "Starter Website",
+    label: "Suggested start",
+    copy: "A compact public site with contact setup, responsive layout, and policy checks.",
+    price: "$99 USD",
+    time: "3-7 business days",
+    fit: "Stripe-ready public page",
+    level: "58%",
+    tags: ["Public offer", "Mobile layout", "Policy path"],
+  },
+  {
+    title: "Automation",
+    label: "Workflow build",
+    copy: "One repeatable workflow with trigger mapping, setup, testing, and usage notes.",
+    price: "$149 USD",
+    time: "Scope dependent",
+    fit: "Repeatable manual task",
+    level: "72%",
+    tags: ["Trigger map", "Test run", "Usage notes"],
+  },
+  {
+    title: "Fix Sprint",
+    label: "Deepest scope",
+    copy: "Focused cleanup for bugs, deploy issues, broken forms, APIs, or stuck AI-built prototypes.",
+    price: "$299 USD",
+    time: "Scope dependent",
+    fit: "Stuck prototype cleanup",
+    level: "88%",
+    tags: ["Issue review", "Focused fixes", "Fix summary"],
+  },
+];
 
 const updateScrollState = () => {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -350,6 +406,7 @@ const playContactRoute = () => {
 
 const setPricingCard = (activeIndex) => {
   const progress = pricingCards.length > 1 ? activeIndex / (pricingCards.length - 1) : 1;
+  const focusData = pricingFocusData[activeIndex];
 
   pricingGrid?.style.setProperty("--pricing-progress", progress.toFixed(3));
   pricingGuide?.style.setProperty("--pricing-progress", progress.toFixed(3));
@@ -372,6 +429,23 @@ const setPricingCard = (activeIndex) => {
       step.removeAttribute("aria-current");
     }
   });
+
+  if (pricingFocus && focusData) {
+    pricingFocus.classList.remove("is-swapping");
+    void pricingFocus.offsetWidth;
+    pricingFocus.classList.add("is-swapping");
+    pricingFocus.style.setProperty("--pricing-focus-level", focusData.level);
+    if (pricingFocusTitle) pricingFocusTitle.textContent = focusData.title;
+    if (pricingFocusLabel) pricingFocusLabel.textContent = focusData.label;
+    if (pricingFocusCopy) pricingFocusCopy.textContent = focusData.copy;
+    if (pricingFocusPrice) pricingFocusPrice.textContent = focusData.price;
+    if (pricingFocusTime) pricingFocusTime.textContent = focusData.time;
+    if (pricingFocusFit) pricingFocusFit.textContent = focusData.fit;
+    pricingFocusMeter?.style.setProperty("--pricing-focus-level", focusData.level);
+    pricingFocusTags.forEach((tag, index) => {
+      if (tag) tag.textContent = focusData.tags[index] || "";
+    });
+  }
 };
 
 const getPreferredPricingIndex = () => Math.min(1, pricingCards.length - 1);
