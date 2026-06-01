@@ -9,6 +9,11 @@ const revealItems = document.querySelectorAll("[data-reveal]");
 const sections = document.querySelectorAll("main section[id]");
 const navLinks = document.querySelectorAll("nav a[href^='#']");
 const tiltTarget = document.querySelector("[data-tilt]");
+const heroStatus = document.querySelector("[data-hero-status]");
+const heroStatusTitle = document.querySelector("[data-hero-status-title]");
+const heroStatusLabel = document.querySelector("[data-hero-status-label]");
+const heroStatusProgress = document.querySelector("[data-hero-status-progress]");
+const heroStatusSteps = heroStatus?.querySelectorAll("[data-hero-status-step]") || [];
 const spotlightTargets = document.querySelectorAll("[data-spotlight]");
 const hoverCards = document.querySelectorAll("[data-hover-card]");
 const serviceGrid = document.querySelector("[data-service-grid]");
@@ -105,6 +110,12 @@ let pricingSequencePlayed = false;
 let pricingSequenceTimers = [];
 let faqSyncing = false;
 const workflowDuration = 2300;
+
+const heroStatusData = [
+  { title: "Scope confirmed", label: "Step 01" },
+  { title: "Build checked", label: "Step 02" },
+  { title: "Handoff ready", label: "Step 03" },
+];
 
 const showcaseData = {
   site: {
@@ -868,8 +879,31 @@ if (magneticButtons.length && !reduceMotion) {
   });
 }
 
+const setHeroStatus = (nextIndex) => {
+  if (!heroStatus || !heroStatusSteps.length) return;
+
+  const activeIndex = Math.min(heroStatusSteps.length - 1, Math.max(0, nextIndex));
+  const statusData = heroStatusData[activeIndex] || heroStatusData[0];
+  const progressValue = heroStatusSteps.length > 1 ? activeIndex / (heroStatusSteps.length - 1) : 1;
+
+  heroStatus.style.setProperty("--hero-status-progress", progressValue.toFixed(3));
+  if (heroStatusTitle) heroStatusTitle.textContent = statusData.title;
+  if (heroStatusLabel) heroStatusLabel.textContent = statusData.label;
+  heroStatusProgress?.style.setProperty("--hero-status-progress", progressValue.toFixed(3));
+
+  heroStatusSteps.forEach((step, index) => {
+    step.classList.toggle("is-hero-status-active", index === activeIndex);
+    step.classList.toggle("is-hero-status-complete", index < activeIndex);
+  });
+
+  heroStatus.classList.remove("is-swapping");
+  void heroStatus.offsetWidth;
+  heroStatus.classList.add("is-swapping");
+};
+
 const setWorkflowStep = (nextIndex) => {
   workflowStepIndex = nextIndex;
+  setHeroStatus(workflowStepIndex);
   workflowSteps.forEach((step, index) => {
     const isActive = index === workflowStepIndex;
     step.classList.toggle("is-active", isActive);

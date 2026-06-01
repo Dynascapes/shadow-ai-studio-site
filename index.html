@@ -10,8 +10,8 @@
     />
     <meta name="theme-color" content="#0d1b2a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260601-24" />
-    <script src="script.js?v=20260601-24" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260601-25" />
+    <script src="script.js?v=20260601-25" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -79,6 +79,30 @@
           <div class="hero-actions" data-reveal data-reveal-delay="260">
             <a class="button" href="mailto:dynascapes@gmail.com?subject=Project%20request">Get Started</a>
             <a class="button button-secondary" href="#services">View Services</a>
+          </div>
+          <div class="hero-status" data-hover-card data-hero-status aria-label="Project readiness path">
+            <div class="hero-status-top">
+              <div>
+                <span>Readiness path</span>
+                <strong data-hero-status-title>Scope confirmed</strong>
+              </div>
+              <em data-hero-status-label>Step 01</em>
+            </div>
+            <div class="hero-status-track" aria-hidden="true"><span data-hero-status-progress></span></div>
+            <div class="hero-status-grid">
+              <span class="is-hero-status-active" data-hero-status-step>
+                <em>01</em>
+                <strong>Scope</strong>
+              </span>
+              <span data-hero-status-step>
+                <em>02</em>
+                <strong>Build</strong>
+              </span>
+              <span data-hero-status-step>
+                <em>03</em>
+                <strong>Handoff</strong>
+              </span>
+            </div>
           </div>
           <div class="hero-metrics" aria-label="Project expectations" data-reveal data-reveal-delay="320">
             <article>
