@@ -3169,6 +3169,209 @@ h3 {
   box-shadow: 0 0 0 5px rgba(200, 113, 30, 0.12);
 }
 
+.process-grid article:focus-visible {
+  outline: 3px solid rgba(0, 115, 148, 0.24);
+  outline-offset: 4px;
+}
+
+.process-focus {
+  --process-focus-level: 25%;
+  position: relative;
+  display: grid;
+  max-width: 1120px;
+  margin: 26px auto 0;
+  grid-template-columns: minmax(0, 0.78fr) minmax(360px, 1fr);
+  gap: 22px;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 24px;
+  border: 1px solid rgba(13, 27, 42, 0.12);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(0, 115, 148, 0.28), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 46%),
+    var(--ink);
+  color: #fff;
+  box-shadow: 0 28px 68px rgba(13, 27, 42, 0.16);
+}
+
+.process-focus::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  content: "";
+  opacity: 0.72;
+}
+
+.process-focus::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 34%;
+  transform: translateX(-120%) skewX(-12deg);
+  background: linear-gradient(90deg, transparent, rgba(154, 219, 233, 0.16), rgba(200, 113, 30, 0.1), transparent);
+  content: "";
+  pointer-events: none;
+}
+
+.process-focus.is-visible::after,
+.process-focus.is-swapping::after {
+  animation: process-focus-scan 760ms ease forwards;
+}
+
+.process-focus > * {
+  position: relative;
+  z-index: 1;
+}
+
+.process-focus-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.process-focus-header span {
+  color: rgba(154, 219, 233, 0.86);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.process-focus-header strong {
+  display: block;
+  margin-top: 7px;
+  color: #fff;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1;
+}
+
+.process-focus-header em {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid rgba(154, 219, 233, 0.24);
+  border-radius: 999px;
+  background: rgba(154, 219, 233, 0.11);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.process-focus p {
+  align-self: end;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.process-focus-grid {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.process-focus-grid span {
+  min-height: 86px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.process-focus-grid em {
+  display: block;
+  color: rgba(154, 219, 233, 0.72);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.process-focus-grid strong {
+  display: block;
+  margin-top: 9px;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.process-focus-meter {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.process-focus-meter span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.process-focus-meter em {
+  display: block;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.process-focus-meter i {
+  display: block;
+  width: var(--process-focus-level);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--signal), var(--success));
+  transition: width 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.process-focus-tags {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.process-focus-tags span {
+  display: inline-flex;
+  min-height: 31px;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid rgba(154, 219, 233, 0.2);
+  border-radius: 999px;
+  background: rgba(154, 219, 233, 0.1);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.process-focus.is-swapping .process-focus-grid span,
+.process-focus.is-swapping .process-focus-tags span {
+  animation: process-focus-piece-in 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.process-focus.is-swapping .process-focus-grid span:nth-child(2),
+.process-focus.is-swapping .process-focus-tags span:nth-child(2) {
+  animation-delay: 45ms;
+}
+
+.process-focus.is-swapping .process-focus-grid span:nth-child(3),
+.process-focus.is-swapping .process-focus-tags span:nth-child(3) {
+  animation-delay: 90ms;
+}
+
 @keyframes process-card-sweep {
   0% {
     transform: translateX(-110%);
@@ -3176,6 +3379,28 @@ h3 {
 
   100% {
     transform: translateX(110%);
+  }
+}
+
+@keyframes process-focus-scan {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+  }
+
+  100% {
+    transform: translateX(360%) skewX(-12deg);
+  }
+}
+
+@keyframes process-focus-piece-in {
+  0% {
+    opacity: 0.55;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -5128,6 +5353,11 @@ h3 {
   box-shadow: 0 18px 46px rgba(13, 27, 42, 0.09);
 }
 
+.contact-box > * {
+  position: relative;
+  z-index: 1;
+}
+
 .contact-box::before {
   position: absolute;
   top: 0;
@@ -5136,6 +5366,31 @@ h3 {
   height: 4px;
   background: linear-gradient(90deg, var(--accent), var(--signal));
   content: "";
+}
+
+.contact-box::after {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  z-index: 0;
+  width: 34%;
+  transform: translateX(-130%) skewX(-12deg);
+  background: linear-gradient(90deg, transparent, rgba(0, 115, 148, 0.12), rgba(200, 113, 30, 0.1), transparent);
+  content: "";
+  pointer-events: none;
+}
+
+.contact-box.is-contact-ready {
+  border-color: rgba(0, 115, 148, 0.22);
+  box-shadow:
+    0 18px 46px rgba(13, 27, 42, 0.09),
+    0 0 0 1px rgba(154, 219, 233, 0.08),
+    0 22px 58px rgba(0, 115, 148, 0.1);
+}
+
+.contact-box.is-contact-ready::after {
+  animation: contact-ready-sweep 840ms ease forwards;
 }
 
 .contact-card-top {
@@ -5301,6 +5556,22 @@ h3 {
 .contact-box .button {
   width: 100%;
   margin-top: 0;
+}
+
+@keyframes contact-ready-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-130%) skewX(-12deg);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(350%) skewX(-12deg);
+  }
 }
 
 .site-footer {
@@ -5808,6 +6079,11 @@ h3 {
     min-height: 0;
   }
 
+  .process-focus {
+    max-width: 680px;
+    grid-template-columns: 1fr;
+  }
+
   .delivery-copy {
     max-width: 760px;
   }
@@ -6063,6 +6339,20 @@ h3 {
   .process-checks span {
     min-height: 32px;
     font-size: 12px;
+  }
+
+  .process-focus {
+    padding: 18px;
+  }
+
+  .process-focus-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .process-focus-grid,
+  .process-focus-meter {
+    grid-template-columns: 1fr;
   }
 
   .delivery-board,
@@ -6365,8 +6655,13 @@ h3 {
   .hero-media.is-visible .hero-signal-meter span,
   .hero-media.is-visible .hero-signal-grid em,
   .process-grid article.is-process-active::after,
+  .process-focus.is-visible::after,
+  .process-focus.is-swapping::after,
+  .process-focus.is-swapping .process-focus-grid span,
+  .process-focus.is-swapping .process-focus-tags span,
   .workflow-snapshot.is-advancing .workflow-timer span,
   .workflow-snapshot li.is-active::after,
+  .contact-box.is-contact-ready::after,
   .interface-preview.is-morphing::after,
   .interface-preview.is-morphing .preview-stage::before,
   .interface-preview.is-morphing .preview-stage span::before,
@@ -6380,6 +6675,9 @@ h3 {
 
   .workflow-snapshot.is-advancing .workflow-timer span,
   .workflow-snapshot li.is-active::after,
+  .process-focus.is-swapping .process-focus-grid span,
+  .process-focus.is-swapping .process-focus-tags span,
+  .contact-box.is-contact-ready::after,
   .interface-preview.is-morphing .preview-stage::before,
   .interface-preview.is-morphing .preview-stage span::before,
   .interface-preview.is-morphing .preview-progress span,

@@ -63,16 +63,30 @@ const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
 const copyEmailButton = document.querySelector("[data-copy-email]");
 const magneticButtons = document.querySelectorAll(".button");
-const dockGuardTargets = document.querySelectorAll("#services, #work, #pricing, #payments, #faq, #brief, #contact, .site-footer");
+const dockGuardTargets = document.querySelectorAll("#services, #work, #process, #pricing, #payments, #faq, #brief, #contact, .site-footer");
 const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
 const processTrack = document.querySelector("[data-process-track]");
 const processSteps = processTrack?.querySelectorAll("[data-process-step]") || [];
+const processFocus = document.querySelector("[data-process-focus]");
+const processFocusTitle = document.querySelector("[data-process-focus-title]");
+const processFocusLabel = document.querySelector("[data-process-focus-label]");
+const processFocusCopy = document.querySelector("[data-process-focus-copy]");
+const processFocusProof = document.querySelector("[data-process-focus-proof]");
+const processFocusAction = document.querySelector("[data-process-focus-action]");
+const processFocusRecord = document.querySelector("[data-process-focus-record]");
+const processFocusMeter = document.querySelector("[data-process-focus-meter]");
+const processFocusTags = [
+  document.querySelector("[data-process-focus-tag-1]"),
+  document.querySelector("[data-process-focus-tag-2]"),
+  document.querySelector("[data-process-focus-tag-3]"),
+];
 const workflowSnapshot = document.querySelector("[data-workflow-snapshot]");
 const workflowSteps = document.querySelectorAll("[data-workflow-step]");
 const paymentFlow = document.querySelector("[data-payment-flow]");
 const paymentSteps = paymentFlow?.querySelectorAll("[data-payment-step]") || [];
 const contactRoute = document.querySelector("[data-contact-route]");
 const contactSteps = contactRoute?.querySelectorAll("[data-contact-step]") || [];
+const contactBox = document.querySelector(".contact-box");
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
@@ -84,6 +98,7 @@ let deliverySequenceTimers = [];
 let showcaseSequencePlayed = false;
 let showcaseSequenceTimers = [];
 let showcaseUserControlled = false;
+let processFocusIndex = -1;
 let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
 let pricingSequencePlayed = false;
@@ -300,6 +315,49 @@ const detailFocusData = [
   },
 ];
 
+const processFocusData = [
+  {
+    title: "Discuss",
+    label: "Intake",
+    copy: "Goals, current setup, access needs, and success criteria are gathered before scope is written.",
+    proof: "Goal and access list",
+    action: "Share project links",
+    record: "Intake notes saved",
+    level: "25%",
+    tags: ["Goals", "Access needs", "Success criteria"],
+  },
+  {
+    title: "Plan",
+    label: "Fixed scope",
+    copy: "The project is translated into a written quote with price, timeline, deliverables, and constraints.",
+    proof: "Quote and timeline",
+    action: "Approve written scope",
+    record: "Scope packet confirmed",
+    level: "50%",
+    tags: ["Fixed price", "Timeline", "Deliverables"],
+  },
+  {
+    title: "Build",
+    label: "Execution",
+    copy: "The scoped work is completed, tested against the brief, and kept focused on the agreed outcome.",
+    proof: "QA pass recorded",
+    action: "Review progress update",
+    record: "Build notes captured",
+    level: "75%",
+    tags: ["Implementation", "Testing", "Progress notes"],
+  },
+  {
+    title: "Deliver",
+    label: "Handoff",
+    copy: "Final files, included revisions, support expectations, and next steps are packaged for review.",
+    proof: "Files and notes sent",
+    action: "Review final handoff",
+    record: "Delivery summary saved",
+    level: "100%",
+    tags: ["Files", "Revisions", "Next steps"],
+  },
+];
+
 const updateScrollState = () => {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -321,24 +379,12 @@ const updateScrollState = () => {
     const end = window.innerHeight * 0.24;
     processProgress = (start - processBounds.top) / (start - end + processBounds.height * 0.45);
     processProgress = Math.min(Math.max(processProgress, 0), 1);
-    processTrack.style.setProperty("--process-progress", processProgress.toFixed(3));
     const activeIndex =
       processProgress > 0.03
         ? Math.min(processSteps.length - 1, Math.floor(processProgress * (processSteps.length - 1) + 0.001))
         : -1;
 
-    processSteps.forEach((step, index) => {
-      const stepPoint = processSteps.length === 1 ? 1 : index / (processSteps.length - 1);
-      const isActive = index === activeIndex;
-
-      step.classList.toggle("is-process-active", isActive);
-      step.classList.toggle("is-process-complete", processProgress >= stepPoint);
-      if (isActive) {
-        step.setAttribute("aria-current", "step");
-      } else {
-        step.removeAttribute("aria-current");
-      }
-    });
+    setProcessStep(activeIndex, processProgress);
   }
 
   if (progress) {
@@ -363,6 +409,55 @@ const requestScrollUpdate = () => {
   if (!ticking) {
     window.requestAnimationFrame(updateScrollState);
     ticking = true;
+  }
+};
+
+const setProcessStep = (activeIndex, progressValue, options = {}) => {
+  if (!processSteps.length) return;
+
+  const activeStep = activeIndex >= 0 ? Math.min(processSteps.length - 1, activeIndex) : -1;
+  const focusIndex = activeStep >= 0 ? activeStep : 0;
+  const fallbackProgress = processSteps.length > 1 ? focusIndex / (processSteps.length - 1) : 1;
+  const processProgress = typeof progressValue === "number" ? progressValue : fallbackProgress;
+
+  if (options.syncProgress !== false) {
+    processTrack?.style.setProperty("--process-progress", processProgress.toFixed(3));
+  }
+
+  processSteps.forEach((step, index) => {
+    const stepPoint = processSteps.length === 1 ? 1 : index / (processSteps.length - 1);
+    const isActive = index === activeStep;
+
+    step.classList.toggle("is-process-active", isActive);
+    step.classList.toggle("is-process-complete", processProgress >= stepPoint);
+    if (isActive) {
+      step.setAttribute("aria-current", "step");
+    } else {
+      step.removeAttribute("aria-current");
+    }
+  });
+
+  const focusData = processFocusData[focusIndex];
+  if (!processFocus || !focusData) return;
+
+  const shouldSwap = processFocusIndex !== focusIndex || options.force;
+  processFocusIndex = focusIndex;
+  processFocus.style.setProperty("--process-focus-level", focusData.level);
+  if (processFocusTitle) processFocusTitle.textContent = focusData.title;
+  if (processFocusLabel) processFocusLabel.textContent = focusData.label;
+  if (processFocusCopy) processFocusCopy.textContent = focusData.copy;
+  if (processFocusProof) processFocusProof.textContent = focusData.proof;
+  if (processFocusAction) processFocusAction.textContent = focusData.action;
+  if (processFocusRecord) processFocusRecord.textContent = focusData.record;
+  processFocusMeter?.style.setProperty("--process-focus-level", focusData.level);
+  processFocusTags.forEach((tag, index) => {
+    if (tag) tag.textContent = focusData.tags[index];
+  });
+
+  if (shouldSwap) {
+    processFocus.classList.remove("is-swapping");
+    void processFocus.offsetWidth;
+    processFocus.classList.add("is-swapping");
   }
 };
 
@@ -463,6 +558,14 @@ const playContactRoute = () => {
   if (!contactSteps.length || contactRoutePlayed) return;
   contactRoutePlayed = true;
   setContactStep(0);
+  contactSteps.forEach((_, index) => {
+    window.setTimeout(() => {
+      setContactStep(index);
+      if (index === contactSteps.length - 1) {
+        contactBox?.classList.add("is-contact-ready");
+      }
+    }, index * 620);
+  });
 };
 
 const setPricingCard = (activeIndex) => {
@@ -598,6 +701,7 @@ const playShowcaseSequence = () => {
 
 if (reduceMotion) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
+  if (processSteps.length) setProcessStep(0, 0, { force: true });
   if (serviceCards.length) setServiceCard(window.innerWidth <= 940 ? 0 : 1);
   if (deliveryRows.length) setDeliveryRow(deliveryRows.length - 1);
   if (pricingCards.length) setPricingCard(getPreferredPricingIndex());
@@ -640,6 +744,13 @@ if (serviceCards.length && !reduceMotion) {
       clearServiceSequence();
       setServiceCard(index);
     });
+  });
+}
+
+if (processSteps.length) {
+  processSteps.forEach((step, index) => {
+    step.addEventListener("pointerenter", () => setProcessStep(index));
+    step.addEventListener("focusin", () => setProcessStep(index));
   });
 }
 

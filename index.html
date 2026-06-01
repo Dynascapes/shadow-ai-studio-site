@@ -10,8 +10,8 @@
     />
     <meta name="theme-color" content="#0d1b2a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260601-23" />
-    <script src="script.js?v=20260601-23" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260601-24" />
+    <script src="script.js?v=20260601-24" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -430,7 +430,7 @@
           <p>Simple, transparent, and built around your goals.</p>
         </div>
         <div class="process-grid" data-reveal data-process-track>
-          <article data-process-step>
+          <article data-process-step tabindex="0">
             <span class="process-number">01</span>
             <div class="process-copy">
               <div class="process-card-head">
@@ -444,7 +444,7 @@
               </div>
             </div>
           </article>
-          <article data-process-step>
+          <article data-process-step tabindex="0">
             <span class="process-number">02</span>
             <div class="process-copy">
               <div class="process-card-head">
@@ -458,7 +458,7 @@
               </div>
             </div>
           </article>
-          <article data-process-step>
+          <article data-process-step tabindex="0">
             <span class="process-number">03</span>
             <div class="process-copy">
               <div class="process-card-head">
@@ -472,7 +472,7 @@
               </div>
             </div>
           </article>
-          <article data-process-step>
+          <article data-process-step tabindex="0">
             <span class="process-number">04</span>
             <div class="process-copy">
               <div class="process-card-head">
@@ -486,6 +486,32 @@
               </div>
             </div>
           </article>
+        </div>
+        <div class="process-focus" data-reveal data-reveal-delay="120" data-hover-card data-process-focus>
+          <div class="process-focus-header">
+            <div>
+              <span>Handoff packet</span>
+              <strong data-process-focus-title>Discuss</strong>
+            </div>
+            <em data-process-focus-label>Intake</em>
+          </div>
+          <p data-process-focus-copy>
+            Goals, current setup, access needs, and success criteria are gathered before scope is written.
+          </p>
+          <div class="process-focus-grid">
+            <span><em>Proof point</em><strong data-process-focus-proof>Goal and access list</strong></span>
+            <span><em>Client action</em><strong data-process-focus-action>Share project links</strong></span>
+            <span><em>Record</em><strong data-process-focus-record>Intake notes saved</strong></span>
+          </div>
+          <div class="process-focus-meter" aria-label="Process progress">
+            <span>Process progress</span>
+            <em aria-hidden="true"><i data-process-focus-meter style="--process-focus-level: 25%"></i></em>
+          </div>
+          <div class="process-focus-tags" aria-label="Current phase details">
+            <span data-process-focus-tag-1>Goals</span>
+            <span data-process-focus-tag-2>Access needs</span>
+            <span data-process-focus-tag-3>Success criteria</span>
+          </div>
         </div>
       </section>
 
