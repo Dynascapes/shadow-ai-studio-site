@@ -26,6 +26,8 @@ const showcaseTabs = document.querySelectorAll("[data-showcase]");
 const showcaseTabsContainer = document.querySelector(".showcase-tabs");
 const showcasePanel = document.querySelector(".showcase-panel");
 const showcaseCta = document.querySelector("[data-showcase-cta]");
+const showcaseRailSteps = document.querySelectorAll(".showcase-rail span");
+const previewStageSteps = document.querySelectorAll(".preview-stage span");
 const pricingGrid = document.querySelector("[data-pricing-grid]");
 const pricingCards = pricingGrid?.querySelectorAll("[data-price-card]") || [];
 const pricingGuide = document.querySelector("[data-pricing-guide]");
@@ -103,6 +105,8 @@ let deliverySequenceTimers = [];
 let showcaseSequencePlayed = false;
 let showcaseSequenceTimers = [];
 let showcaseUserControlled = false;
+let showcaseCommittedKey = "site";
+let showcaseIsPreviewing = false;
 let processFocusIndex = -1;
 let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
@@ -131,6 +135,7 @@ const showcaseData = {
     artifacts: ["Offer copy", "Policy links", "Launch notes"],
     previewCards: ["Public offer page", "Checkout-ready terms"],
     stages: ["Scope", "Checks", "Handoff"],
+    stageIndex: 2,
     module: "Launch packet",
     score: "78%",
     notes: ["Offer ready", "Policy links checked", "Mobile pass"],
@@ -150,6 +155,7 @@ const showcaseData = {
     artifacts: ["Bug map", "Deploy checks", "Fix summary"],
     previewCards: ["Blocked path mapped", "Handoff notes ready"],
     stages: ["Audit", "Fix", "Verify"],
+    stageIndex: 1,
     module: "Repair packet",
     score: "64%",
     notes: ["Blockers grouped", "Deploy path checked", "Fix notes ready"],
@@ -169,6 +175,7 @@ const showcaseData = {
     artifacts: ["Trigger plan", "Test run", "Usage notes"],
     previewCards: ["Workflow run logged", "Setup notes delivered"],
     stages: ["Trigger", "Run", "Document"],
+    stageIndex: 2,
     module: "Workflow packet",
     score: "86%",
     notes: ["Trigger defined", "Test run logged", "Usage notes included"],
@@ -950,15 +957,49 @@ const syncAllActiveIndicators = () => {
   syncActiveIndicator(briefOptionsContainer, document.querySelector(".brief-option.is-active"));
 };
 
+const setShowcaseStage = (activeIndex) => {
+  const stageCount = Math.max(showcaseRailSteps.length, previewStageSteps.length);
+  if (!stageCount) return;
+
+  const stageIndex = Math.min(stageCount - 1, Math.max(0, activeIndex));
+  const progress = stageCount > 1 ? stageIndex / (stageCount - 1) : 1;
+
+  showcaseShell?.style.setProperty("--showcase-stage-progress", progress.toFixed(3));
+
+  const syncStepState = (step, index) => {
+    step.classList.toggle("is-stage-active", index === stageIndex);
+    step.classList.toggle("is-stage-complete", index < stageIndex);
+    if (index === stageIndex) {
+      step.setAttribute("aria-current", "step");
+    } else {
+      step.removeAttribute("aria-current");
+    }
+  };
+
+  showcaseRailSteps.forEach(syncStepState);
+  previewStageSteps.forEach(syncStepState);
+};
+
 const updateShowcase = (key, options = {}) => {
   const data = showcaseData[key];
   if (!data || !showcasePanel) return;
 
-  if (options.source !== "auto") markShowcaseUserControlled();
+  const isPreview = options.source === "preview";
+  const shouldCommit = options.commit !== false;
+  const shouldAnimate = options.animate !== false && !reduceMotion;
+
+  if (options.source !== "auto" && options.markUser !== false) markShowcaseUserControlled();
+  if (shouldCommit) {
+    showcaseCommittedKey = key;
+    showcaseIsPreviewing = false;
+  } else {
+    showcaseIsPreviewing = true;
+  }
 
   showcaseTabs.forEach((tab) => {
     const isActive = tab.dataset.showcase === key;
     tab.classList.toggle("is-active", isActive);
+    tab.classList.toggle("is-previewed", isPreview && isActive);
     tab.setAttribute("aria-selected", String(isActive));
     tab.tabIndex = isActive ? 0 : -1;
   });
@@ -968,10 +1009,15 @@ const updateShowcase = (key, options = {}) => {
   }
   showcasePanel.dataset.briefKey = data.briefKey;
   syncActiveIndicator(showcaseTabsContainer, activeShowcaseTab);
+  setShowcaseStage(data.stageIndex ?? data.stages.length - 1);
 
-  showcasePanel.classList.remove("is-swapping");
-  void showcasePanel.offsetWidth;
-  showcasePanel.classList.add("is-swapping");
+  if (shouldAnimate) {
+    showcaseShell?.classList.remove("is-showcase-settling");
+    showcasePanel.classList.remove("is-swapping");
+    void showcasePanel.offsetWidth;
+    showcaseShell?.classList.add("is-showcase-settling");
+    showcasePanel.classList.add("is-swapping");
+  }
 
   document.querySelector("[data-showcase-kind]").textContent = data.kind;
   document.querySelector("[data-showcase-title]").textContent = data.title;
@@ -1009,20 +1055,31 @@ const updateShowcase = (key, options = {}) => {
     preview.querySelectorAll(".preview-bars span").forEach((bar, index) => {
       bar.style.setProperty("--bar-width", data.bars[index] || "72%");
     });
-    preview.classList.remove("is-morphing");
-    void preview.offsetWidth;
-    preview.classList.add("is-morphing");
+    if (shouldAnimate) {
+      preview.classList.remove("is-morphing");
+      void preview.offsetWidth;
+      preview.classList.add("is-morphing");
+    }
   }
 };
 
 if (showcaseTabs.length) {
   showcaseShell?.addEventListener("pointerenter", markShowcaseUserControlled);
   showcaseShell?.addEventListener("focusin", markShowcaseUserControlled);
+  showcaseShell?.addEventListener("pointerleave", () => {
+    if (showcaseIsPreviewing) {
+      updateShowcase(showcaseCommittedKey, { source: "restore", markUser: false, animate: true });
+    }
+  });
 
   showcaseTabs.forEach((tab, index) => {
     tab.addEventListener("click", () => updateShowcase(tab.dataset.showcase, { source: "user" }));
-    tab.addEventListener("focusin", markShowcaseUserControlled);
-    tab.addEventListener("pointerenter", markShowcaseUserControlled);
+    tab.addEventListener("focusin", () => updateShowcase(tab.dataset.showcase, { source: "user" }));
+    tab.addEventListener("pointerenter", () => {
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        updateShowcase(tab.dataset.showcase, { source: "preview", commit: false });
+      }
+    });
 
     tab.addEventListener("keydown", (event) => {
       if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
@@ -1038,6 +1095,8 @@ if (showcaseTabs.length) {
       updateShowcase(showcaseTabs[nextIndex].dataset.showcase, { source: "user" });
     });
   });
+
+  updateShowcase(showcaseCommittedKey, { source: "init", markUser: false, animate: false });
 }
 
 const updateBrief = (key) => {

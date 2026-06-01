@@ -2025,6 +2025,7 @@ h3 {
 
 .showcase-shell {
   --shine-x: -140%;
+  --showcase-stage-progress: 1;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -2091,21 +2092,29 @@ h3 {
   width: var(--indicator-w);
   height: var(--indicator-h);
   border-radius: var(--radius);
-  background: var(--ink);
-  box-shadow: 0 12px 28px rgba(10, 21, 34, 0.18);
+  background:
+    linear-gradient(135deg, rgba(0, 115, 148, 0.22), transparent 38%),
+    var(--ink);
+  box-shadow:
+    0 16px 34px rgba(10, 21, 34, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   content: "";
   opacity: 0;
   pointer-events: none;
   transform: translate3d(var(--indicator-x), var(--indicator-y), 0);
   transition:
-    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    width 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    height 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 380ms cubic-bezier(0.19, 1, 0.22, 1),
+    width 380ms cubic-bezier(0.19, 1, 0.22, 1),
+    height 380ms cubic-bezier(0.19, 1, 0.22, 1),
     opacity 160ms ease;
 }
 
 .js-ready .showcase-tabs::after {
   opacity: 1;
+}
+
+.showcase-shell.is-showcase-settling .showcase-tabs::after {
+  animation: showcase-indicator-land 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .showcase-tab {
@@ -2168,6 +2177,10 @@ h3 {
   border-color: rgba(0, 115, 148, 0.35);
 }
 
+.showcase-tab.is-previewed {
+  color: #fff;
+}
+
 .showcase-tab.is-active {
   border-color: var(--ink);
   background: var(--ink);
@@ -2218,9 +2231,10 @@ h3 {
 }
 
 .showcase-rail::after {
-  transform: scaleX(0);
+  transform: scaleX(var(--showcase-stage-progress));
   transform-origin: left;
   background: linear-gradient(90deg, var(--accent), var(--signal));
+  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .showcase-shell.is-visible .showcase-rail::after {
@@ -2236,6 +2250,7 @@ h3 {
   font-size: 12px;
   font-weight: 850;
   text-transform: uppercase;
+  transition: color 180ms ease;
 }
 
 .showcase-rail span::before {
@@ -2248,6 +2263,31 @@ h3 {
   background: linear-gradient(135deg, var(--accent), var(--signal));
   box-shadow: 0 0 0 5px rgba(220, 239, 245, 0.82);
   content: "";
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease;
+}
+
+.showcase-rail span.is-stage-complete,
+.showcase-rail span.is-stage-active {
+  color: var(--accent-dark);
+}
+
+.showcase-rail span.is-stage-complete::before {
+  border-color: rgba(255, 255, 255, 0.92);
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(220, 239, 245, 0.9);
+}
+
+.showcase-rail span.is-stage-active::before {
+  transform: scale(1.18);
+  border-color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--signal));
+  box-shadow:
+    0 0 0 6px rgba(220, 239, 245, 0.96),
+    0 12px 24px rgba(0, 115, 148, 0.16);
 }
 
 .showcase-panel {
@@ -2304,9 +2344,20 @@ h3 {
   border-top: 1px solid var(--line);
 }
 
+.showcase-panel.is-swapping .showcase-kind,
+.showcase-panel.is-swapping .showcase-info h3,
+.showcase-panel.is-swapping .showcase-info p,
 .showcase-panel.is-swapping .showcase-list div,
 .showcase-panel.is-swapping .showcase-cta {
   animation: preview-piece-in 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.showcase-panel.is-swapping .showcase-info h3 {
+  animation-delay: 35ms;
+}
+
+.showcase-panel.is-swapping .showcase-info p {
+  animation-delay: 70ms;
 }
 
 .showcase-panel.is-swapping .showcase-list div:nth-child(2) {
@@ -2491,11 +2542,13 @@ h3 {
   right: 10%;
   left: 10%;
   height: 2px;
+  transform: scaleX(var(--showcase-stage-progress));
   transform-origin: left;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--preview-accent), var(--preview-signal));
   content: "";
   opacity: 0.7;
+  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .interface-preview.is-morphing .preview-stage::before {
@@ -2510,6 +2563,7 @@ h3 {
   color: rgba(255, 255, 255, 0.72);
   font-size: 11px;
   font-weight: 850;
+  transition: color 180ms ease;
 }
 
 .preview-stage span::before {
@@ -2522,6 +2576,11 @@ h3 {
   background: var(--preview-accent);
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--preview-accent) 18%, transparent);
   content: "";
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease;
 }
 
 .interface-preview.is-morphing .preview-stage span::before {
@@ -2534,6 +2593,26 @@ h3 {
 
 .interface-preview.is-morphing .preview-stage span:nth-child(3)::before {
   animation-delay: 220ms;
+}
+
+.preview-stage span.is-stage-complete,
+.preview-stage span.is-stage-active {
+  color: #fff;
+}
+
+.preview-stage span.is-stage-complete::before {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: var(--preview-signal);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--preview-signal) 16%, transparent);
+}
+
+.preview-stage span.is-stage-active::before {
+  transform: scale(1.16);
+  border-color: rgba(255, 255, 255, 0.42);
+  background: linear-gradient(135deg, var(--preview-accent), var(--preview-signal));
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--preview-accent) 22%, transparent),
+    0 0 24px color-mix(in srgb, var(--preview-accent) 24%, transparent);
 }
 
 .preview-grid {
@@ -2853,13 +2932,37 @@ h3 {
   }
 }
 
+@keyframes showcase-indicator-land {
+  0% {
+    filter: saturate(0.82);
+    box-shadow:
+      0 10px 22px rgba(10, 21, 34, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  58% {
+    filter: saturate(1.12);
+    box-shadow:
+      0 19px 38px rgba(10, 21, 34, 0.24),
+      0 0 0 5px rgba(0, 115, 148, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+
+  100% {
+    filter: saturate(1);
+    box-shadow:
+      0 16px 34px rgba(10, 21, 34, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
 @keyframes showcase-rail-fill {
   0% {
     transform: scaleX(0);
   }
 
   100% {
-    transform: scaleX(1);
+    transform: scaleX(var(--showcase-stage-progress));
   }
 }
 
@@ -7029,6 +7132,13 @@ h3 {
   .workflow-snapshot.is-advancing .workflow-timer span,
   .workflow-snapshot li.is-active::after,
   .contact-box.is-contact-ready::after,
+  .showcase-shell.is-showcase-settling .showcase-tabs::after,
+  .showcase-panel.is-swapping .showcase-kind,
+  .showcase-panel.is-swapping .showcase-info h3,
+  .showcase-panel.is-swapping .showcase-info p,
+  .showcase-panel.is-swapping .showcase-list div,
+  .showcase-panel.is-swapping .showcase-artifacts span,
+  .showcase-panel.is-swapping .showcase-cta,
   .interface-preview.is-morphing::after,
   .interface-preview.is-morphing .preview-stage::before,
   .interface-preview.is-morphing .preview-stage span::before,
@@ -7049,6 +7159,12 @@ h3 {
   .process-focus.is-swapping .process-focus-grid span,
   .process-focus.is-swapping .process-focus-tags span,
   .contact-box.is-contact-ready::after,
+  .showcase-panel.is-swapping .showcase-kind,
+  .showcase-panel.is-swapping .showcase-info h3,
+  .showcase-panel.is-swapping .showcase-info p,
+  .showcase-panel.is-swapping .showcase-list div,
+  .showcase-panel.is-swapping .showcase-artifacts span,
+  .showcase-panel.is-swapping .showcase-cta,
   .interface-preview.is-morphing .preview-stage::before,
   .interface-preview.is-morphing .preview-stage span::before,
   .interface-preview.is-morphing .preview-progress span,
