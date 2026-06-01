@@ -10,8 +10,8 @@
     />
     <meta name="theme-color" content="#0d1b2a" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20260601-17" />
-    <script src="script.js?v=20260601-17" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260601-19" />
+    <script src="script.js?v=20260601-19" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -817,8 +817,8 @@
             <div class="contact-route-line" aria-hidden="true"></div>
             <div class="contact-route-step is-active" data-contact-step aria-current="step">
               <span>01</span>
-              <strong>Request received</strong>
-              <small>Goal, current link, and timeline are reviewed first.</small>
+              <strong>Send request</strong>
+              <small>Share the goal, current link, and timeline in one short email.</small>
             </div>
             <div class="contact-route-step" data-contact-step>
               <span>02</span>
@@ -837,14 +837,33 @@
             <span>Project request</span>
             <strong>Start by email</strong>
           </div>
-          <a class="contact-email" href="mailto:dynascapes@gmail.com">dynascapes@gmail.com</a>
+          <div class="contact-email-row">
+            <a class="contact-email" href="mailto:dynascapes@gmail.com">dynascapes@gmail.com</a>
+            <button class="contact-copy-email" type="button" data-copy-email>Copy</button>
+          </div>
           <ul class="contact-checklist" aria-label="Helpful details to include">
             <li><span aria-hidden="true">01</span>Goal or problem</li>
             <li><span aria-hidden="true">02</span>Current site or app link</li>
             <li><span aria-hidden="true">03</span>Deadline or timeline</li>
+            <li><span aria-hidden="true">04</span>Package or budget range</li>
           </ul>
+          <div class="contact-draft" aria-label="Email draft preview">
+            <div>
+              <span>Subject</span>
+              <strong>Project request</strong>
+            </div>
+            <div>
+              <span>Body fields</span>
+              <strong>Goal, link, deadline, package, budget</strong>
+            </div>
+          </div>
           <p class="contact-response"><span>Typical reply</span><strong>Within 24 hours on business days</strong></p>
-          <a class="button" href="mailto:dynascapes@gmail.com?subject=Project%20request">Start email</a>
+          <a
+            class="button"
+            href="mailto:dynascapes@gmail.com?subject=Project%20request&body=Hi%20Shadow%20AI%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20project.%0A%0AGoal%3A%0ACurrent%20site%2Fapp%20link%3A%0ADeadline%20or%20timeline%3A%0APackage%20or%20project%20type%3A%0ABudget%20range%3A%0A"
+          >
+            Email project request
+          </a>
         </div>
       </section>
     </main>

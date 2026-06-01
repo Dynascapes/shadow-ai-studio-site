@@ -4396,11 +4396,50 @@ h3 {
 
 .contact-email {
   display: block;
+  min-width: 0;
   color: var(--accent);
-  font-size: clamp(20px, 2.4vw, 25px);
+  font-size: clamp(18px, 1.7vw, 20px);
   font-weight: 850;
   line-height: 1.2;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  white-space: nowrap;
+}
+
+.contact-email-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.contact-copy-email {
+  display: inline-grid;
+  width: 100%;
+  min-height: 38px;
+  cursor: pointer;
+  place-items: center;
+  padding: 0 13px;
+  border: 1px solid rgba(0, 115, 148, 0.18);
+  border-radius: var(--radius);
+  background: rgba(220, 239, 245, 0.62);
+  color: var(--accent-dark);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.contact-copy-email:hover,
+.contact-copy-email:focus-visible,
+.contact-copy-email.is-copied {
+  transform: translateY(-1px);
+  border-color: rgba(17, 138, 95, 0.22);
+  background: rgba(17, 138, 95, 0.1);
+  color: var(--success);
 }
 
 .contact-checklist {
@@ -4436,6 +4475,43 @@ h3 {
   color: var(--accent-dark);
   font-size: 11px;
   font-weight: 900;
+}
+
+.contact-draft {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(207, 220, 228, 0.78);
+  border-radius: var(--radius);
+  background: rgba(207, 220, 228, 0.72);
+}
+
+.contact-draft div {
+  min-width: 0;
+  padding: 13px;
+  background:
+    linear-gradient(135deg, rgba(0, 115, 148, 0.04), transparent 50%),
+    rgba(255, 255, 255, 0.74);
+}
+
+.contact-draft span,
+.contact-draft strong {
+  display: block;
+}
+
+.contact-draft span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.contact-draft strong {
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
 }
 
 .contact-response {
@@ -4783,6 +4859,10 @@ h3 {
 
 .js-ready .contact-box.is-visible .contact-checklist li:nth-child(3) {
   animation-delay: 160ms;
+}
+
+.js-ready .contact-box.is-visible .contact-checklist li:nth-child(4) {
+  animation-delay: 240ms;
 }
 
 .js-ready .service-action {
@@ -5353,6 +5433,15 @@ h3 {
 
   .contact-box {
     padding: 26px;
+  }
+
+  .contact-email-row,
+  .contact-draft {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-email {
+    font-size: clamp(12px, 3.9vw, 18px);
   }
 
   .faq-list summary {

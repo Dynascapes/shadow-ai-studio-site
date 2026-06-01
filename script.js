@@ -33,6 +33,7 @@ const briefOptionsContainer = document.querySelector(".brief-options");
 const briefOutput = document.querySelector(".brief-output");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
+const copyEmailButton = document.querySelector("[data-copy-email]");
 const magneticButtons = document.querySelectorAll(".button");
 const dockGuardTargets = document.querySelectorAll("#services, #work, #pricing, #payments, #faq, #brief, #contact, .site-footer");
 const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
@@ -322,7 +323,7 @@ const playPaymentFlow = () => {
 };
 
 const setContactStep = (activeIndex) => {
-  const progress = contactSteps.length > 1 ? activeIndex / (contactSteps.length - 1) : 1;
+  const progress = contactSteps.length > 1 ? activeIndex / (contactSteps.length - 1) : 0;
 
   contactRoute?.style.setProperty("--route-progress", progress.toFixed(3));
   contactSteps.forEach((step, index) => {
@@ -340,9 +341,7 @@ const setContactStep = (activeIndex) => {
 const playContactRoute = () => {
   if (!contactSteps.length || contactRoutePlayed) return;
   contactRoutePlayed = true;
-  contactSteps.forEach((_, index) => {
-    window.setTimeout(() => setContactStep(index), index * 560);
-  });
+  setContactStep(0);
 };
 
 const setPricingCard = (activeIndex) => {
@@ -411,7 +410,7 @@ if (reduceMotion) {
   if (deliveryRows.length) setDeliveryRow(deliveryRows.length - 1);
   if (pricingCards.length) setPricingCard(getPreferredPricingIndex());
   if (paymentSteps.length) setPaymentStep(paymentSteps.length - 1);
-  if (contactSteps.length) setContactStep(contactSteps.length - 1);
+  if (contactSteps.length) setContactStep(0);
 } else {
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -763,6 +762,24 @@ showcaseCta?.addEventListener("click", () => {
 
 backTopButton?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+});
+
+copyEmailButton?.addEventListener("click", async () => {
+  const originalText = copyEmailButton.textContent;
+  try {
+    await navigator.clipboard.writeText("dynascapes@gmail.com");
+    copyEmailButton.textContent = "Copied";
+    copyEmailButton.classList.add("is-copied");
+    window.setTimeout(() => {
+      copyEmailButton.textContent = originalText;
+      copyEmailButton.classList.remove("is-copied");
+    }, 1600);
+  } catch {
+    copyEmailButton.textContent = "Email shown";
+    window.setTimeout(() => {
+      copyEmailButton.textContent = originalText;
+    }, 1600);
+  }
 });
 
 const setMenuOpen = (isOpen) => {
