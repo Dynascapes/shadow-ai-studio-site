@@ -28,10 +28,13 @@ const processTrack = document.querySelector("[data-process-track]");
 const processSteps = processTrack?.querySelectorAll("[data-process-step]") || [];
 const workflowSnapshot = document.querySelector("[data-workflow-snapshot]");
 const workflowSteps = document.querySelectorAll("[data-workflow-step]");
+const paymentFlow = document.querySelector("[data-payment-flow]");
+const paymentSteps = paymentFlow?.querySelectorAll("[data-payment-step]") || [];
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
 let workflowStepIndex = 0;
+let paymentFlowPlayed = false;
 const workflowDuration = 2300;
 
 const showcaseData = {
@@ -189,8 +192,30 @@ const requestScrollUpdate = () => {
   }
 };
 
+const setPaymentStep = (activeIndex) => {
+  paymentSteps.forEach((step, index) => {
+    const isActive = index === activeIndex;
+    step.classList.toggle("is-active", isActive);
+    step.classList.toggle("is-complete", index < activeIndex);
+    if (isActive) {
+      step.setAttribute("aria-current", "step");
+    } else {
+      step.removeAttribute("aria-current");
+    }
+  });
+};
+
+const playPaymentFlow = () => {
+  if (!paymentSteps.length || paymentFlowPlayed) return;
+  paymentFlowPlayed = true;
+  paymentSteps.forEach((_, index) => {
+    window.setTimeout(() => setPaymentStep(index), index * 620);
+  });
+};
+
 if (reduceMotion) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
+  if (paymentSteps.length) setPaymentStep(paymentSteps.length - 1);
 } else {
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -201,6 +226,7 @@ if (reduceMotion) {
             entry.target.style.transitionDelay = `${Number(delay) || 0}ms`;
           }
           entry.target.classList.add("is-visible");
+          if (entry.target === paymentFlow) playPaymentFlow();
           revealObserver.unobserve(entry.target);
         }
       });

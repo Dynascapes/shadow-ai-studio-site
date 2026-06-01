@@ -2216,15 +2216,174 @@ h3 {
 .details-section {
   display: grid;
   max-width: 1120px;
+  align-items: start;
   grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
   gap: 54px;
   margin: 0 auto;
+}
+
+.details-copy {
+  position: sticky;
+  top: 108px;
+  align-self: start;
 }
 
 .details-copy p {
   margin-top: 14px;
   color: var(--muted);
   font-size: 19px;
+}
+
+.payment-flow {
+  position: relative;
+  overflow: hidden;
+  margin-top: 28px;
+  border: 1px solid rgba(0, 115, 148, 0.18);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(255, 243, 228, 0.76), transparent 34%),
+    linear-gradient(180deg, #ffffff, #f7fbfd);
+  box-shadow: 0 18px 42px rgba(13, 27, 42, 0.09);
+}
+
+.payment-flow::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--signal), var(--accent), var(--success));
+  content: "";
+}
+
+.payment-flow-header {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid rgba(207, 220, 228, 0.78);
+}
+
+.payment-flow-header span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.payment-flow-header strong {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  border: 1px solid rgba(17, 138, 95, 0.22);
+  border-radius: 999px;
+  padding: 0 12px;
+  background: rgba(17, 138, 95, 0.08);
+  color: var(--success);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.payment-step {
+  position: relative;
+  display: grid;
+  min-height: 86px;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 13px;
+  align-items: start;
+  padding: 18px;
+  color: var(--muted);
+  transition:
+    background 240ms ease,
+    color 240ms ease,
+    opacity 240ms ease,
+    transform 240ms ease;
+}
+
+.payment-step + .payment-step {
+  border-top: 1px solid rgba(207, 220, 228, 0.72);
+}
+
+.payment-step::before {
+  position: absolute;
+  top: 48px;
+  bottom: -22px;
+  left: 37px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(0, 115, 148, 0.3), rgba(0, 115, 148, 0.04));
+  content: "";
+  transform: scaleY(0.36);
+  transform-origin: top;
+  transition: transform 360ms ease;
+}
+
+.payment-step:last-child::before {
+  display: none;
+}
+
+.payment-step-index {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 115, 148, 0.2);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 950;
+  box-shadow: 0 10px 22px rgba(13, 27, 42, 0.08);
+  transition:
+    background 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease,
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.payment-step strong {
+  display: block;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.payment-step small {
+  display: block;
+  margin-top: 4px;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.payment-step.is-active {
+  background: rgba(0, 115, 148, 0.055);
+  color: var(--text-2);
+  transform: translateX(4px);
+}
+
+.payment-step.is-active::before,
+.payment-step.is-complete::before {
+  transform: scaleY(1);
+}
+
+.payment-step.is-active .payment-step-index {
+  border-color: rgba(200, 113, 30, 0.36);
+  background: var(--signal-soft);
+  color: var(--signal);
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(200, 113, 30, 0.14);
+}
+
+.payment-step.is-complete .payment-step-index {
+  border-color: rgba(17, 138, 95, 0.28);
+  background: rgba(17, 138, 95, 0.1);
+  color: var(--success);
 }
 
 .details-list {
@@ -2234,22 +2393,65 @@ h3 {
 }
 
 .details-list article {
+  position: relative;
+  overflow: hidden;
   padding: 28px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fff;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 253, 0.92)),
+    #fff;
   box-shadow: 0 10px 28px rgba(13, 27, 42, 0.05);
   transition:
+    border-color 180ms ease,
     transform 180ms ease,
     box-shadow 180ms ease;
 }
 
+.details-list article::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), rgba(17, 138, 95, 0.8));
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.42);
+  transform-origin: left;
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease;
+}
+
 .details-list article:hover {
   transform: translateY(-3px);
+  border-color: rgba(0, 115, 148, 0.26);
   box-shadow: 0 18px 38px rgba(13, 27, 42, 0.1);
 }
 
+.details-list article:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.detail-status {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  border: 1px solid rgba(0, 115, 148, 0.16);
+  border-radius: 999px;
+  padding: 0 10px;
+  background: rgba(0, 115, 148, 0.06);
+  color: var(--accent-dark);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
 .details-list h3 {
+  margin-top: 14px;
   font-size: 18px;
 }
 
@@ -2269,6 +2471,8 @@ h3 {
 }
 
 .policy-shortcuts a {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -2287,11 +2491,24 @@ h3 {
     box-shadow 160ms ease;
 }
 
+.policy-shortcuts a::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0, 115, 148, 0.07), transparent);
+  content: "";
+  transform: translateX(-110%);
+  transition: transform 360ms ease;
+}
+
 .policy-shortcuts a:hover {
   transform: translateY(-1px);
   border-color: rgba(0, 115, 148, 0.34);
   color: var(--accent-dark);
   box-shadow: 0 12px 24px rgba(13, 27, 42, 0.08);
+}
+
+.policy-shortcuts a:hover::before {
+  transform: translateX(110%);
 }
 
 .faq-list {
@@ -3220,6 +3437,10 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .details-copy {
+    position: static;
+  }
+
   .proof-strip,
   .details-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3417,6 +3638,25 @@ h3 {
   .proof-strip,
   .details-list {
     grid-template-columns: 1fr;
+  }
+
+  .payment-flow-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .payment-step {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .payment-step::before {
+    left: 35px;
+  }
+
+  .payment-step.is-active {
+    transform: none;
   }
 
   .section-heading {
