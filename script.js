@@ -26,9 +26,11 @@ const dockGuardTargets = document.querySelectorAll(
 const actionDockItems = actionDock?.querySelectorAll("a, button") || [];
 const processTrack = document.querySelector("[data-process-track]");
 const processSteps = processTrack?.querySelectorAll("[data-process-step]") || [];
+const workflowSteps = document.querySelectorAll("[data-workflow-step]");
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
+let workflowStepIndex = 0;
 
 const showcaseData = {
   site: {
@@ -72,6 +74,11 @@ const briefData = {
     items: ["Current setup review", "Prioritized fix list", "Next-step launch notes"],
     subject: "Launch Audit",
     article: "a",
+    meter: {
+      complexity: ["Light", "38%"],
+      turnaround: ["Fast", "82%"],
+      handoff: ["Checklist", "55%"],
+    },
   },
   website: {
     title: "Starter Website",
@@ -81,6 +88,11 @@ const briefData = {
     items: ["Up to three public pages", "Responsive layout and contact path", "Policy, pricing, and launch checks"],
     subject: "Starter Website",
     article: "a",
+    meter: {
+      complexity: ["Moderate", "64%"],
+      turnaround: ["Planned", "58%"],
+      handoff: ["Launch notes", "72%"],
+    },
   },
   automation: {
     title: "Automation Workflow",
@@ -90,6 +102,11 @@ const briefData = {
     items: ["Trigger and output defined", "Workflow setup and test run", "Usage notes for handoff"],
     subject: "Automation Project",
     article: "an",
+    meter: {
+      complexity: ["Workflow", "72%"],
+      turnaround: ["Scoped", "48%"],
+      handoff: ["Setup notes", "78%"],
+    },
   },
   fix: {
     title: "Fix Sprint",
@@ -99,6 +116,11 @@ const briefData = {
     items: ["Issue review and risk notes", "Focused fixes and verification", "Summary of changes and next steps"],
     subject: "Troubleshooting Request",
     article: "a",
+    meter: {
+      complexity: ["Deep", "88%"],
+      turnaround: ["Focused", "46%"],
+      handoff: ["Fix report", "86%"],
+    },
   },
 };
 
@@ -268,6 +290,18 @@ if (magneticButtons.length && !reduceMotion) {
   });
 }
 
+if (workflowSteps.length) {
+  workflowSteps[0].classList.add("is-active");
+
+  if (!reduceMotion) {
+    window.setInterval(() => {
+      workflowSteps[workflowStepIndex].classList.remove("is-active");
+      workflowStepIndex = (workflowStepIndex + 1) % workflowSteps.length;
+      workflowSteps[workflowStepIndex].classList.add("is-active");
+    }, 2300);
+  }
+}
+
 const updateShowcase = (key) => {
   const data = showcaseData[key];
   if (!data || !showcasePanel) return;
@@ -336,6 +370,18 @@ const updateBrief = (key) => {
   document.querySelector("[data-brief-item-1]").textContent = data.items[0];
   document.querySelector("[data-brief-item-2]").textContent = data.items[1];
   document.querySelector("[data-brief-item-3]").textContent = data.items[2];
+  document.querySelector("[data-brief-meter-complexity]").textContent = data.meter.complexity[0];
+  document.querySelector("[data-brief-meter-turnaround]").textContent = data.meter.turnaround[0];
+  document.querySelector("[data-brief-meter-handoff]").textContent = data.meter.handoff[0];
+  document
+    .querySelector("[data-brief-meter-complexity-bar]")
+    ?.style.setProperty("--meter-width", data.meter.complexity[1]);
+  document
+    .querySelector("[data-brief-meter-turnaround-bar]")
+    ?.style.setProperty("--meter-width", data.meter.turnaround[1]);
+  document
+    .querySelector("[data-brief-meter-handoff-bar]")
+    ?.style.setProperty("--meter-width", data.meter.handoff[1]);
 
   const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal:\nCurrent site/app link:\nDeadline:\n`;
   document
