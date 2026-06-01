@@ -16,6 +16,8 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const briefButtons = document.querySelectorAll("[data-brief]");
 const briefOutput = document.querySelector(".brief-output");
+const actionDock = document.querySelector(".action-dock");
+const backTopButton = document.querySelector("[data-back-top]");
 let ticking = false;
 
 const showcaseData = {
@@ -100,6 +102,7 @@ const updateScrollState = () => {
   }
 
   header?.classList.toggle("is-scrolled", scrollTop > 18);
+  actionDock?.classList.toggle("is-visible", scrollTop > Math.max(420, window.innerHeight * 0.55));
   ticking = false;
 };
 
@@ -264,6 +267,10 @@ if (briefButtons.length) {
     button.addEventListener("click", () => updateBrief(button.dataset.brief));
   });
 }
+
+backTopButton?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+});
 
 const setMenuOpen = (isOpen) => {
   if (!menuToggle || !mobileMenu) return;
