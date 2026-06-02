@@ -777,6 +777,19 @@ nav a.is-active::after,
   content: "";
 }
 
+:root[data-theme="dark"] .hero-kicker {
+  border-color: rgba(85, 197, 226, 0.34);
+  background: rgba(10, 21, 34, 0.78);
+  color: #dff8ff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 26px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="dark"] .hero-kicker::before {
+  box-shadow: 0 0 0 6px rgba(80, 212, 155, 0.16);
+}
+
 h1,
 h2,
 h3,
@@ -7039,6 +7052,11 @@ h3 {
     scroll-padding-top: 78px;
   }
 
+  body::before {
+    background-size: 36px 36px;
+    opacity: 0.72;
+  }
+
   .site-header {
     gap: 16px;
     padding: 16px 18px;
@@ -7085,7 +7103,7 @@ h3 {
 
   .hero {
     row-gap: 22px;
-    padding: 28px 28px 48px;
+    padding: 26px 24px 42px;
   }
 
   h1 {
@@ -7110,7 +7128,7 @@ h3 {
   .hero-actions {
     flex-direction: column;
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 22px;
   }
 
   .hero-actions .button {
@@ -7156,7 +7174,7 @@ h3 {
 
   .trust-row {
     grid-template-columns: 1fr;
-    margin-top: 34px;
+    margin-top: 28px;
   }
 
   .hero-media {
@@ -7229,6 +7247,7 @@ h3 {
   }
 
   .section-heading {
+    margin-bottom: 30px;
     text-align: left;
   }
 
@@ -7283,8 +7302,12 @@ h3 {
     min-height: 0;
   }
 
+  .section {
+    padding: 48px 24px;
+  }
+
   .pricing-guide {
-    margin: -2px 0 22px;
+    margin: -2px 0 18px;
   }
 
   .pricing-guide span {
@@ -7293,8 +7316,8 @@ h3 {
   }
 
   .pricing-focus {
-    margin: -4px 0 24px;
-    padding: 18px;
+    margin: -4px 0 20px;
+    padding: 16px;
   }
 
   .pricing-focus-header {
@@ -7382,8 +7405,19 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .brief-section {
+    gap: 22px;
+  }
+
+  .brief-copy p {
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
   .brief-meter {
     grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 16px;
   }
 
   .brief-mail-lines {
@@ -7401,13 +7435,51 @@ h3 {
   }
 
   .brief-option {
-    min-height: 52px;
+    min-height: 48px;
     padding: 0 10px;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .brief-output {
-    padding: 24px;
+    padding: 20px;
+  }
+
+  .brief-output h3 {
+    font-size: clamp(25px, 8vw, 31px);
+  }
+
+  .brief-output p {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .brief-meta {
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .brief-meta div,
+  .brief-meter div {
+    padding: 12px;
+  }
+
+  .brief-meta strong {
+    font-size: 18px;
+  }
+
+  .brief-mail {
+    gap: 12px;
+    margin-top: 16px;
+    padding: 14px;
+  }
+
+  .brief-deliverables {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .brief-output .button {
+    margin-top: 20px;
   }
 
   .board-header {
@@ -7446,7 +7518,27 @@ h3 {
   }
 
   .price-card {
-    padding: 28px;
+    padding: 22px;
+  }
+
+  .price-card h3 {
+    font-size: 21px;
+  }
+
+  .price-card > p:not(.price):not(.price-note):not(.price-fit) {
+    margin-top: 10px;
+  }
+
+  .price-fit {
+    margin-top: 12px;
+  }
+
+  .price-features {
+    margin: 12px 0 14px;
+  }
+
+  .price strong {
+    font-size: 28px;
   }
 
   .contact-route {
