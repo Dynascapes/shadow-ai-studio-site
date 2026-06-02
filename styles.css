@@ -1128,6 +1128,10 @@ h1 {
   stroke-width: 1.8;
 }
 
+:root[data-theme="dark"] .trust-row div {
+  color: var(--text-2);
+}
+
 .hero-media {
   --tilt-x: 0deg;
   --tilt-y: 0deg;
@@ -1283,10 +1287,10 @@ h1 {
   bottom: -34px;
   width: min(330px, calc(100% - 36px));
   padding: 18px;
-  border: 1px solid rgba(207, 220, 228, 0.9);
+  border: 1px solid rgba(176, 199, 213, 0.96);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.93);
-  box-shadow: 0 18px 45px rgba(13, 27, 42, 0.15);
+  background: rgba(248, 252, 255, 0.98);
+  box-shadow: 0 22px 50px rgba(13, 27, 42, 0.22);
   backdrop-filter: blur(16px);
 }
 
@@ -1298,7 +1302,7 @@ h1 {
     linear-gradient(135deg, rgba(0, 115, 148, 0.08), transparent 42%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent);
   content: "";
-  opacity: 0.8;
+  opacity: 0.52;
   pointer-events: none;
 }
 
@@ -1311,7 +1315,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--muted);
+  color: #53677a;
   font-size: 13px;
   font-weight: 850;
   text-transform: uppercase;
@@ -1366,7 +1370,7 @@ h1 {
   isolation: isolate;
   min-height: 42px;
   padding: 10px 8px 8px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(159, 187, 205, 0.78);
   border-radius: 6px;
   transition:
     background 220ms ease,
@@ -1401,8 +1405,8 @@ h1 {
 }
 
 .workflow-snapshot li.is-active {
-  background: rgba(220, 239, 245, 0.48);
-  border-color: rgba(0, 115, 148, 0.22);
+  background: rgba(220, 239, 245, 0.86);
+  border-color: rgba(0, 115, 148, 0.28);
   transform: translateX(3px);
 }
 
@@ -1417,13 +1421,13 @@ h1 {
 }
 
 .workflow-snapshot li.is-complete {
-  background: rgba(220, 239, 245, 0.25);
+  background: rgba(234, 246, 250, 0.72);
 }
 
 .workflow-snapshot strong {
   position: relative;
   z-index: 2;
-  color: var(--text);
+  color: #102234;
   font-size: 14px;
   line-height: 1.25;
 }
@@ -1431,7 +1435,7 @@ h1 {
 .workflow-snapshot li span {
   position: relative;
   z-index: 2;
-  color: var(--muted);
+  color: #465b6d;
   font-size: 13px;
   line-height: 1.35;
 }
@@ -1440,12 +1444,18 @@ h1 {
   color: var(--accent-dark);
 }
 
+.workflow-snapshot li.is-active span {
+  color: #345064;
+  font-weight: 700;
+}
+
 .workflow-snapshot li.is-complete strong {
   color: var(--accent-dark);
 }
 
 .workflow-snapshot li.is-complete span {
-  color: var(--text-2);
+  color: #345064;
+  font-weight: 700;
 }
 
 @keyframes workflow-timer-fill {
@@ -7178,6 +7188,8 @@ h3 {
   }
 
   .hero-media {
+    display: grid;
+    gap: 12px;
     transform: none;
   }
 
@@ -7186,22 +7198,35 @@ h3 {
   }
 
   .hero-signal-card {
-    top: 14px;
-    left: 14px;
-    width: min(248px, calc(100% - 28px));
-    padding: 14px;
-  }
-
-  .hero-signal-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: none;
   }
 
   .workflow-snapshot {
     position: relative;
     right: auto;
     bottom: auto;
-    width: calc(100% - 24px);
-    margin: -24px auto 0;
+    width: 100%;
+    margin: 0;
+    padding: 16px;
+  }
+
+  .workflow-snapshot ol {
+    gap: 8px;
+  }
+
+  .workflow-snapshot li {
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 10px;
+    min-height: 38px;
+    padding: 9px 8px 7px;
+  }
+
+  .workflow-snapshot strong {
+    font-size: 13px;
+  }
+
+  .workflow-snapshot li span {
+    font-size: 12px;
   }
 
   .proof-strip,
