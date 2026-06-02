@@ -153,6 +153,7 @@ let processFocusIndex = -1;
 let paymentFlowPlayed = false;
 let contactRoutePlayed = false;
 let pricingSequencePlayed = false;
+let pricingUserLocked = false;
 let pricingSequenceTimers = [];
 let faqSyncing = false;
 let scopeHandoffTimer;
@@ -684,6 +685,12 @@ const clearPricingSequence = () => {
   pricingSequenceTimers = [];
 };
 
+const lockPricingSequence = () => {
+  pricingUserLocked = true;
+  pricingSequencePlayed = true;
+  clearPricingSequence();
+};
+
 const clearShowcaseSequence = () => {
   showcaseSequenceTimers.forEach((timer) => window.clearTimeout(timer));
   showcaseSequenceTimers = [];
@@ -728,7 +735,7 @@ const scheduleScopeHandoff = ({ extended = false } = {}) => {
 };
 
 const playPricingSequence = () => {
-  if (!pricingCards.length || pricingSequencePlayed) return;
+  if (!pricingCards.length || pricingSequencePlayed || pricingUserLocked) return;
   pricingSequencePlayed = true;
   clearPricingSequence();
 
@@ -864,11 +871,11 @@ if (deliveryRows.length && !reduceMotion) {
 if (pricingCards.length && !reduceMotion) {
   pricingCards.forEach((card, index) => {
     card.addEventListener("pointerenter", () => {
-      clearPricingSequence();
+      lockPricingSequence();
       setPricingCard(index);
     });
     card.addEventListener("focusin", () => {
-      clearPricingSequence();
+      lockPricingSequence();
       setPricingCard(index);
       updateBrief(pricingBriefKeys[index], { extended: true });
     });
@@ -1194,6 +1201,12 @@ if (showcaseTabs.length) {
 const updateBrief = (key, handoffOptions = {}) => {
   const data = briefData[key];
   if (!data || !briefOutput) return;
+  const pricingIndex = pricingBriefKeys.indexOf(key);
+
+  if (pricingIndex >= 0 && pricingCards.length) {
+    lockPricingSequence();
+    setPricingCard(pricingIndex);
+  }
 
   briefButtons.forEach((button) => {
     const isActive = button.dataset.brief === key;
@@ -1286,11 +1299,6 @@ if (briefButtons.length) {
 pricingBriefLinks.forEach((link) => {
   link.addEventListener("click", () => {
     const briefKey = link.dataset.pricingBrief;
-    const pricingIndex = pricingBriefKeys.indexOf(briefKey);
-    if (pricingIndex >= 0) {
-      clearPricingSequence();
-      setPricingCard(pricingIndex);
-    }
     updateBrief(briefKey, { extended: true });
   });
 });

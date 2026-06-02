@@ -23,8 +23,8 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="styles.css?v=20260601-32" />
-    <script src="script.js?v=20260601-32" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260601-34" />
+    <script src="script.js?v=20260601-34" defer></script>
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -48,6 +48,7 @@
         <a href="#work">Work</a>
         <a href="#process">Process</a>
         <a href="#pricing">Pricing</a>
+        <a href="#brief">Brief</a>
         <a href="#payments">Payments</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
@@ -73,6 +74,7 @@
         <a href="#work">Work</a>
         <a href="#process">Process</a>
         <a href="#pricing">Pricing</a>
+        <a href="#brief">Brief</a>
         <a href="#payments">Payments</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
@@ -750,6 +752,103 @@
         </div>
       </section>
 
+      <section id="brief" class="section brief-section">
+        <div class="brief-copy" data-reveal>
+          <h2>Build a Project Brief</h2>
+          <p>
+            Choose the package that matches your project and the request preview updates with
+            a practical starting scope, estimated delivery window, and email-ready next step.
+          </p>
+        </div>
+        <div class="brief-builder" data-reveal data-reveal-delay="120">
+          <div class="brief-options" aria-label="Project request type">
+            <button class="brief-option is-active" type="button" aria-pressed="true" data-brief="audit">
+              Launch Audit
+            </button>
+            <button class="brief-option" type="button" aria-pressed="false" data-brief="website">
+              Starter Website
+            </button>
+            <button class="brief-option" type="button" aria-pressed="false" data-brief="automation">
+              Automation
+            </button>
+            <button class="brief-option" type="button" aria-pressed="false" data-brief="fix">
+              Fix Sprint
+            </button>
+          </div>
+          <div class="brief-output" data-hover-card aria-live="polite">
+            <span class="brief-label" data-brief-label>Selected scope</span>
+            <h3 data-brief-title>Launch Audit</h3>
+            <p data-brief-copy>
+              Review an AI-built app, website, or workflow and receive a clear fix list with next steps.
+            </p>
+            <div class="brief-meta">
+              <div>
+                <span>Starting at</span>
+                <strong data-brief-price>$49 USD</strong>
+              </div>
+              <div>
+                <span>Typical delivery</span>
+                <strong data-brief-time>1-3 business days</strong>
+              </div>
+            </div>
+            <div class="brief-meter" aria-label="Scope profile">
+              <div>
+                <span>Complexity</span>
+                <strong data-brief-meter-complexity>Light</strong>
+                <em aria-hidden="true"><i style="--meter-width: 38%" data-brief-meter-complexity-bar></i></em>
+              </div>
+              <div>
+                <span>Turnaround</span>
+                <strong data-brief-meter-turnaround>Fast</strong>
+                <em aria-hidden="true"><i style="--meter-width: 82%" data-brief-meter-turnaround-bar></i></em>
+              </div>
+              <div>
+                <span>Handoff depth</span>
+                <strong data-brief-meter-handoff>Checklist</strong>
+                <em aria-hidden="true"><i style="--meter-width: 55%" data-brief-meter-handoff-bar></i></em>
+              </div>
+            </div>
+            <div class="brief-mail" aria-label="Email request preview">
+              <div class="brief-mail-top">
+                <span>Email draft</span>
+                <strong data-brief-email-subject>Launch Audit</strong>
+              </div>
+              <div class="brief-mail-lines">
+                <span>
+                  <em>Goal</em>
+                  <strong data-brief-email-goal>Find launch blockers before publishing</strong>
+                </span>
+                <span>
+                  <em>Timeline</em>
+                  <strong data-brief-email-timeline>1-3 business days</strong>
+                </span>
+                <span>
+                  <em>Budget</em>
+                  <strong data-brief-email-budget>Starting at $49 USD</strong>
+                </span>
+              </div>
+              <div class="brief-mail-status" aria-label="Included request fields">
+                <span>Scope starter</span>
+                <span>Link field</span>
+                <span>Budget field</span>
+              </div>
+            </div>
+            <ul class="brief-deliverables" aria-label="Included deliverables">
+              <li data-brief-item-1>Current setup review</li>
+              <li data-brief-item-2>Prioritized fix list</li>
+              <li data-brief-item-3>Next-step launch notes</li>
+            </ul>
+            <a
+              class="button"
+              data-brief-link
+              href="mailto:dynascapes@gmail.com?subject=Launch%20Audit&body=Hi%20Shadow%20AI%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20Launch%20Audit.%0A%0AGoal%3A%0ACurrent%20site%2Fapp%20link%3A%0ADeadline%20or%20timeline%3A%0APackage%20or%20project%20type%3A%20Launch%20Audit%0ABudget%20range%3A%0A"
+            >
+              Email selected scope
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section id="payments" class="section details-section">
         <div class="details-copy" data-reveal>
           <h2>Payments, Delivery, and Support</h2>
@@ -864,103 +963,6 @@
             <summary>Do you offer subscriptions?</summary>
             <p>Most work is fixed-scope. Ongoing maintenance can be quoted separately after the initial project is reviewed.</p>
           </details>
-        </div>
-      </section>
-
-      <section id="brief" class="section brief-section">
-        <div class="brief-copy" data-reveal>
-          <h2>Build a Project Brief</h2>
-          <p>
-            Choose the kind of help you need and the request preview updates with a practical
-            starting scope, estimated delivery window, and email-ready next step.
-          </p>
-        </div>
-        <div class="brief-builder" data-reveal data-reveal-delay="120">
-          <div class="brief-options" aria-label="Project request type">
-            <button class="brief-option is-active" type="button" aria-pressed="true" data-brief="audit">
-              Launch Audit
-            </button>
-            <button class="brief-option" type="button" aria-pressed="false" data-brief="website">
-              Starter Website
-            </button>
-            <button class="brief-option" type="button" aria-pressed="false" data-brief="automation">
-              Automation
-            </button>
-            <button class="brief-option" type="button" aria-pressed="false" data-brief="fix">
-              Fix Sprint
-            </button>
-          </div>
-          <div class="brief-output" data-hover-card aria-live="polite">
-            <span class="brief-label" data-brief-label>Selected scope</span>
-            <h3 data-brief-title>Launch Audit</h3>
-            <p data-brief-copy>
-              Review an AI-built app, website, or workflow and receive a clear fix list with next steps.
-            </p>
-            <div class="brief-meta">
-              <div>
-                <span>Starting at</span>
-                <strong data-brief-price>$49 USD</strong>
-              </div>
-              <div>
-                <span>Typical delivery</span>
-                <strong data-brief-time>1-3 business days</strong>
-              </div>
-            </div>
-            <div class="brief-meter" aria-label="Scope profile">
-              <div>
-                <span>Complexity</span>
-                <strong data-brief-meter-complexity>Light</strong>
-                <em aria-hidden="true"><i style="--meter-width: 38%" data-brief-meter-complexity-bar></i></em>
-              </div>
-              <div>
-                <span>Turnaround</span>
-                <strong data-brief-meter-turnaround>Fast</strong>
-                <em aria-hidden="true"><i style="--meter-width: 82%" data-brief-meter-turnaround-bar></i></em>
-              </div>
-              <div>
-                <span>Handoff depth</span>
-                <strong data-brief-meter-handoff>Checklist</strong>
-                <em aria-hidden="true"><i style="--meter-width: 55%" data-brief-meter-handoff-bar></i></em>
-              </div>
-            </div>
-            <div class="brief-mail" aria-label="Email request preview">
-              <div class="brief-mail-top">
-                <span>Email draft</span>
-                <strong data-brief-email-subject>Launch Audit</strong>
-              </div>
-              <div class="brief-mail-lines">
-                <span>
-                  <em>Goal</em>
-                  <strong data-brief-email-goal>Find launch blockers before publishing</strong>
-                </span>
-                <span>
-                  <em>Timeline</em>
-                  <strong data-brief-email-timeline>1-3 business days</strong>
-                </span>
-                <span>
-                  <em>Budget</em>
-                  <strong data-brief-email-budget>Starting at $49 USD</strong>
-                </span>
-              </div>
-              <div class="brief-mail-status" aria-label="Included request fields">
-                <span>Scope starter</span>
-                <span>Link field</span>
-                <span>Budget field</span>
-              </div>
-            </div>
-            <ul class="brief-deliverables" aria-label="Included deliverables">
-              <li data-brief-item-1>Current setup review</li>
-              <li data-brief-item-2>Prioritized fix list</li>
-              <li data-brief-item-3>Next-step launch notes</li>
-            </ul>
-            <a
-              class="button"
-              data-brief-link
-              href="mailto:dynascapes@gmail.com?subject=Launch%20Audit&body=Hi%20Shadow%20AI%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20Launch%20Audit.%0A%0AGoal%3A%0ACurrent%20site%2Fapp%20link%3A%0ADeadline%20or%20timeline%3A%0APackage%20or%20project%20type%3A%20Launch%20Audit%0ABudget%20range%3A%0A"
-            >
-              Email selected scope
-            </a>
-          </div>
         </div>
       </section>
 
