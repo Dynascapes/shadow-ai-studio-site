@@ -4861,6 +4861,47 @@ h3 {
   color: var(--success);
 }
 
+.deposit-card {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid rgba(17, 138, 95, 0.22);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(17, 138, 95, 0.1), transparent 48%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 253, 0.92)),
+    #fff;
+  box-shadow: 0 14px 34px rgba(13, 27, 42, 0.08);
+}
+
+.deposit-card span {
+  color: var(--success);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.deposit-card strong {
+  color: var(--text);
+  font-size: clamp(23px, 4vw, 30px);
+  line-height: 1.05;
+}
+
+.deposit-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.deposit-card .button {
+  width: 100%;
+  min-height: 48px;
+  justify-content: center;
+}
+
 .details-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4941,6 +4982,42 @@ h3 {
 .faq-list p {
   margin-top: 10px;
   color: var(--muted);
+}
+
+.details-list article.deposit-card {
+  gap: 12px;
+  margin-top: 0;
+  border-color: rgba(17, 138, 95, 0.24);
+  background:
+    linear-gradient(135deg, rgba(17, 138, 95, 0.1), transparent 48%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 253, 0.92)),
+    #fff;
+}
+
+.details-list article.deposit-card::before {
+  opacity: 1;
+  transform: scaleX(1);
+  background: linear-gradient(90deg, var(--success), var(--accent));
+}
+
+.details-list article.deposit-card .detail-status {
+  border-color: rgba(17, 138, 95, 0.22);
+  background: rgba(17, 138, 95, 0.08);
+  color: var(--success);
+}
+
+.details-list article.deposit-card h3 {
+  margin-top: 0;
+  font-size: clamp(23px, 2.6vw, 29px);
+}
+
+.details-list article.deposit-card p {
+  margin-top: 0;
+}
+
+.details-list article.deposit-card .button {
+  margin-top: 2px;
+  color: #fff;
 }
 
 .details-focus {
@@ -6637,6 +6714,7 @@ h3 {
 :root[data-theme="dark"] .pricing-guide span,
 :root[data-theme="dark"] .price-card,
 :root[data-theme="dark"] .payment-step,
+:root[data-theme="dark"] .deposit-card,
 :root[data-theme="dark"] .details-list article,
 :root[data-theme="dark"] .policy-shortcuts a,
 :root[data-theme="dark"] .faq-list details,
