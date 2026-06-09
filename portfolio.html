@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio | Shadow AI Studio</title>
+    <meta
+      name="description"
+      content="Selected Shadow AI Studio web development, automation, dashboard, and launch cleanup work."
+    />
+    <meta name="theme-color" content="#0d1b2a" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("shadow-theme");
+          const preferredTheme =
+            savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.dataset.theme = preferredTheme;
+          document.documentElement.style.colorScheme = preferredTheme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260609-portfolio" />
+    <script src="script.js?v=20260606-43" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Shadow AI Studio home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img">
+            <path d="M16 3 28 10v12l-12 7L4 22V10L16 3Z" />
+            <path d="m10 13 6-3 6 3-6 3-6-3Zm0 7 6 3 6-3" />
+          </svg>
+        </span>
+        <span>Shadow AI Studio</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#services">Services</a>
+        <a class="is-active" href="portfolio.html">Portfolio</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#brief">Brief</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
+          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
+          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
+        </svg>
+      </button>
+      <a class="button button-small" href="index.html#brief">Build Project Brief</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Open menu</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </header>
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav aria-label="Mobile navigation">
+        <a href="index.html#services">Services</a>
+        <a class="is-active" href="portfolio.html">Portfolio</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#brief">Brief</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="mobile-policy-links" aria-label="Policy links">
+        <a href="refund-policy.html">Refund</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <button class="theme-toggle mobile-theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
+          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
+          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
+        </svg>
+        <span data-theme-toggle-text>Dark mode</span>
+      </button>
+      <a class="button" href="index.html#brief">Build Project Brief</a>
+    </div>
+
+    <main class="portfolio-page">
+      <section class="portfolio-hero" data-reveal>
+        <div>
+          <a class="policy-back" href="index.html#work">Back to site</a>
+          <p class="portfolio-kicker">Selected work</p>
+          <h1>Portfolio</h1>
+          <p>
+            Practical web, automation, and launch cleanup work with clear scope notes. Demo and internal
+            workflow pieces are labeled plainly so expectations stay honest.
+          </p>
+          <div class="portfolio-actions">
+            <a class="button" href="https://github.com/Dynascapes" target="_blank" rel="noopener">GitHub Profile</a>
+            <a class="button button-secondary" href="index.html#brief">Send a Project Brief</a>
+          </div>
+        </div>
+        <aside class="portfolio-resume-card" aria-label="Short resume summary">
+          <span>Contractor resume</span>
+          <strong>AI-assisted web developer and automation support</strong>
+          <p>
+            Focused on scoped site fixes, static/front-end builds, dashboards, API workflow support,
+            documentation, and launch QA.
+          </p>
+          <a href="mailto:dynascapes@gmail.com">dynascapes@gmail.com</a>
+        </aside>
+      </section>
+
+      <section class="portfolio-strip" aria-label="Core capabilities" data-reveal>
+        <div><span>01</span><strong>Web builds</strong><em>HTML, CSS, JavaScript, GitHub Pages</em></div>
+        <div><span>02</span><strong>App support</strong><em>React-style UI, forms, dashboards, APIs</em></div>
+        <div><span>03</span><strong>Launch cleanup</strong><em>QA checks, policy pages, handoff docs</em></div>
+        <div><span>04</span><strong>Automation</strong><em>Workflow maps, scripts, documentation</em></div>
+      </section>
+
+      <section class="portfolio-section" aria-labelledby="portfolio-projects">
+        <div class="section-heading" data-reveal>
+          <span class="eyebrow">Case studies</span>
+          <h2 id="portfolio-projects">Proof of Work</h2>
+          <p>Current public proof first, then honest demos and workflow examples.</p>
+        </div>
+        <div class="portfolio-grid">
+          <article class="portfolio-card portfolio-card-featured" data-reveal data-hover-card>
+            <div class="portfolio-card-top">
+              <span>Live project</span>
+              <strong>Public site</strong>
+            </div>
+            <h3>Shadow AI Studio Service Website</h3>
+            <p>
+              Built a public static service site for AI-assisted web development and automation work,
+              including service packages, contact flows, policy pages, Stripe-ready payment language,
+              and responsive layout.
+            </p>
+            <ul>
+              <li>Responsive static site with mobile and desktop layouts</li>
+              <li>Service, pricing, contact, privacy, refund, and terms pages</li>
+              <li>GitHub Pages deployment and public repo</li>
+            </ul>
+            <div class="portfolio-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>GitHub Pages</span>
+            </div>
+            <div class="portfolio-links">
+              <a href="index.html">Live site</a>
+              <a href="https://github.com/Dynascapes/shadow-ai-studio-site" target="_blank" rel="noopener">Repository</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card" data-reveal data-hover-card>
+            <div class="portfolio-card-top">
+              <span>Internal workflow</span>
+              <strong>Launch QA</strong>
+            </div>
+            <h3>Launch Audit and Fix Workflow</h3>
+            <p>
+              A repeatable process for reviewing AI-built sites and small web projects before launch,
+              then grouping problems into a prioritized fix list and handoff notes.
+            </p>
+            <ul>
+              <li>Checks responsive layout, links, forms, policies, and deploy risks</li>
+              <li>Creates issue lists grouped by priority</li>
+              <li>Turns messy launch blockers into practical next steps</li>
+            </ul>
+            <div class="portfolio-tags">
+              <span>QA</span>
+              <span>Docs</span>
+              <span>Handoff</span>
+            </div>
+          </article>
+
+          <article class="portfolio-card" data-reveal data-hover-card>
+            <div class="portfolio-card-top">
+              <span>Demo concept</span>
+              <strong>Automation</strong>
+            </div>
+            <h3>Automation Workflow Planner</h3>
+            <p>
+              A planned demo for converting repetitive tasks into documented automation steps, including
+              inputs, outputs, failure cases, and handoff notes before implementation.
+            </p>
+            <ul>
+              <li>Maps request intake, task classification, and status tracking</li>
+              <li>Documents error handling and manual fallback paths</li>
+              <li>Useful for small business admin and content workflows</li>
+            </ul>
+            <div class="portfolio-tags">
+              <span>Workflow</span>
+              <span>Automation</span>
+              <span>Planning</span>
+            </div>
+          </article>
+
+          <article class="portfolio-card" data-reveal data-hover-card>
+            <div class="portfolio-card-top">
+              <span>Recommended demo</span>
+              <strong>Dashboard</strong>
+            </div>
+            <h3>Mock Operations Dashboard</h3>
+            <p>
+              A scoped demo direction for technical leads: status cards, mock data, alerts, simple
+              API contracts, and deployment notes without pretending to own a specialized domain.
+            </p>
+            <ul>
+              <li>Dashboard UI and data display for provided requirements</li>
+              <li>Frontend/backend handoff and API contract notes</li>
+              <li>Clear demo labeling, not production industrial software</li>
+            </ul>
+            <div class="portfolio-tags">
+              <span>Dashboard</span>
+              <span>API</span>
+              <span>Docs</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="portfolio-section portfolio-resume-section" aria-labelledby="resume-summary">
+        <div class="portfolio-resume-copy" data-reveal>
+          <span class="eyebrow">Resume summary</span>
+          <h2 id="resume-summary">Good-fit contract work</h2>
+          <p>
+            Best fit for small business websites, static site deployment, forms, dashboard UI cleanup,
+            API workflow support, bug fixing, launch audits, automation planning, and technical docs.
+          </p>
+        </div>
+        <div class="resume-panels" data-reveal data-reveal-delay="100">
+          <article>
+            <h3>Core skills</h3>
+            <p>HTML, CSS, JavaScript, GitHub Pages, React-style components, Node.js workflow support, APIs, docs, QA.</p>
+          </article>
+          <article>
+            <h3>Work style</h3>
+            <p>Clear scope before payment, short updates, practical handoff notes, and honest fit checks before taking a task.</p>
+          </article>
+          <article>
+            <h3>Not a fit</h3>
+            <p>No account rental, KYC work, fake engagement, credential handling, proxy interviews, or vague upfront-payment schemes.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <a class="brand footer-brand" href="index.html" aria-label="Shadow AI Studio home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <path d="M16 3 28 10v12l-12 7L4 22V10L16 3Z" />
+              <path d="m10 13 6-3 6 3-6 3Zm0 7 6 3 6-3" />
+            </svg>
+          </span>
+          <span>Shadow AI Studio</span>
+        </a>
+        <p>AI-assisted solutions for small businesses and solo founders.</p>
+      </div>
+      <div class="footer-links">
+        <a href="portfolio.html">Portfolio</a>
+        <a href="index.html#brief">Build Brief</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="footer-links">
+        <a href="refund-policy.html">Refund Policy</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+      <p class="copyright">&copy; 2026 Shadow AI Studio. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

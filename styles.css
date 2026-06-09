@@ -6689,6 +6689,239 @@ h3 {
   font-weight: 850;
 }
 
+.portfolio-page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(42px, 7vw, 82px) clamp(20px, 6vw, 80px);
+}
+
+.portfolio-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.4fr);
+  align-items: end;
+  gap: clamp(28px, 5vw, 68px);
+  padding-bottom: clamp(34px, 5vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+
+.portfolio-kicker,
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.portfolio-page h1 {
+  font-size: clamp(44px, 6vw, 76px);
+}
+
+.portfolio-hero p {
+  max-width: 760px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 20px;
+}
+
+.portfolio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.portfolio-resume-card {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(0, 115, 148, 0.08), transparent 54%),
+    rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow);
+}
+
+.portfolio-resume-card span,
+.portfolio-card-top span,
+.portfolio-strip span {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.portfolio-resume-card strong {
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.18;
+}
+
+.portfolio-resume-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.portfolio-resume-card a,
+.portfolio-links a {
+  color: var(--accent-dark);
+  font-weight: 900;
+}
+
+.portfolio-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin: 34px 0 clamp(48px, 7vw, 78px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--border);
+}
+
+.portfolio-strip div {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.portfolio-strip strong {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.portfolio-strip em {
+  color: var(--muted);
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.portfolio-section {
+  padding: clamp(34px, 5vw, 58px) 0;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.portfolio-card,
+.resume-panels article {
+  min-width: 0;
+  border: 1px solid rgba(207, 220, 228, 0.9);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.78)),
+    var(--bg-strong);
+  box-shadow: 0 16px 44px rgba(13, 27, 42, 0.08);
+}
+
+.portfolio-card {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding: 24px;
+}
+
+.portfolio-card-featured {
+  grid-row: span 2;
+}
+
+.portfolio-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.portfolio-card-top strong {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.portfolio-card h3,
+.resume-panels h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1.15;
+}
+
+.portfolio-card p,
+.portfolio-card li,
+.portfolio-resume-copy p,
+.resume-panels p {
+  color: var(--muted);
+}
+
+.portfolio-card p {
+  margin: 0;
+}
+
+.portfolio-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.portfolio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.portfolio-tags span {
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 115, 148, 0.14);
+  border-radius: 999px;
+  background: rgba(220, 239, 245, 0.52);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.portfolio-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+.portfolio-resume-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+  border-top: 1px solid var(--line);
+}
+
+.resume-panels {
+  display: grid;
+  gap: 14px;
+}
+
+.resume-panels article {
+  padding: 20px;
+}
+
+.resume-panels p {
+  margin: 10px 0 0;
+}
+
 .updated {
   margin-top: 12px;
   color: var(--muted);
@@ -6757,7 +6990,11 @@ h3 {
 :root[data-theme="dark"] .contact-copy-email,
 :root[data-theme="dark"] .policy-summary,
 :root[data-theme="dark"] .policy-side,
-:root[data-theme="dark"] .policy-content {
+:root[data-theme="dark"] .policy-content,
+:root[data-theme="dark"] .portfolio-resume-card,
+:root[data-theme="dark"] .portfolio-strip div,
+:root[data-theme="dark"] .portfolio-card,
+:root[data-theme="dark"] .resume-panels article {
   border-color: rgba(86, 124, 151, 0.34);
   background:
     linear-gradient(135deg, rgba(85, 197, 226, 0.07), transparent 44%),
@@ -6770,7 +7007,8 @@ h3 {
 :root[data-theme="dark"] .brief-output,
 :root[data-theme="dark"] .contact-box,
 :root[data-theme="dark"] .policy-summary,
-:root[data-theme="dark"] .policy-content {
+:root[data-theme="dark"] .policy-content,
+:root[data-theme="dark"] .portfolio-resume-card {
   background:
     linear-gradient(rgba(85, 197, 226, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(85, 197, 226, 0.04) 1px, transparent 1px),
@@ -7032,8 +7270,22 @@ h3 {
   .brief-section,
   .details-section,
   .contact-section,
+  .portfolio-hero,
+  .portfolio-resume-section,
   .site-footer {
     grid-template-columns: 1fr;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-card-featured {
+    grid-row: auto;
+  }
+
+  .portfolio-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .details-copy {
@@ -7913,6 +8165,44 @@ h3 {
 
   .policy-page {
     padding: 34px 28px 46px;
+  }
+
+  .portfolio-page {
+    padding: 34px 28px 46px;
+  }
+
+  .portfolio-hero {
+    gap: 24px;
+    padding-bottom: 32px;
+  }
+
+  .portfolio-hero p {
+    font-size: 18px;
+  }
+
+  .portfolio-strip,
+  .portfolio-card-top,
+  .portfolio-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-strip {
+    display: grid;
+  }
+
+  .portfolio-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .portfolio-actions .button {
+    width: 100%;
+  }
+
+  .portfolio-card,
+  .portfolio-resume-card,
+  .resume-panels article {
+    padding: 22px;
   }
 
   .policy-hero {
