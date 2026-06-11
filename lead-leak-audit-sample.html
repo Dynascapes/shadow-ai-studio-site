@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sample Lead Leak Audit | Shadow AI Studio</title>
+    <meta
+      name="description"
+      content="A sample async website lead leak audit deliverable from Shadow AI Studio."
+    />
+    <meta name="theme-color" content="#0d1b2a" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("shadow-theme");
+          const preferredTheme =
+            savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.dataset.theme = preferredTheme;
+          document.documentElement.style.colorScheme = preferredTheme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260609-audit-sample" />
+    <script src="script.js?v=20260606-43" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Shadow AI Studio home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img">
+            <path d="M16 3 28 10v12l-12 7L4 22V10L16 3Z" />
+            <path d="m10 13 6-3 6 3-6 3Zm0 7 6 3 6-3" />
+          </svg>
+        </span>
+        <span>Shadow AI Studio</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html#services">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#brief">Brief</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
+          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
+          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
+        </svg>
+      </button>
+      <a class="button button-small" href="index.html#brief">Build Project Brief</a>
+    </header>
+
+    <main class="policy-page">
+      <section class="policy-hero" data-reveal>
+        <div>
+          <a class="policy-back" href="portfolio.html">Back to portfolio</a>
+          <h1>Sample Website Lead Leak Audit</h1>
+          <p class="updated">Sample deliverable - not a paid client report</p>
+          <p>
+            This shows the kind of async report a local business can review before booking a call.
+            The example business is fictional and uses no private client data.
+          </p>
+        </div>
+        <aside class="policy-summary" aria-label="Audit summary">
+          <strong>At a glance</strong>
+          <span>5 lead leak findings</span>
+          <span>48-hour fix plan</span>
+          <span>Copy templates included</span>
+        </aside>
+      </section>
+
+      <div class="policy-layout">
+        <nav class="policy-side" aria-label="Sample audit sections" data-reveal>
+          <a class="is-current" href="#summary">Summary</a>
+          <a href="#findings">Findings</a>
+          <a href="#fix-plan">Fix Plan</a>
+          <a href="#templates">Templates</a>
+          <a href="#process">Async Process</a>
+        </nav>
+
+        <article class="policy-content" data-reveal data-reveal-delay="100">
+          <h2 id="summary">Client Snapshot</h2>
+          <p>
+            Sample business: a local service company that receives leads through a website form,
+            phone number, Google Business Profile, and Instagram. The site looks credible, but the
+            follow-up path is slow and several conversion points are easy to miss on mobile.
+          </p>
+          <ul>
+            <li><strong>Primary goal:</strong> turn more form visitors and missed callers into booked consultations.</li>
+            <li><strong>Main risk:</strong> leads wait too long for a reply and contact competitors.</li>
+            <li><strong>Recommended first fix:</strong> instant text/email follow-up for every form submission.</li>
+          </ul>
+
+          <h2 id="findings">Priority Findings</h2>
+          <h3>1. No instant follow-up after the contact form</h3>
+          <p>
+            The form appears to send an email, but the visitor does not get a clear next step or a
+            fast confirmation. This is the biggest leak because the lead is warm at the moment they
+            submit the form.
+          </p>
+          <ul>
+            <li><strong>Impact:</strong> high</li>
+            <li><strong>Fix:</strong> send an instant confirmation email or SMS with expected response time and booking link.</li>
+            <li><strong>Proof needed:</strong> test form submission screenshot and inbox confirmation.</li>
+          </ul>
+
+          <h3>2. Mobile call-to-action is too low on the page</h3>
+          <p>
+            On mobile, the strongest action button appears after too much scrolling. A visitor who is
+            ready to call or request pricing may leave before reaching it.
+          </p>
+          <ul>
+            <li><strong>Impact:</strong> medium-high</li>
+            <li><strong>Fix:</strong> add a visible top-screen call or quote button and repeat it after service sections.</li>
+            <li><strong>Proof needed:</strong> mobile screenshots at 390px and 768px widths.</li>
+          </ul>
+
+          <h3>3. Missed-call fallback is not explained</h3>
+          <p>
+            If staff misses a call, the site does not tell visitors what happens next. A simple
+            missed-call text-back system can recover leads without adding a full AI receptionist.
+          </p>
+          <ul>
+            <li><strong>Impact:</strong> medium</li>
+            <li><strong>Fix:</strong> add a text-back workflow or manual call-back process with a clear response window.</li>
+            <li><strong>Proof needed:</strong> call routing note or phone provider capability check.</li>
+          </ul>
+
+          <h3>4. Reviews are separated from the request path</h3>
+          <p>
+            Reviews exist, but they are not close enough to the contact buttons. Put two or three
+            short proof points near the form to reduce hesitation.
+          </p>
+          <ul>
+            <li><strong>Impact:</strong> medium</li>
+            <li><strong>Fix:</strong> move a short review strip near the main form and add a review request flow after service is completed.</li>
+            <li><strong>Proof needed:</strong> approved public reviews or client-provided testimonials.</li>
+          </ul>
+
+          <h3>5. No written follow-up sequence</h3>
+          <p>
+            Staff may follow up manually, but there is no visible script or timing plan. A basic
+            sequence keeps the business from forgetting leads during busy days.
+          </p>
+          <ul>
+            <li><strong>Impact:</strong> high if lead volume is steady</li>
+            <li><strong>Fix:</strong> use a 3-touch follow-up sequence over 48 hours.</li>
+            <li><strong>Proof needed:</strong> approved message copy and opt-out language where required.</li>
+          </ul>
+
+          <h2 id="fix-plan">48-Hour Fix Plan</h2>
+          <ul>
+            <li><strong>Day 1:</strong> test form, capture screenshots, confirm where lead notifications go, and add a response-time note.</li>
+            <li><strong>Day 1:</strong> write the first confirmation email/SMS and one missed-call reply.</li>
+            <li><strong>Day 2:</strong> move or duplicate the mobile call-to-action near the top of the page.</li>
+            <li><strong>Day 2:</strong> add two review snippets near the form and document the next follow-up steps.</li>
+          </ul>
+
+          <h2 id="templates">Starter Message Templates</h2>
+          <p><strong>Form confirmation:</strong></p>
+          <p>
+            Thanks for reaching out. We got your request and will reply soon. If this is urgent,
+            call us at [phone]. If you prefer text, reply here with the best time to contact you.
+          </p>
+          <p><strong>Missed-call text-back:</strong></p>
+          <p>
+            Sorry we missed your call. This is [business name]. What service do you need help with,
+            and what is the best time to reach you today?
+          </p>
+          <p><strong>Review request:</strong></p>
+          <p>
+            Thanks for choosing us. If the service went well, could you leave a quick review here:
+            [review link]. It helps local customers know what to expect.
+          </p>
+
+          <h2 id="process">Async Process</h2>
+          <p>
+            This audit can be delivered without a call. The client sends a website URL, screenshots,
+            the main offer, and any safe public links. Passwords, payment details, private customer
+            data, and account recovery details are not needed for the first audit.
+          </p>
+          <ul>
+            <li><strong>Input:</strong> website URL, target service, contact method, screenshots if useful.</li>
+            <li><strong>Output:</strong> prioritized findings, fix plan, message templates, and next-step checklist.</li>
+            <li><strong>Optional next step:</strong> implement the simple page/contact-flow fixes after scope approval.</li>
+          </ul>
+        </article>
+      </div>
+    </main>
+
+    <footer class="policy-footer">
+      <a href="index.html">Shadow AI Studio</a>
+      <span>Async website audits, lead follow-up cleanup, and small web fixes.</span>
+      <a href="mailto:dynascapes@gmail.com">dynascapes@gmail.com</a>
+    </footer>
+  </body>
+</html>

@@ -903,6 +903,29 @@ if (sections.length && navLinks.length) {
   );
 
   sections.forEach((section) => sectionObserver.observe(section));
+
+  // Fix jump scroll reveal bug: instantly reveal sections when clicked
+  document.querySelectorAll("a[href^='#']").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const targetId = link.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        // Force the target section and any reveal children inside it to become visible instantly
+        targetSection.classList.add("is-visible");
+        targetSection.querySelectorAll("[data-reveal]").forEach((child) => {
+          child.classList.add("is-visible");
+        });
+
+        // Trigger animations immediately if they are targeted
+        if (targetSection.id === "services" && serviceCards.length) playServiceSequence();
+        if (targetSection.querySelector("[data-delivery-board]") || targetSection.id === "process") playDeliverySequence();
+        if (targetSection.querySelector(".showcase-shell")) playShowcaseSequence();
+        if (targetSection.id === "pricing" && pricingCards.length) playPricingSequence();
+        if (targetSection.querySelector("[data-payment-flow]")) playPaymentFlow();
+        if (targetSection.id === "contact" && contactRoute) playContactRoute();
+      }
+    });
+  });
 }
 
 if (tiltTarget && !reduceMotion) {
