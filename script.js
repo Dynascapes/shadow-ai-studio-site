@@ -1460,6 +1460,99 @@ window.addEventListener("scroll", requestScrollUpdate, { passive: true });
 window.addEventListener("resize", requestScrollUpdate);
 window.addEventListener("resize", () => {
   window.requestAnimationFrame(syncAllActiveIndicators);
-});
-updateScrollState();
-syncAllActiveIndicators();
+  });
+  updateScrollState();
+  syncAllActiveIndicators();
+
+  // --- Custom Cursor Logic ---
+  const cursor = document.querySelector(".custom-cursor");
+  if (cursor && window.matchMedia("(pointer: fine)").matches) {
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.setProperty("--cursor-x", `${e.clientX}px`);
+      cursor.style.setProperty("--cursor-y", `${e.clientY}px`);
+    });
+
+    const interactiveSelectors = "a, button, [role='tab'], summary, .theme-toggle";
+    
+    document.body.addEventListener("mouseover", (e) => {
+      const target = e.target.closest(interactiveSelectors);
+      if (!target) return;
+      if (target.classList.contains("button")) {
+        cursor.classList.add("is-magnetic");
+      } else {
+        cursor.classList.add("is-hovering");
+      }
+    });
+
+    document.body.addEventListener("mouseout", (e) => {
+      const target = e.target.closest(interactiveSelectors);
+      if (!target) return;
+      cursor.classList.remove("is-hovering", "is-magnetic");
+    });
+
+    const magneticBtns = document.querySelectorAll(".button");
+    magneticBtns.forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        btn.style.setProperty("--button-x", `${x * 0.15}px`);
+        btn.style.setProperty("--button-y", `${y * 0.15}px`);
+        btn.style.setProperty("--button-glow-x", `${e.clientX - rect.left}px`);
+        btn.style.setProperty("--button-glow-y", `${e.clientY - rect.top}px`);
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        btn.style.setProperty("--button-x", `0px`);
+        btn.style.setProperty("--button-y", `0px`);
+        btn.style.setProperty("--button-glow-x", `50%`);
+        btn.style.setProperty("--button-glow-y", `50%`);
+      });
+    });
+  }
+
+  // --- Text Scramble Effect ---
+  const scrambleChars = "!<>-_/[]{}—=+*^?#_0101";
+  const scrambleElements = document.querySelectorAll("[data-scramble]");
+
+  const scrambleText = (el) => {
+    if (el.dataset.scrambled === "true" || reduceMotion) return;
+    el.dataset.scrambled = "true";
+    
+    const originalText = el.textContent.trim();
+    if (!originalText) return;
+    const length = originalText.length;
+    let iteration = 0;
+    
+    const interval = setInterval(() => {
+      el.textContent = originalText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return originalText[index];
+          }
+          if (letter === " ") return " ";
+          return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+        })
+        .join("");
+        
+      if (iteration >= length) {
+        clearInterval(interval);
+        el.textContent = originalText;
+      }
+      
+      iteration += 1 / 3;
+    }, 25);
+  };
+
+  const scrambleObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => scrambleText(entry.target), 150);
+        scrambleObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  scrambleElements.forEach((el) => scrambleObserver.observe(el));

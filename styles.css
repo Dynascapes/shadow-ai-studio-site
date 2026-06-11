@@ -8434,3 +8434,59 @@ h3 {
     transform: none !important;
   }
 }
+
+/* --- High-End Design Customizations --- */
+
+@media (pointer: fine) {
+  body, a, button, [role="tab"], .theme-toggle, summary {
+    cursor: none !important;
+  }
+  
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    background: rgba(0, 115, 148, 0.1);
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate3d(calc(var(--cursor-x, -100px) - 50%), calc(var(--cursor-y, -100px) - 50%), 0) scale(var(--cursor-scale, 1));
+    transition: transform 100ms ease-out, background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    will-change: transform;
+    box-shadow: 0 0 10px rgba(0, 115, 148, 0.2);
+  }
+
+  :root[data-theme="dark"] .custom-cursor {
+    border-color: var(--accent-dark);
+    background: rgba(138, 220, 241, 0.1);
+    box-shadow: 0 0 15px rgba(138, 220, 241, 0.2);
+  }
+
+  .custom-cursor.is-hovering {
+    --cursor-scale: 2.2;
+    background: rgba(0, 115, 148, 0.05);
+    border-color: rgba(0, 115, 148, 0.4);
+  }
+
+  :root[data-theme="dark"] .custom-cursor.is-hovering {
+    background: rgba(138, 220, 241, 0.05);
+    border-color: rgba(138, 220, 241, 0.4);
+  }
+  
+  .custom-cursor.is-magnetic {
+    --cursor-scale: 0.25;
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+  }
+  
+  :root[data-theme="dark"] .custom-cursor.is-magnetic {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 20px var(--accent-dark);
+  }
+}
