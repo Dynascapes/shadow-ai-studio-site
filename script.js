@@ -1466,7 +1466,7 @@ window.addEventListener("resize", () => {
 
   // --- Custom Cursor Logic ---
   const cursor = document.querySelector(".custom-cursor");
-  if (cursor && window.matchMedia("(pointer: fine)").matches) {
+  if (cursor && window.matchMedia("(any-pointer: fine)").matches) {
     document.addEventListener("mousemove", (e) => {
       cursor.style.setProperty("--cursor-x", `${e.clientX}px`);
       cursor.style.setProperty("--cursor-y", `${e.clientY}px`);

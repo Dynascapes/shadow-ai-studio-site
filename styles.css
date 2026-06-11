@@ -8437,7 +8437,7 @@ h3 {
 
 /* --- High-End Design Customizations --- */
 
-@media (pointer: fine) {
+@media (any-pointer: fine) {
   body, a, button, [role="tab"], .theme-toggle, summary {
     cursor: none !important;
   }
@@ -8454,7 +8454,7 @@ h3 {
     backdrop-filter: blur(2px);
     pointer-events: none;
     z-index: 9999;
-    transform: translate3d(calc(var(--cursor-x, -100px) - 50%), calc(var(--cursor-y, -100px) - 50%), 0) scale(var(--cursor-scale, 1));
+    transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, -50%) scale(var(--cursor-scale, 1));
     transition: transform 100ms ease-out, background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
     will-change: transform;
     box-shadow: 0 0 10px rgba(0, 115, 148, 0.2);
