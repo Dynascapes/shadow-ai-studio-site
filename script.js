@@ -103,6 +103,11 @@ const mobileMenu = document.querySelector(".mobile-menu");
 const briefButtons = document.querySelectorAll("[data-brief]");
 const briefOptionsContainer = document.querySelector(".brief-options");
 const briefOutput = document.querySelector(".brief-output");
+const intakeGoal = document.getElementById("intake-goal");
+const intakeLink = document.getElementById("intake-link");
+const intakeTimeline = document.getElementById("intake-timeline");
+const copyBriefBtn = document.querySelector("[data-copy-brief-btn]");
+let currentBriefKey = "audit";
 const pricingBriefLinks = document.querySelectorAll("[data-pricing-brief]");
 const actionDock = document.querySelector(".action-dock");
 const backTopButton = document.querySelector("[data-back-top]");
@@ -1221,9 +1226,76 @@ if (showcaseTabs.length) {
   updateShowcase(showcaseCommittedKey, { source: "init", markUser: false, animate: false });
 }
 
+const syncBriefInputs = () => {
+  const data = briefData[currentBriefKey];
+  if (!data) return;
+
+  const goalVal = intakeGoal?.value.trim() || data.emailGoal;
+  const linkVal = intakeLink?.value.trim() || "None provided";
+  const timelineVal = intakeTimeline?.value || data.time;
+
+  const emailGoalEl = document.querySelector("[data-brief-email-goal]");
+  if (emailGoalEl) emailGoalEl.textContent = goalVal;
+
+  const emailTimelineEl = document.querySelector("[data-brief-email-timeline]");
+  if (emailTimelineEl) emailTimelineEl.textContent = timelineVal;
+
+  const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal: ${goalVal}\nWebsite/App Link: ${linkVal}\nDeadline or timeline: ${timelineVal}\nPackage or project type: ${data.title}\nBudget range: Starting at ${data.price}\n`;
+  const mailtoHref = `mailto:dynascapes@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
+
+  document.querySelector("[data-brief-link]")?.setAttribute("href", mailtoHref);
+
+  if (contactLink) contactLink.setAttribute("href", mailtoHref);
+  if (contactFields) {
+    contactFields.textContent = `Goal, Link, ${data.title}, budget`;
+  }
+};
+
+if (intakeGoal) intakeGoal.addEventListener("input", syncBriefInputs);
+if (intakeLink) intakeLink.addEventListener("input", syncBriefInputs);
+if (intakeTimeline) intakeTimeline.addEventListener("change", syncBriefInputs);
+
+if (copyBriefBtn) {
+  copyBriefBtn.addEventListener("click", () => {
+    const data = briefData[currentBriefKey];
+    if (!data) return;
+
+    const goalVal = intakeGoal?.value.trim() || data.emailGoal;
+    const linkVal = intakeLink?.value.trim() || "None provided";
+    const timelineVal = intakeTimeline?.value || data.time;
+
+    const textToCopy = `Shadow AI Studio - Project Brief
+================================
+Package: ${data.title}
+Goal: ${goalVal}
+Website/App Link: ${linkVal}
+Timeline: ${timelineVal}
+Budget: Starting at ${data.price}
+
+Deliverables:
+- ${data.items[0]}
+- ${data.items[1]}
+- ${data.items[2]}
+`;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const originalText = copyBriefBtn.textContent;
+      copyBriefBtn.textContent = "✓ Brief Copied!";
+      copyBriefBtn.classList.add("is-success");
+      setTimeout(() => {
+        copyBriefBtn.textContent = originalText;
+        copyBriefBtn.classList.remove("is-success");
+      }, 2000);
+    }).catch(err => {
+      console.error("Failed to copy text: ", err);
+    });
+  });
+}
+
 const updateBrief = (key, handoffOptions = {}) => {
   const data = briefData[key];
   if (!data || !briefOutput) return;
+  currentBriefKey = key;
   const pricingIndex = pricingBriefKeys.indexOf(key);
 
   if (pricingIndex >= 0 && pricingCards.length) {
@@ -1271,10 +1343,17 @@ const updateBrief = (key, handoffOptions = {}) => {
     .querySelector("[data-brief-meter-handoff-bar]")
     ?.style.setProperty("--meter-width", data.meter.handoff[1]);
 
-  const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal:\nCurrent site/app link:\nDeadline or timeline:\nPackage or project type: ${data.title}\nBudget range:\n`;
-  const mailtoHref = `mailto:dynascapes@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
+  if (intakeGoal) {
+    intakeGoal.placeholder = `e.g., ${data.emailGoal}`;
+  }
+  if (intakeTimeline) {
+    if (key === "audit") intakeTimeline.value = "1-3 business days";
+    else if (key === "website") intakeTimeline.value = "1-2 weeks";
+    else if (key === "automation") intakeTimeline.value = "Flexible";
+    else if (key === "fix") intakeTimeline.value = "ASAP (critical fix)";
+  }
 
-  document.querySelector("[data-brief-link]")?.setAttribute("href", mailtoHref);
+  syncBriefInputs();
 
   contactBox?.classList.remove("is-draft-updating");
   if (shouldAnimate && contactBox) {
@@ -1288,8 +1367,6 @@ const updateBrief = (key, handoffOptions = {}) => {
 
   if (contactStatus) contactStatus.textContent = `${data.title} ready`;
   if (contactSubject) contactSubject.textContent = data.subject;
-  if (contactFields) contactFields.textContent = `Goal, link, timeline, ${data.title}, budget`;
-  contactLink?.setAttribute("href", mailtoHref);
 
   scheduleScopeHandoff(handoffOptions);
 };
@@ -1466,18 +1543,56 @@ window.addEventListener("resize", () => {
 
   // --- Custom Cursor Logic ---
   const cursor = document.querySelector(".custom-cursor");
+  const cursorLabel = cursor?.querySelector(".cursor-label");
   if (cursor && window.matchMedia("(any-pointer: fine)").matches) {
+    let targetX = -100;
+    let targetY = -100;
+    let currentX = -100;
+    let currentY = -100;
+    
     document.addEventListener("mousemove", (e) => {
-      cursor.style.setProperty("--cursor-x", `${e.clientX}px`);
-      cursor.style.setProperty("--cursor-y", `${e.clientY}px`);
+      targetX = e.clientX;
+      targetY = e.clientY;
+      
+      if (reduceMotion) {
+        cursor.style.setProperty("--cursor-x", `${targetX}px`);
+        cursor.style.setProperty("--cursor-y", `${targetY}px`);
+      }
     });
+
+    if (!reduceMotion) {
+      const updateCursorPosition = () => {
+        const ease = 0.15; // smooth interpolation coefficient
+        currentX += (targetX - currentX) * ease;
+        currentY += (targetY - currentY) * ease;
+        
+        cursor.style.setProperty("--cursor-x", `${currentX.toFixed(1)}px`);
+        cursor.style.setProperty("--cursor-y", `${currentY.toFixed(1)}px`);
+        
+        window.requestAnimationFrame(updateCursorPosition);
+      };
+      window.requestAnimationFrame(updateCursorPosition);
+    }
 
     const interactiveSelectors = "a, button, [role='tab'], summary, .theme-toggle";
     
     document.body.addEventListener("mouseover", (e) => {
       const target = e.target.closest(interactiveSelectors);
       if (!target) return;
-      if (target.classList.contains("button")) {
+      
+      // Show "View" label for specific report/sample links
+      const isSampleLink = 
+        target.getAttribute("href") === "lead-leak-audit-sample.html" || 
+        target.classList.contains("hero-sample-link") ||
+        target.closest(".deliverable-preview-card .button") ||
+        target.closest(".hero-actions") && target.getAttribute("href") === "lead-leak-audit-sample.html";
+        
+      if (isSampleLink) {
+        cursor.classList.add("has-view-label");
+        if (cursorLabel) cursorLabel.textContent = "View";
+      }
+      
+      if (target.classList.contains("button") || target.classList.contains("dock-primary")) {
         cursor.classList.add("is-magnetic");
       } else {
         cursor.classList.add("is-hovering");
@@ -1487,18 +1602,20 @@ window.addEventListener("resize", () => {
     document.body.addEventListener("mouseout", (e) => {
       const target = e.target.closest(interactiveSelectors);
       if (!target) return;
-      cursor.classList.remove("is-hovering", "is-magnetic");
+      cursor.classList.remove("is-hovering", "is-magnetic", "has-view-label");
+      if (cursorLabel) cursorLabel.textContent = "";
     });
 
-    const magneticBtns = document.querySelectorAll(".button");
+    const magneticBtns = document.querySelectorAll(".button, .dock-primary");
     magneticBtns.forEach((btn) => {
       btn.addEventListener("mousemove", (e) => {
         const rect = btn.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
         
-        btn.style.setProperty("--button-x", `${x * 0.15}px`);
-        btn.style.setProperty("--button-y", `${y * 0.15}px`);
+        // Slightly stronger coefficient (0.18 instead of 0.15) for high-end feel
+        btn.style.setProperty("--button-x", `${x * 0.18}px`);
+        btn.style.setProperty("--button-y", `${y * 0.18}px`);
         btn.style.setProperty("--button-glow-x", `${e.clientX - rect.left}px`);
         btn.style.setProperty("--button-glow-y", `${e.clientY - rect.top}px`);
       });
