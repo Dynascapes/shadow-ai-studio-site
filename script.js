@@ -27,7 +27,7 @@ const setTheme = (theme) => {
   const nextTheme = theme === "dark" ? "dark" : "light";
   root.dataset.theme = nextTheme;
   try {
-    window.localStorage.setItem("shadow-theme", nextTheme);
+    window.localStorage.setItem("quoteintake-theme", nextTheme);
   } catch {
     // Theme persistence is optional; the visible toggle should still work.
   }
@@ -167,85 +167,85 @@ let contactDraftTimer;
 const workflowDuration = 2300;
 
 const heroStatusData = [
-  { title: "Scope confirmed", label: "Step 01" },
-  { title: "Build checked", label: "Step 02" },
-  { title: "Handoff ready", label: "Step 03" },
+  { title: "Quote path reviewed", label: "Step 01" },
+  { title: "Mobile CTAs active", label: "Step 02" },
+  { title: "Replies set up", label: "Step 03" },
 ];
 
 const pricingBriefKeys = ["audit", "website", "automation", "fix"];
 
 const showcaseData = {
   site: {
-    kind: "Website launch",
-    title: "Stripe-ready service page",
-    copy: "Clear offer, pricing, policy links, email path, and responsive checks before publishing.",
-    items: ["Public business information", "Pricing and delivery terms", "Desktop and mobile QA"],
-    label: "Launch checklist",
+    kind: "Lead leak audit",
+    title: "Prioritized fix checklist",
+    copy: "Review forms, sticky headers, touch targets, and missed-call follow-ups to stop losing leads.",
+    items: ["Mobile CTA visual check", "Intake form fields check", "Missed-call reply test"],
+    label: "Audit checklist",
     state: "Ready",
     progress: "78%",
     bars: ["88%", "68%", "78%"],
-    foot: ["Policies linked", "Mobile checked"],
-    artifacts: ["Offer copy", "Policy links", "Launch notes"],
-    previewCards: ["Public offer page", "Checkout-ready terms"],
+    foot: ["CTAs reviewed", "Touch targets check"],
+    artifacts: ["Lead leak map", "CTA recommendations", "Response copy"],
+    previewCards: ["Lead leak checklist", "Mobile CTA layout check"],
     stages: ["Scope", "Checks", "Handoff"],
     stageIndex: 2,
-    module: "Launch packet",
+    module: "Audit packet",
     score: "78%",
-    notes: ["Offer ready", "Policy links checked", "Mobile pass"],
-    cta: "Build website brief",
-    briefKey: "website",
+    notes: ["CTA height checked", "Response times checked", "Form fields count pass"],
+    cta: "Request Audit",
+    briefKey: "audit",
   },
   rescue: {
-    kind: "AI app rescue",
-    title: "From stuck prototype to usable handoff",
-    copy: "Review the project, group errors by cause, fix the launch blockers, and leave readable notes.",
-    items: ["Bug list and risk notes", "Deploy and form checks", "Clean handoff summary"],
-    label: "Fix sprint board",
-    state: "Mapped",
+    kind: "Mobile CTA pass",
+    title: "Add call buttons and clean layout",
+    copy: "Implement sticky phone headers, thumb-friendly call buttons, and responsive touch adjustments.",
+    items: ["Sticky header build", "Dial action verify", "Mobile viewport QA"],
+    label: "CTA setup board",
+    state: "Active",
     progress: "64%",
     bars: ["76%", "86%", "54%"],
-    foot: ["Errors grouped", "Next steps written"],
-    artifacts: ["Bug map", "Deploy checks", "Fix summary"],
-    previewCards: ["Blocked path mapped", "Handoff notes ready"],
-    stages: ["Audit", "Fix", "Verify"],
+    foot: ["Buttons active", "Dial pass verified"],
+    artifacts: ["Sticky CTA code", "Touch QA report", "Setup guides"],
+    previewCards: ["Call button active", "Touch target pass"],
+    stages: ["Scope", "Design", "Code"],
     stageIndex: 1,
-    module: "Repair packet",
+    module: "CTA packet",
     score: "64%",
-    notes: ["Blockers grouped", "Deploy path checked", "Fix notes ready"],
-    cta: "Build rescue brief",
-    briefKey: "fix",
+    notes: ["Sticky headers code", "Dial targets pass", "Handoff ready"],
+    cta: "Request CTA Cleanup",
+    briefKey: "website",
   },
   automation: {
-    kind: "Automation workflow",
-    title: "One repeatable workflow with documentation",
-    copy: "Connect the tools, test the trigger path, and document how to use or update the workflow later.",
-    items: ["Trigger and output defined", "Test run recorded", "Setup notes delivered"],
-    label: "Automation run",
-    state: "Tested",
+    kind: "Auto-responder",
+    title: "SMS text-back & email setup",
+    copy: "Connect quote forms to instant auto-replies so leads get a message in under 60 seconds.",
+    items: ["SMS/Email trigger map", "Message copy written", "Form routing confirmed"],
+    label: "Responder run",
+    state: "Active",
     progress: "86%",
     bars: ["92%", "62%", "82%"],
-    foot: ["Trigger checked", "Docs included"],
-    artifacts: ["Trigger plan", "Test run", "Usage notes"],
-    previewCards: ["Workflow run logged", "Setup notes delivered"],
-    stages: ["Trigger", "Run", "Document"],
+    foot: ["Replies active", "Alerts tested"],
+    artifacts: ["Response triggers", "Copy templates", "Usage notes"],
+    previewCards: ["SMS notification active", "Email responder active"],
+    stages: ["Trigger", "Copy", "Active"],
     stageIndex: 2,
-    module: "Workflow packet",
+    module: "Follow-up packet",
     score: "86%",
-    notes: ["Trigger defined", "Test run logged", "Usage notes included"],
-    cta: "Build automation brief",
+    notes: ["Triggers verified", "Email templates set", "SMS test pass"],
+    cta: "Request Follow-Up Setup",
     briefKey: "automation",
   },
 };
 
 const briefData = {
   audit: {
-    title: "Launch Audit",
-    copy: "Review an AI-built app, website, or workflow and receive a clear fix list with next steps.",
+    title: "Lead Leak Audit",
+    copy: "A prioritized review of your website's contact form, mobile layouts, and response times to find lost leads.",
     price: "$49 USD",
     time: "1-3 business days",
-    emailGoal: "Find launch blockers before publishing",
-    items: ["Current setup review", "Prioritized fix list", "Next-step launch notes"],
-    subject: "Launch Audit",
+    emailGoal: "Find quote path leaks and mobile conversion bugs",
+    items: ["Quote path review", "Prioritized fix list", "Response time check"],
+    subject: "Lead Leak Audit Request",
     article: "a",
     meter: {
       complexity: ["Light", "38%"],
@@ -254,13 +254,13 @@ const briefData = {
     },
   },
   website: {
-    title: "Starter Website",
-    copy: "A compact public service website with responsive pages, contact paths, SEO basics, and launch checks.",
+    title: "Mobile CTA Cleanup",
+    copy: "Make it easy for mobile visitors to contact you. Adds sticky call/quote buttons and touch-target checks.",
     price: "$99 USD",
     time: "3-7 business days",
-    emailGoal: "Launch a compact public service site",
-    items: ["Up to three public pages", "Responsive layout and contact path", "Policy, pricing, and launch checks"],
-    subject: "Starter Website",
+    emailGoal: "Implement sticky call buttons and optimize mobile viewport layouts",
+    items: ["Sticky call/quote buttons", "Tap target optimization", "Header/footer QA pass"],
+    subject: "Mobile CTA Cleanup Request",
     article: "a",
     meter: {
       complexity: ["Moderate", "64%"],
@@ -269,14 +269,14 @@ const briefData = {
     },
   },
   automation: {
-    title: "Automation Workflow",
-    copy: "One repeatable workflow that connects tools, reduces a manual task, and includes setup notes.",
+    title: "Follow-Up Setup",
+    copy: "Connect your forms to instant email or SMS auto-replies so leads get a response in under 60 seconds.",
     price: "$149 USD",
     time: "Scope dependent",
-    emailGoal: "Automate one repeatable manual task",
-    items: ["Trigger and output defined", "Workflow setup and test run", "Usage notes for handoff"],
-    subject: "Automation Project",
-    article: "an",
+    emailGoal: "Setup SMS text-back and email auto-responder workflows",
+    items: ["Auto-reply trigger rules", "SMS/Email copy templates", "Notification routing"],
+    subject: "Follow-Up Setup Request",
+    article: "a",
     meter: {
       complexity: ["Workflow", "72%"],
       turnaround: ["Scoped", "48%"],
@@ -284,14 +284,14 @@ const briefData = {
     },
   },
   fix: {
-    title: "Fix Sprint",
-    copy: "Focused cleanup for bugs, deploy issues, broken forms, API errors, or reliability problems.",
+    title: "Intake Form Setup",
+    copy: "Setup a custom, multi-step quote request form that qualifies leads and maps fields to CRM/Sheets.",
     price: "$299 USD",
     time: "Scope dependent",
-    emailGoal: "Fix a stuck app or workflow",
-    items: ["Issue review and risk notes", "Focused fixes and verification", "Summary of changes and next steps"],
-    subject: "Troubleshooting Request",
-    article: "a",
+    emailGoal: "Setup a custom multi-step qualifying quote form",
+    items: ["Multi-step layout build", "CRM/Spreadsheet mapping", "Field validation rules"],
+    subject: "Intake Form Setup Request",
+    article: "an",
     meter: {
       complexity: ["Deep", "88%"],
       turnaround: ["Focused", "46%"],
@@ -302,44 +302,44 @@ const briefData = {
 
 const pricingFocusData = [
   {
-    title: "Launch Audit",
+    title: "Lead Leak Audit",
     label: "Lowest-risk start",
-    copy: "A focused review for finding launch blockers before choosing a larger build or fix sprint.",
+    copy: "A prioritized review of your quote path, mobile layouts, and response times to find lost leads.",
     price: "$49 USD",
     time: "1-3 business days",
-    fit: "Finding launch blockers",
+    fit: "Finding conversion leaks",
     level: "38%",
-    tags: ["Setup review", "Fix list", "Next steps"],
+    tags: ["Lead leak map", "CTA recommendations", "Response copy"],
   },
   {
-    title: "Starter Website",
+    title: "Mobile CTA Cleanup",
     label: "Suggested start",
-    copy: "A compact public site with contact setup, responsive layout, and policy checks.",
+    copy: "Adds high-visibility call/quote buttons and optimizes mobile layouts for local visitors.",
     price: "$99 USD",
     time: "3-7 business days",
-    fit: "Stripe-ready public page",
+    fit: "Mobile lead conversion",
     level: "58%",
-    tags: ["Public offer", "Mobile layout", "Policy path"],
+    tags: ["Sticky buttons", "Touch targets", "Header/footer QA"],
   },
   {
-    title: "Automation",
+    title: "Follow-Up Setup",
     label: "Workflow build",
-    copy: "One repeatable workflow with trigger mapping, setup, testing, and usage notes.",
+    copy: "Connect quote forms to instant SMS or email auto-replies so leads get immediate replies.",
     price: "$149 USD",
     time: "Scope dependent",
-    fit: "Repeatable manual task",
+    fit: "Instant response speed",
     level: "72%",
-    tags: ["Trigger map", "Test run", "Usage notes"],
+    tags: ["SMS text-back", "Email templates", "Trigger routing"],
   },
   {
-    title: "Fix Sprint",
+    title: "Intake Form Setup",
     label: "Deepest scope",
-    copy: "Focused cleanup for bugs, deploy issues, broken forms, APIs, or stuck AI-built prototypes.",
+    copy: "Build a multi-step quote form that qualifies service leads and maps inputs to CRM or spreadsheet.",
     price: "$299 USD",
     time: "Scope dependent",
-    fit: "Stuck prototype cleanup",
+    fit: "Custom qualifying steps",
     level: "88%",
-    tags: ["Issue review", "Focused fixes", "Fix summary"],
+    tags: ["Multi-step form", "CRM mapping", "Input validation"],
   },
 ];
 
@@ -347,7 +347,7 @@ const detailFocusData = [
   {
     title: "Payment terms",
     label: "Before payment",
-    copy: "Written price, timeline, and deliverables are confirmed before any payment link or invoice is sent.",
+    copy: "Written price, timeline, and deliverables are confirmed before any payment details are shared.",
     check: "Scope confirmed first",
     action: "Review written quote",
     record: "Price and timeline saved",
@@ -355,14 +355,14 @@ const detailFocusData = [
     tags: ["Written quote", "Scope first", "No surprise hourly billing"],
   },
   {
-    title: "Secure checkout",
-    label: "Protected checkout",
-    copy: "Card details are handled through Stripe-hosted checkout or invoice links, while this site keeps the service request path simple.",
-    check: "Provider-hosted payment",
-    action: "Use sent checkout link",
-    record: "Card data not stored here",
+    title: "No surprise billing",
+    label: "Clear approval",
+    copy: "You review the written quote, timeline, and deliverables before choosing whether to move forward.",
+    check: "Quote approved first",
+    action: "Confirm by email",
+    record: "Approval saved",
     level: "88%",
-    tags: ["Provider checkout", "No card storage", "Invoice/link after scope"],
+    tags: ["Written approval", "Scope first", "No public pay-now link"],
   },
   {
     title: "Delivery timeline",
@@ -1240,14 +1240,14 @@ const syncBriefInputs = () => {
   const emailTimelineEl = document.querySelector("[data-brief-email-timeline]");
   if (emailTimelineEl) emailTimelineEl.textContent = timelineVal;
 
-  const body = `Hi Shadow AI Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nGoal: ${goalVal}\nWebsite/App Link: ${linkVal}\nDeadline or timeline: ${timelineVal}\nPackage or project type: ${data.title}\nBudget range: Starting at ${data.price}\n`;
-  const mailtoHref = `mailto:dynascapes@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
+  const body = `Hi Quote Intake Studio,\n\nI'd like help with ${data.article} ${data.title}.\n\nBusiness type & services: ${goalVal}\nWebsite Link: ${linkVal}\nTarget timeline: ${timelineVal}\nPackage or project type: ${data.title}\nBudget range: Starting at ${data.price}\n`;
+  const mailtoHref = `mailto:hello@quoteintakestudio.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
 
   document.querySelector("[data-brief-link]")?.setAttribute("href", mailtoHref);
 
   if (contactLink) contactLink.setAttribute("href", mailtoHref);
   if (contactFields) {
-    contactFields.textContent = `Goal, Link, ${data.title}, budget`;
+    contactFields.textContent = `Business, Link, ${data.title}, budget`;
   }
 };
 
@@ -1264,11 +1264,11 @@ if (copyBriefBtn) {
     const linkVal = intakeLink?.value.trim() || "None provided";
     const timelineVal = intakeTimeline?.value || data.time;
 
-    const textToCopy = `Shadow AI Studio - Project Brief
+    const textToCopy = `Quote Intake Studio - Project Brief
 ================================
 Package: ${data.title}
-Goal: ${goalVal}
-Website/App Link: ${linkVal}
+Business & Services: ${goalVal}
+Website Link: ${linkVal}
 Timeline: ${timelineVal}
 Budget: Starting at ${data.price}
 
@@ -1421,7 +1421,7 @@ themeToggles.forEach((toggle) => {
 copyEmailButton?.addEventListener("click", async () => {
   const originalText = copyEmailButton.textContent;
   try {
-    await navigator.clipboard.writeText("dynascapes@gmail.com");
+    await navigator.clipboard.writeText("hello@quoteintakestudio.com");
     copyEmailButton.textContent = "Copied";
     copyEmailButton.classList.add("is-copied");
     window.setTimeout(() => {

@@ -1,16 +1,16 @@
-# Shadow AI Studio Site
+# Quote Intake Studio Site
 
-Static business website for Stripe account review.
+Static landing page for Quote Intake Studio.
 
 ## Before publishing
 
 Update these values if they are not yours:
 
-- Business name: `Shadow AI Studio`
-- Contact email: `dynascapes@gmail.com`
+- Business name: `Quote Intake Studio`
+- Contact email: `hello@quoteintakestudio.com`
 - Pricing and service descriptions
 
-The website should match the business name and public contact information entered in Stripe.
+The website should match the business name, domain, and public contact email used for outreach.
 
 ## Pages
 
@@ -21,4 +21,4 @@ The website should match the business name and public contact information entere
 
 ## Publish options
 
-Use any static host, such as GitHub Pages, Netlify, Vercel, Cloudflare Pages, or Carrd. Stripe needs the final public URL, not the local file path.
+Use any static host, such as GitHub Pages, Netlify, Vercel, Cloudflare Pages, or Carrd. Use the final public URL in business profiles and outreach materials.
