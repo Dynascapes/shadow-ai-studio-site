@@ -6544,6 +6544,21 @@ h3 {
   color: var(--muted);
 }
 
+.footer-address {
+  display: grid;
+  gap: 4px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 720;
+}
+
+.footer-address a {
+  color: var(--accent);
+  font-weight: 850;
+}
+
 .footer-links {
   display: grid;
   gap: 10px;
