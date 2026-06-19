@@ -41,7 +41,7 @@ Rules:
 - Keep private client/payment info out of public channels.
 - Duplicate, fake, irrelevant, or low-quality referrals are not payable.
 - Payouts only happen after a referred business becomes a paid client.
-- Referred businesses may get $10 off their first small fix after manual approval.
+- Referred businesses may get $30 off their first small fix after manual approval.
 - One referral credit per real business. Credits are not stackable.
 ```
 
@@ -82,7 +82,7 @@ Do not submit random business lists. Raw leads and mass-DM replies do not count.
 ```text
 Referral payouts
 
-Current bounty: $10 when your referral becomes a paid client.
+Current bounty: $30 when your referral becomes a paid client.
 
 No payout for:
 - Raw business names

@@ -111,12 +111,12 @@ function serverGuides() {
           {
             name: "Payout rule",
             value:
-              "Payouts are manual and only happen after the referred business becomes a paid Quote Intake Studio client."
+              "$30 payouts are manual and only happen after the referred business becomes a paid Quote Intake Studio client."
           },
           {
             name: "Customer referral credit",
             value:
-              "Referred businesses may get $10 off their first small fix after manual approval. One credit per real business, not stackable."
+              "Referred businesses may get $30 off their first small fix after manual approval. One credit per real business, not stackable."
           }
         ]
       })

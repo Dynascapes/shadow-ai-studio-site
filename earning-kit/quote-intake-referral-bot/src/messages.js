@@ -48,7 +48,7 @@ function panelEmbed(config) {
     .addFields(
       {
         name: "Payout",
-        value: "$10 when your referral becomes a paid client. Referred businesses may get $10 off their first small fix after manual approval."
+        value: "$30 when your referral becomes a paid client. Referred businesses may get $30 off their first small fix after manual approval."
       },
       {
         name: "Allowed message",
