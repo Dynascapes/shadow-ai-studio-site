@@ -7017,6 +7017,20 @@ h3 {
     var(--bg-strong);
 }
 
+.referral-code-note {
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 115, 148, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.referral-code-note strong {
+  overflow-wrap: anywhere;
+}
+
 .referral-strip {
   margin-bottom: clamp(38px, 6vw, 68px);
 }
@@ -7139,6 +7153,7 @@ h3 {
 :root[data-theme="dark"] .portfolio-resume-card,
 :root[data-theme="dark"] .portfolio-strip div,
 :root[data-theme="dark"] .portfolio-card,
+:root[data-theme="dark"] .referral-code-note,
 :root[data-theme="dark"] .referral-cta,
 :root[data-theme="dark"] .resume-panels article {
   border-color: rgba(86, 124, 151, 0.34);

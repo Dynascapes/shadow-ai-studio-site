@@ -141,6 +141,9 @@ const contactStatus = document.querySelector("[data-contact-status]");
 const contactSubject = document.querySelector("[data-contact-subject]");
 const contactFields = document.querySelector("[data-contact-fields]");
 const contactLink = document.querySelector("[data-contact-link]");
+const referralMailtoLinks = document.querySelectorAll("[data-referral-mailto]");
+const referralCodeNote = document.querySelector("[data-referral-code-note]");
+const referralCodeOutput = document.querySelector("[data-referral-code]");
 let ticking = false;
 let menuCloseTimer;
 let actionDockVisible;
@@ -165,6 +168,41 @@ let scopeHandoffTimer;
 let scopeHandoffQueueTimers = [];
 let contactDraftTimer;
 const workflowDuration = 2300;
+
+const normalizeReferralCode = (value) => {
+  const code = String(value || "")
+    .trim()
+    .replace(/[^a-zA-Z0-9._-]/g, "")
+    .slice(0, 48);
+  return code.length >= 3 ? code : "";
+};
+
+const applyReferralCodeToEmailLinks = () => {
+  if (!referralMailtoLinks.length) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const referralCode = normalizeReferralCode(params.get("ref"));
+  if (!referralCode) return;
+
+  referralCodeOutput && (referralCodeOutput.textContent = referralCode);
+  if (referralCodeNote) referralCodeNote.hidden = false;
+
+  referralMailtoLinks.forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    const [address, queryString = ""] = href.split("?");
+    const mailtoParams = new URLSearchParams(queryString);
+    const body = [
+      "Website:",
+      "What looks broken or confusing:",
+      `Who referred you, if any: ${referralCode}`
+    ].join("\n");
+
+    mailtoParams.set("body", body);
+    link.setAttribute("href", `${address}?${mailtoParams.toString()}`);
+  });
+};
+
+applyReferralCodeToEmailLinks();
 
 const heroStatusData = [
   { title: "Quote path reviewed", label: "Step 01" },
