@@ -8524,7 +8524,12 @@ h3 {
 /* --- High-End Design Customizations --- */
 
 @media (any-pointer: fine) {
-  body, a, button, [role="tab"], .theme-toggle, summary {
+  :root.has-custom-cursor body,
+  :root.has-custom-cursor a,
+  :root.has-custom-cursor button,
+  :root.has-custom-cursor [role="tab"],
+  :root.has-custom-cursor .theme-toggle,
+  :root.has-custom-cursor summary {
     cursor: none !important;
   }
   

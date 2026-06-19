@@ -1544,7 +1544,9 @@ window.addEventListener("resize", () => {
   // --- Custom Cursor Logic ---
   const cursor = document.querySelector(".custom-cursor");
   const cursorLabel = cursor?.querySelector(".cursor-label");
-  if (cursor && window.matchMedia("(any-pointer: fine)").matches) {
+  const hasFinePointer = window.matchMedia("(any-pointer: fine)").matches;
+  if (cursor && hasFinePointer) {
+    document.documentElement.classList.add("has-custom-cursor");
     let targetX = -100;
     let targetY = -100;
     let currentX = -100;
