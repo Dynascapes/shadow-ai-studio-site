@@ -3,3 +3,4 @@
 .env.*.local
 node_modules/
 earning-kit/quote-intake-referral-bot/data/
+earning-kit/quote-intake-referral-bot/logs/

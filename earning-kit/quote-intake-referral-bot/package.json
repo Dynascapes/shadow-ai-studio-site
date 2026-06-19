@@ -1,0 +1,20 @@
+{
+  "name": "quote-intake-referral-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Discord referral intake bot for Quote Intake Studio.",
+  "main": "src/index.js",
+  "scripts": {
+    "deploy": "node scripts/deploy-commands.js",
+    "server:setup": "node scripts/setup-server-copy.js",
+    "start": "node src/index.js",
+    "check": "node --check src/index.js && node --check scripts/deploy-commands.js && node --check scripts/setup-server-copy.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
