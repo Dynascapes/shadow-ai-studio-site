@@ -1106,7 +1106,105 @@ button {
 
 .sample-includes li {
   display: grid;
-  grid-template-col…456 tokens truncated…
+  grid-template-columns: auto 1fr;
+  column-gap: 14px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line-light);
+}
+
+.sample-includes span {
+  grid-row: 1 / span 2;
+  color: var(--orange);
+  font-family: ui-monospace, monospace;
+  font-size: 0.64rem;
+}
+
+.sample-includes strong {
+  color: var(--white);
+  font-size: 0.82rem;
+}
+
+.sample-includes small {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.71rem;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid currentColor;
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 760;
+}
+
+.text-link-light {
+  color: var(--blue-bright);
+}
+
+.text-link span {
+  transition: transform 180ms ease;
+}
+
+.text-link:hover span {
+  transform: translate(2px, -2px);
+}
+
+.audit-preview {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 19px;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
+}
+
+.audit-preview-head {
+  display: grid;
+  padding: 25px 28px 22px;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(90deg, rgba(154, 219, 233, 0.26), transparent 55%),
+    var(--paper-warm);
+}
+
+.audit-preview-head span {
+  margin-bottom: 13px;
+  color: var(--orange-deep);
+  font-family: ui-monospace, monospace;
+  font-size: 0.6rem;
+  font-weight: 780;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.audit-preview-head strong {
+  font-size: 1.65rem;
+  letter-spacing: -0.045em;
+}
+
+.audit-preview-head small {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.audit-findings {
+  margin: 0;
+  padding: 0 28px;
+  list-style: none;
+}
+
+.audit-findings li {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
 .audit-findings li > span {
   width: 30px;
   height: 30px;
