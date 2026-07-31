@@ -135,8 +135,8 @@
         ]
       }
     </script>
-    <link rel="stylesheet" href="redesign.css?v=20260731-1">
-    <script src="redesign.js?v=20260731-1" defer></script>
+    <link rel="stylesheet" href="redesign.css?v=20260731-2">
+    <script src="redesign.js?v=20260731-2" defer></script>
   </head>
   <body class="page-home">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -170,6 +170,7 @@
           <a class="nav-cta" href="#brief">Request a review <span aria-hidden="true">&nearr;</span></a>
         </nav>
       </div>
+      <div class="page-progress" aria-hidden="true"><span data-page-progress></span></div>
     </header>
 
     <main id="main-content">
@@ -177,7 +178,13 @@
         <div class="hero-grid page-shell">
           <div class="hero-copy">
             <p class="eyebrow"><span></span> Website conversion repair for local service businesses</p>
-            <h1 id="hero-title">Turn more website visits into <em>real quote requests.</em></h1>
+            <h1 id="hero-title">
+              <span class="sr-only">Turn more website visits into real quote requests.</span>
+              <span aria-hidden="true">
+                Turn more website visits into
+                <em data-decode="real quote requests.">real quote requests.</em>
+              </span>
+            </h1>
             <p class="hero-lead">
               We find where ready-to-hire visitors get stuck&mdash;then fix the calls-to-action,
               forms, and follow-up that cost you leads.
@@ -198,7 +205,7 @@
           </div>
 
           <div class="hero-proof" role="group" aria-label="Preview of a sample lead-leak audit">
-            <div class="report-sheet">
+            <div class="report-sheet" data-motion-card>
               <div class="report-topline">
                 <span class="report-label"><i></i> Sample report</span>
                 <span class="report-ref">QIS / LEAD PATH</span>
@@ -210,22 +217,23 @@
                 </div>
                 <span class="priority-stamp">5 findings</span>
               </div>
-              <div class="path-map" role="group" aria-label="Visitor path from visit to reply">
-                <div class="path-step is-clear"><span>01</span><strong>Visit</strong><small>Homepage</small></div>
+              <p id="report-path-hint" class="report-hint"><span></span> Select a stage to inspect the sample path</p>
+              <div class="path-map" role="group" aria-label="Interactive sample visitor path" aria-describedby="report-path-hint">
+                <button class="path-step is-clear" type="button" data-path-step="visit" aria-pressed="false" aria-controls="report-finding-detail"><span>01</span><strong>Visit</strong><small>Homepage</small></button>
                 <div class="path-line"></div>
-                <div class="path-step is-warning"><span>02</span><strong>Tap</strong><small>CTA buried</small></div>
+                <button class="path-step is-warning" type="button" data-path-step="tap" aria-pressed="false" aria-controls="report-finding-detail"><span>02</span><strong>Tap</strong><small>CTA buried</small></button>
                 <div class="path-line"></div>
-                <div class="path-step is-warning"><span>03</span><strong>Submit</strong><small>Next step unclear</small></div>
+                <button class="path-step is-warning" type="button" data-path-step="submit" aria-pressed="false" aria-controls="report-finding-detail"><span>03</span><strong>Submit</strong><small>Next step unclear</small></button>
                 <div class="path-line"></div>
-                <div class="path-step is-critical"><span>04</span><strong>Reply</strong><small>Too slow</small></div>
+                <button class="path-step is-critical is-active" type="button" data-path-step="reply" aria-pressed="true" aria-controls="report-finding-detail"><span>04</span><strong>Reply</strong><small>Too slow</small></button>
               </div>
-              <div class="report-finding">
-                <span class="finding-index">01</span>
+              <div id="report-finding-detail" class="report-finding" data-finding-panel data-tone="critical" aria-live="polite" aria-atomic="true">
+                <span class="finding-index" data-finding-index>04</span>
                 <div>
-                  <small>Highest-priority leak</small>
-                  <strong>No instant follow-up after the contact form</strong>
+                  <small data-finding-kicker>Highest-priority leak</small>
+                  <strong data-finding-title>No instant follow-up after the contact form</strong>
                 </div>
-                <span class="finding-impact">High impact</span>
+                <span class="finding-impact" data-finding-impact>High impact</span>
               </div>
               <div class="report-footer">
                 <span><i></i> Prioritized findings</span>
