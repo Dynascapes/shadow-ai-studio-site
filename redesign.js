@@ -9,12 +9,12 @@ const packages = {
   audit: {
     name: "Lead Leak Audit",
     price: "$49 USD",
-    time: "1â€“3 business days"
+    time: "1\u20133 business days"
   },
   cta: {
     name: "Mobile CTA Cleanup",
     price: "$99 USD",
-    time: "3â€“7 business days"
+    time: "3\u20137 business days"
   },
   followup: {
     name: "Follow-Up Setup",
