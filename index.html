@@ -1,34 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quote Intake Studio | Local Service Website Quote Path Fixes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quote Intake Studio | Website Quote-Path Fixes</title>
     <meta
       name="description"
-      content="Quote Intake Studio helps local service businesses fix quote pages, mobile CTAs, intake forms, and follow-up paths so more website visitors request service."
-    />
-    <meta name="robots" content="index,follow" />
-    <meta name="theme-color" content="#0d1b2a" />
-    <link rel="canonical" href="https://quoteintakestudio.com/" />
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <meta property="og:site_name" content="Quote Intake Studio" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Quote Intake Studio | Local Service Website Quote Path Fixes" />
+      content="Quote Intake Studio helps local service businesses fix mobile calls-to-action, intake forms, and follow-up paths so more website visits become quote requests."
+    >
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#071923">
+    <link rel="canonical" href="https://quoteintakestudio.com/">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <meta property="og:site_name" content="Quote Intake Studio">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Quote Intake Studio | Website Quote-Path Fixes">
     <meta
       property="og:description"
-      content="Small fixed-scope fixes for local service websites: quote pages, mobile CTAs, intake forms, and lead follow-up paths."
-    />
-    <meta property="og:url" content="https://quoteintakestudio.com/" />
-    <meta property="og:image" content="https://quoteintakestudio.com/assets/hero-workspace.png" />
-    <meta property="og:image:alt" content="Quote Intake Studio lead capture and quote path optimization workspace" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Quote Intake Studio | Local Service Website Quote Path Fixes" />
+      content="Focused website fixes for local service businesses: mobile CTAs, intake forms, quote paths, and lead follow-up."
+    >
+    <meta property="og:url" content="https://quoteintakestudio.com/">
+    <meta property="og:image" content="https://quoteintakestudio.com/assets/hero-workspace.png">
+    <meta property="og:image:alt" content="Quote Intake Studio website conversion workspace">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quote Intake Studio | Website Quote-Path Fixes">
     <meta
       name="twitter:description"
-      content="Fixed-scope website cleanup for quote pages, mobile CTAs, intake forms, and lead follow-up paths."
-    />
-    <meta name="twitter:image" content="https://quoteintakestudio.com/assets/hero-workspace.png" />
+      content="Focused website fixes for quote pages, mobile CTAs, intake forms, and lead follow-up."
+    >
+    <meta name="twitter:image" content="https://quoteintakestudio.com/assets/hero-workspace.png">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -102,10 +102,10 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What do customers receive?",
+            "name": "What do I need to send for an audit?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Deliverables depend on the package. Customers receive ready-to-use email or SMS copy templates, custom responsive forms, sticky mobile CTA code, or an actionable website lead-leak checklist."
+              "text": "Send your public website URL, main service, and the action you want visitors to take. Passwords and private customer data are not needed for the first audit."
             }
           },
           {
@@ -113,15 +113,15 @@
             "name": "Do you work with existing websites?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Quote Intake Studio can implement mobile CTAs, custom forms, and auto-responder notifications on WordPress, Squarespace, Wix, Webflow, Shopify, or custom HTML sites."
+              "text": "Yes. Quote Intake Studio can work with WordPress, Squarespace, Wix, Webflow, Shopify, or custom HTML sites."
             }
           },
           {
             "@type": "Question",
-            "name": "Can customers cancel after requesting a review?",
+            "name": "When do I pay?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Scope is confirmed before payment, so customers do not book a project unless it is a fit."
+              "text": "Scope, price, timeline, and deliverables are confirmed in writing before a payment request is sent."
             }
           },
           {
@@ -129,1212 +129,524 @@
             "name": "Do you offer ongoing support?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Most work is fixed-scope. Ongoing updates can be quoted separately as needed."
+              "text": "Most work is fixed-scope. Ongoing updates can be quoted separately when needed."
             }
           }
         ]
       }
     </script>
-    <script>
-      (() => {
-        try {
-          const savedTheme = localStorage.getItem("quoteintake-theme");
-          const preferredTheme =
-            savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-          document.documentElement.dataset.theme = preferredTheme;
-          document.documentElement.style.colorScheme = preferredTheme;
-        } catch {
-          document.documentElement.dataset.theme = "light";
-        }
-      })();
-    </script>
-    <link rel="stylesheet" href="styles.css?v=20260611-1" />
-    <script src="script.js?v=20260611-1" defer></script>
+    <link rel="stylesheet" href="redesign.css?v=20260731-2">
+    <script src="redesign.js?v=20260731-2" defer></script>
   </head>
-  <body>
-    <div class="scroll-progress" aria-hidden="true"></div>
-    <div class="action-dock" aria-label="Quick actions">
-      <a class="dock-primary" href="#brief">Request a Review</a>
-      <a href="#contact">Contact</a>
-      <button type="button" data-back-top aria-label="Back to top">Top</button>
-    </div>
-    <header class="site-header">
-      <a class="brand" href="index.html" aria-label="Quote Intake Studio home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" role="img">
-            <path d="M16 3 28 10v12l-12 7L4 22V10L16 3Z" />
-            <path d="m10 13 6-3 6 3-6 3-6-3Zm0 7 6 3 6-3" />
-          </svg>
-        </span>
-        <span>Quote Intake Studio</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="#services">Services</a>
-        <a href="referrals.html">Referrals</a>
-        <a href="#brief">Request Review</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
-          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
-          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
-        </svg>
-      </button>
-      <a class="button button-small" href="#brief">Request a Review</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-        <span class="sr-only">Open menu</span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
-    </header>
-    <div class="mobile-menu" id="mobile-menu" hidden>
-      <nav aria-label="Mobile navigation">
-        <a href="#services">Services</a>
-        <a href="referrals.html">Referrals</a>
-        <a href="#brief">Request Review</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="mobile-policy-links" aria-label="Policy links">
-        <a href="refund-policy.html">Refund</a>
-        <a href="privacy-policy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-      </div>
-      <button class="theme-toggle mobile-theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path class="theme-sun" d="M12 5.2V3m0 18v-2.2M5.2 12H3m18 0h-2.2M7.2 7.2 5.7 5.7m12.6 12.6-1.5-1.5m0-9.6 1.5-1.5M5.7 18.3l1.5-1.5" />
-          <path class="theme-sun" d="M12 8.1a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8Z" />
-          <path class="theme-moon" d="M19.1 14.9A7.7 7.7 0 0 1 9.1 4.9 7.7 7.7 0 1 0 19.1 14.9Z" />
-        </svg>
-        <span data-theme-toggle-text>Dark mode</span>
-      </button>
-      <a class="button" href="#brief">Request a Review</a>
-    </div>
+  <body class="page-home">
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="hero-kicker" data-reveal>Quote Intake Studio</p>
-          <h1 data-reveal data-reveal-delay="60" data-scramble>Quote Intake Studio</h1>
-          <p class="hero-title" data-reveal data-reveal-delay="120">Turn more website visitors into quote requests</p>
-          <p class="hero-text" data-reveal data-reveal-delay="190">
-            Stop letting hot leads slip away. We audit your website for lead leaks, optimize your mobile calls-to-action, write instant text/email follow-up sequences, and place reviews where they actually drive action - all with a fixed-scope quote agreed first.
-          </p>
-          <div class="hero-actions" data-reveal data-reveal-delay="260">
-            <a class="button" href="#brief">Request a Review</a>
-            <a class="button button-secondary" href="#services">View Services</a>
-            <a class="hero-sample-link" href="lead-leak-audit-sample.html">
-              <span class="sample-tag">Live Proof</span>
-              <span>Sample Audit Report &rarr;</span>
-            </a>
-          </div>
-          <div class="hero-status" data-hover-card data-hero-status aria-label="Project readiness path">
-            <div class="hero-status-top">
-              <div>
-                <span>Readiness path</span>
-                <strong data-hero-status-title>Quote path reviewed</strong>
-              </div>
-              <em data-hero-status-label>Step 01</em>
-            </div>
-            <div class="hero-status-track" aria-hidden="true"><span data-hero-status-progress></span></div>
-            <div class="hero-status-grid">
-              <span class="is-hero-status-active" data-hero-status-step>
-                <em>01</em>
-                <strong>Audit</strong>
-              </span>
-              <span data-hero-status-step>
-                <em>02</em>
-                <strong>Optimize</strong>
-              </span>
-              <span data-hero-status-step>
-                <em>03</em>
-                <strong>Follow-Up</strong>
-              </span>
-            </div>
-          </div>
-          <div class="hero-metrics" aria-label="Project expectations" data-reveal data-reveal-delay="320">
-            <article>
-              <span>Scope</span>
-              <strong>Fixed quote first</strong>
-              <small>Price and deliverables before work begins</small>
-            </article>
-            <article>
-              <span>Conversion</span>
-              <strong>Mobile & form optimization</strong>
-              <small>Add sticky CTAs and clean touch targets</small>
-            </article>
-            <article>
-              <span>Follow-Up</span>
-              <strong>Copy templates included</strong>
-              <small>SMS text-back and email auto-replies</small>
-            </article>
-          </div>
-        </div>
-        <figure class="hero-media" data-reveal data-reveal-delay="220" data-tilt>
-          <img src="assets/hero-workspace.png" alt="Mobile phone showing optimized quote button and responsive forms" />
-          <div class="hero-signal-card" aria-hidden="true">
-            <span>Conversion rate</span>
-            <strong>Quote path optimized</strong>
-            <div class="hero-signal-meter"><span></span></div>
-            <div class="hero-signal-grid">
-              <em>Audit</em>
-              <em>CTAs</em>
-              <em>Replies</em>
-            </div>
-          </div>
-          <figcaption class="workflow-snapshot" data-workflow-snapshot aria-label="Typical project workflow status">
-            <span class="snapshot-status"><span aria-hidden="true"></span> Quote path status</span>
-            <span class="workflow-timer" aria-hidden="true"><span></span></span>
-            <ol>
-              <li class="is-active" data-workflow-step aria-current="step"><strong>Audit</strong><span>Identify lead leak points</span></li>
-              <li data-workflow-step><strong>Optimize</strong><span>Build CTAs & clean form layouts</span></li>
-              <li data-workflow-step><strong>Handoff</strong><span>Deliver templates & usage notes</span></li>
-            </ol>
-          </figcaption>
-        </figure>
-        <div class="trust-row" aria-label="Service principles" data-reveal data-reveal-delay="360">
-          <div>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3 20 6v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6l8-3Z" />
-              <path d="m8.5 12 2.2 2.2 4.8-5" />
-            </svg>
-            <span>No hourly lock-in</span>
-          </div>
-          <div>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z" />
-            </svg>
-            <span>Fast turnaround</span>
-          </div>
-          <div>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M7 11V8a5 5 0 0 1 10 0v3" />
-              <rect x="5" y="11" width="14" height="10" rx="2" />
-            </svg>
-            <span>Data secure</span>
-          </div>
-        </div>
-      </section>
+    <header class="site-header" data-site-header>
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Quote Intake Studio home">
+          <img src="assets/favicon.svg" alt="" width="38" height="38">
+          <span>
+            <strong>Quote Intake</strong>
+            <small>Studio</small>
+          </span>
+        </a>
 
-      <section class="proof-strip" aria-label="Business details" data-reveal>
-        <div>
-          <span class="proof-index">01</span>
-          <strong>No surprise hourly fees</strong>
-          <span>Written price and deliverables before work begins</span>
-        </div>
-        <div>
-          <span class="proof-index">02</span>
-          <strong>Focused setup packages</strong>
-          <span>Audits, mobile buttons, auto-responders, and forms</span>
-        </div>
-        <div>
-          <span class="proof-index">03</span>
-          <strong>Build a quote brief</strong>
-          <span>Build a brief, then send the exact project scope by email</span>
-        </div>
-        <div>
-          <span class="proof-index">04</span>
-          <strong>Scope agreed first</strong>
-          <span>We confirm access needs and goals before you pay anything</span>
-        </div>
-      </section>
-
-      <section id="services" class="section section-soft">
-        <div class="section-heading" data-reveal>
-          <h2 data-scramble>Services</h2>
-          <p>Simple, high-impact fixes that turn casual website visits into paid service bookings.</p>
-        </div>
-        <div class="service-grid" data-service-grid>
-          <article class="service-item" data-reveal data-hover-card data-service-card>
-            <svg viewBox="0 0 40 40" aria-hidden="true">
-              <path d="M9 8h22v24H9z" />
-              <path d="M14 15h12M14 21h7M25 24l5 5M30 24l-5 5" />
-            </svg>
-            <h3>Lead Leak Audit</h3>
-            <p>A prioritized review of your website's contact form, mobile layouts, and response times to find why visitors leave without requesting a quote.</p>
-            <div class="service-fit">
-              <span>Outcome</span>
-              <strong>Actionable fix checklist</strong>
-            </div>
-            <div class="service-action">
-              <span>Best start: Lead Leak Audit</span>
-              <a href="#brief">Request Audit</a>
-            </div>
-          </article>
-          <article class="service-item" data-reveal data-hover-card data-service-card>
-            <svg viewBox="0 0 40 40" aria-hidden="true">
-              <rect x="5" y="8" width="30" height="24" rx="3" />
-              <path d="M5 15h30M11 22h8M23 22h7M11 27h19" />
-            </svg>
-            <h3>Mobile CTA Cleanup</h3>
-            <p>Make it easy for mobile visitors to contact you. We implement high-visibility call buttons and mobile-responsive layout adjustments.</p>
-            <div class="service-fit">
-              <span>Outcome</span>
-              <strong>High-visibility sticky CTAs</strong>
-            </div>
-            <div class="service-action">
-              <span>Best start: Mobile CTA Cleanup</span>
-              <a href="#brief">Request Review</a>
-            </div>
-          </article>
-          <article class="service-item" data-reveal data-hover-card data-service-card>
-            <svg viewBox="0 0 40 40" aria-hidden="true">
-              <circle cx="10" cy="20" r="4" />
-              <circle cx="30" cy="11" r="4" />
-              <circle cx="30" cy="29" r="4" />
-              <path d="M14 18 26 13M14 22l12 5" />
-            </svg>
-            <h3>Follow-Up Setup</h3>
-            <p>Connect your forms to instant email or SMS auto-replies so you respond to warm leads before they contact competitors.</p>
-            <div class="service-fit">
-              <span>Outcome</span>
-              <strong>Instant response templates</strong>
-            </div>
-            <div class="service-action">
-              <span>Best start: Follow-Up Setup</span>
-              <a href="#brief">Request Review</a>
-            </div>
-          </article>
-          <article class="service-item" data-reveal data-hover-card data-service-card>
-            <svg viewBox="0 0 40 40" aria-hidden="true">
-              <path d="m25 7 8 8-7 7-3-3-10 10-4-4 10-10-3-3 9-5Z" />
-              <path d="M6 34h28" />
-            </svg>
-            <h3>Intake Form Setup</h3>
-            <p>Setup a custom, multi-step quote request form that qualifies leads and routes details directly to your email or CRM.</p>
-            <div class="service-fit">
-              <span>Outcome</span>
-              <strong>Custom qualifying form</strong>
-            </div>
-            <div class="service-action">
-              <span>Best start: Intake Form Setup</span>
-              <a href="#brief">Request Review</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section delivery-section">
-        <div class="delivery-copy" data-reveal>
-          <h2 data-scramble>Clear Deliverables, Not Guesswork</h2>
-          <p>
-            Each project is organized around a short brief, visible milestones, and practical
-            handoff notes so the result can actually be used after delivery.
-          </p>
-        </div>
-        <div
-          class="delivery-board"
-          data-reveal
-          data-reveal-delay="120"
-          data-hover-card
-          data-delivery-board
-          aria-label="Typical deliverables"
+        <button
+          class="menu-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+          data-menu-button
         >
-          <div class="board-header">
-            <div>
-              <span>Delivery board</span>
-              <strong>Fixed-scope project</strong>
-            </div>
-            <em data-delivery-state>Milestone 1 of 4</em>
-          </div>
-          <span class="delivery-progress" aria-hidden="true"><span></span></span>
-          <div class="delivery-row" data-delivery-row>
-            <span class="row-index">01</span>
-            <span class="row-copy">
-              <strong class="row-title">Scope and price</strong>
-              <small>Deliverables, timeline, and quote are agreed first.</small>
-            </span>
-            <span class="row-status"><span aria-hidden="true"></span> Ready</span>
-          </div>
-          <div class="delivery-row" data-delivery-row>
-            <span class="row-index">02</span>
-            <span class="row-copy">
-              <strong class="row-title">Optimization work</strong>
-              <small>The scoped website, CTAs, forms, or follow-ups are completed.</small>
-            </span>
-            <span class="row-status"><span aria-hidden="true"></span> In progress</span>
-          </div>
-          <div class="delivery-row" data-delivery-row>
-            <span class="row-index">03</span>
-            <span class="row-copy">
-              <strong class="row-title">Handoff templates</strong>
-              <small>Response email/SMS templates and layouts are customized.</small>
-            </span>
-            <span class="row-status"><span aria-hidden="true"></span> Included</span>
-          </div>
-          <div class="delivery-row" data-delivery-row>
-            <span class="row-index">04</span>
-            <span class="row-copy">
-              <strong class="row-title">Usage notes</strong>
-              <small>Testing outcomes and integration steps are clear.</small>
-            </span>
-            <span class="row-status"><span aria-hidden="true"></span> Included</span>
-          </div>
-        </div>
-      </section>
-      <section id="work" class="section showcase-section section-soft">
-        <div class="showcase-copy" data-reveal>
-          <h2 data-scramble>Built Around Real Workflows</h2>
-          <p>
-            Pick a project type and the preview updates to show the kind of scope,
-            checks, and handoff details that can be included.
-          </p>
-        </div>
-        <div class="showcase-shell" data-reveal data-reveal-delay="120" data-spotlight>
-          <div class="showcase-tabs" role="tablist" aria-label="Project examples">
-            <button
-              id="showcase-tab-site"
-              class="showcase-tab is-active"
-              type="button"
-              role="tab"
-              aria-selected="true"
-              aria-controls="showcase-panel"
-              tabindex="0"
-              data-showcase="site"
-            >
-              <span>Lead leak audit</span>
-              <small>Prioritized checklist</small>
-            </button>
-            <button
-              id="showcase-tab-rescue"
-              class="showcase-tab"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="showcase-panel"
-              tabindex="-1"
-              data-showcase="rescue"
-            >
-              <span>Mobile CTA pass</span>
-              <small>Action buttons active</small>
-            </button>
-            <button
-              id="showcase-tab-automation"
-              class="showcase-tab"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="showcase-panel"
-              tabindex="-1"
-              data-showcase="automation"
-            >
-              <span>Auto-responder</span>
-              <small>Instant reply setup</small>
-            </button>
-          </div>
-          <div class="showcase-rail" aria-label="Current preview stages">
-            <span data-showcase-rail-1>Scope</span>
-            <span data-showcase-rail-2>Build</span>
-            <span data-showcase-rail-3>Handoff</span>
-          </div>
-          <div id="showcase-panel" class="showcase-panel" role="tabpanel" aria-labelledby="showcase-tab-site" data-brief-key="audit">
-            <div class="showcase-info">
-              <span class="showcase-kind" data-showcase-kind>Lead leak audit</span>
-              <h3 data-showcase-title>Prioritized fix checklist</h3>
-              <p data-showcase-copy>
-                Review forms, sticky headers, touch targets, and missed-call follow-ups to stop losing leads.
-              </p>
-              <div class="showcase-list" aria-label="Included checks">
-                <div><span>01</span><strong data-showcase-item-1>Mobile CTA visual check</strong></div>
-                <div><span>02</span><strong data-showcase-item-2>Intake form fields check</strong></div>
-                <div><span>03</span><strong data-showcase-item-3>Missed-call reply test</strong></div>
-              </div>
-              <div class="showcase-artifacts" aria-label="Typical artifacts">
-                <span data-showcase-artifact-1>Lead leak map</span>
-                <span data-showcase-artifact-2>CTA recommendations</span>
-                <span data-showcase-artifact-3>Response copy</span>
-              </div>
-              <a class="showcase-cta" href="#brief" data-showcase-cta>Request Audit</a>
-            </div>
-            <div class="interface-preview" data-preview-mode="site" aria-hidden="true">
-              <div class="preview-toolbar">
-                <span></span>
-                <strong data-preview-label>Audit checklist</strong>
-              </div>
-              <div class="preview-stage">
-                <span data-preview-stage-1>Scope</span>
-                <span data-preview-stage-2>Checks</span>
-                <span data-preview-stage-3>Handoff</span>
-              </div>
-              <div class="preview-grid">
-                <div class="preview-main">
-                  <span class="preview-module-label" data-preview-module>Audit packet</span>
-                  <div class="preview-title-line"></div>
-                  <div class="preview-copy-line"></div>
-                  <div class="preview-copy-line short"></div>
-                  <div class="preview-progress"><span data-preview-progress></span></div>
-                  <div class="preview-artifact-stack">
-                    <span data-preview-card-1>Lead leak checklist</span>
-                    <span data-preview-card-2>Mobile CTA layout check</span>
-                  </div>
-                </div>
-                <div class="preview-side">
-                  <span class="preview-state" data-preview-state>Ready</span>
-                  <div class="preview-score">
-                    <span>Readiness</span>
-                    <strong data-preview-score>78%</strong>
-                  </div>
-                  <div class="preview-bars">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <div class="preview-inspector">
-                    <span data-preview-note-1>CTA height checked</span>
-                    <span data-preview-note-2>Response times checked</span>
-                    <span data-preview-note-3>Form fields count pass</span>
-                  </div>
-                </div>
-              </div>
-              <div class="preview-footer">
-                <span data-preview-foot-1>CTAs reviewed</span>
-                <span data-preview-foot-2>Touch targets check</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+          <span class="menu-label">Menu</span>
+          <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
+        </button>
 
-      <section id="sample-deliverable" class="section section-soft deliverable-sample-section">
-        <div class="deliverable-copy" data-reveal>
-          <h2 data-scramble>See a Sample Deliverable</h2>
-          <p>
-            We believe in absolute transparency. Before requesting review, you can check a complete interactive example of our Website Lead Leak Audit report to see exactly what findings look like.
-          </p>
-        </div>
-        <div class="deliverable-preview-container" data-reveal data-reveal-delay="120">
-          <div class="deliverable-preview-card" data-hover-card>
-            <div class="preview-card-header">
-              <span class="report-badge">Fictional Client Report</span>
-              <h3>Website Lead Leak Audit</h3>
-              <p>5 priority leaks and conversion fixes identified on a local service website in 48 hours.</p>
-            </div>
-            <div class="preview-metrics-strip">
-              <div>
-                <strong>5 Leaks</strong>
-                <span>Identified</span>
-              </div>
-              <div>
-                <strong>48h Fix</strong>
-                <span>Estimated</span>
-              </div>
-              <div>
-                <strong>Copy Templates</strong>
-                <span>Included</span>
-              </div>
-            </div>
-            <div class="preview-findings-summary">
-              <h4>Priority Findings Highlight</h4>
-              <ul>
-                <li>
-                  <strong>01. Buried Mobile CTA:</strong>
-                  <span>Main phone button was 3 scrolls down. Fix: Add top-sticky action button.</span>
-                </li>
-                <li>
-                  <strong>02. Zero Instant Lead Follow-Up:</strong>
-                  <span>Forms sent emails, but users got no text/email receipt. Fix: Trigger instant SMS auto-reply.</span>
-                </li>
-              </ul>
-            </div>
-            <div class="preview-actions">
-              <a class="button" href="lead-leak-audit-sample.html">
-                <span>View Full Interactive Audit Sample &rarr;</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+        <nav id="primary-navigation" class="primary-nav" aria-label="Primary navigation" data-primary-nav>
+          <a href="#services">What we fix</a>
+          <a href="#proof">Sample audit</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#process">Process</a>
+          <a class="nav-cta" href="#brief">Request a review <span aria-hidden="true">&nearr;</span></a>
+        </nav>
+      </div>
+      <div class="page-progress" aria-hidden="true"><span data-page-progress></span></div>
+    </header>
 
-      <section id="rescues" class="section rescues-section">
-        <div class="section-heading" data-reveal>
-          <h2 data-scramble>Conversion Fixes</h2>
-          <p>Example scopes for realistic, fixed-scope troubleshooting. No hourly bloat, no fake testimonials.</p>
-        </div>
-        <div class="rescues-grid" data-reveal data-reveal-delay="120">
-          <article class="rescue-card" data-hover-card>
-            <div class="rescue-badge">Example Scope</div>
-            <h3>Lost Missed-Call Leads</h3>
-            <p class="rescue-problem"><strong>Problem:</strong> Callers hang up when you're busy on a job. They immediately search for a competitor who answers.</p>
-            <p class="rescue-solution"><strong>Fix path:</strong> Set up a simple missed-call auto-text reply explaining you're on a job and asking what service they need.</p>
-          </article>
-          <article class="rescue-card" data-hover-card>
-            <div class="rescue-badge">Example Scope</div>
-            <h3>Buried Mobile Quote Button</h3>
-            <p class="rescue-problem"><strong>Problem:</strong> Customers can't find how to get a quote on their phones because buttons are small or require deep scrolling.</p>
-            <p class="rescue-solution"><strong>Fix path:</strong> Add a high-visibility, thumb-friendly sticky header or footer button that jumps straight to the intake form.</p>
-          </article>
-          <article class="rescue-card" data-hover-card>
-            <div class="rescue-badge">Example Scope</div>
-            <h3>Broken Form Notifications</h3>
-            <p class="rescue-problem"><strong>Problem:</strong> Customers fill out your quote form but emails fail to send, leaving leads sitting unread in your inbox for days.</p>
-            <p class="rescue-solution"><strong>Fix path:</strong> Update field mapping, fix SMTP delivery, test notification routing, and set up a secondary backup channel.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="process" class="section">
-        <div class="section-heading" data-reveal>
-          <h2 data-scramble>Our Process</h2>
-          <p>Simple, transparent, and built around your goals.</p>
-        </div>
-        <div class="process-grid" data-reveal data-process-track>
-          <article data-process-step tabindex="0">
-            <span class="process-number">01</span>
-            <div class="process-copy">
-              <div class="process-card-head">
-                <h3>Discuss</h3>
-                <small>Intake</small>
-              </div>
-              <p>We review your current site, quote forms, follow-ups, and business goals.</p>
-              <div class="process-checks" aria-label="Discuss deliverables">
-                <span>Site reviewed</span>
-                <span>Access needs listed</span>
-              </div>
-            </div>
-          </article>
-          <article data-process-step tabindex="0">
-            <span class="process-number">02</span>
-            <div class="process-copy">
-              <div class="process-card-head">
-                <h3>Plan</h3>
-                <small>Scope</small>
-              </div>
-              <p>You get a fixed scope, USD price, timeline, and deliverables before work begins.</p>
-              <div class="process-checks" aria-label="Plan deliverables">
-                <span>Quote confirmed</span>
-                <span>Timeline locked</span>
-              </div>
-            </div>
-          </article>
-          <article data-process-step tabindex="0">
-            <span class="process-number">03</span>
-            <div class="process-copy">
-              <div class="process-card-head">
-                <h3>Build</h3>
-                <small>Execution</small>
-              </div>
-              <p>We implement CTAs, write follow-up templates, and connect response triggers.</p>
-              <div class="process-checks" aria-label="Build deliverables">
-                <span>Fixes completed</span>
-                <span>Forms & alerts tested</span>
-              </div>
-            </div>
-          </article>
-          <article data-process-step tabindex="0">
-            <span class="process-number">04</span>
-            <div class="process-copy">
-              <div class="process-card-head">
-                <h3>Deliver</h3>
-                <small>Handoff</small>
-              </div>
-              <p>You review the result, request included revisions, and receive next-step notes.</p>
-              <div class="process-checks" aria-label="Deliver deliverables">
-                <span>Code handed off</span>
-                <span>Templates delivered</span>
-              </div>
-            </div>
-          </article>
-        </div>
-        <div class="process-focus" data-reveal data-reveal-delay="120" data-hover-card data-process-focus>
-          <div class="process-focus-header">
-            <div>
-              <span>Handoff packet</span>
-              <strong data-process-focus-title>Discuss</strong>
-            </div>
-            <em data-process-focus-label>Intake</em>
-          </div>
-          <p data-process-focus-copy>
-            Goals, current setup, access needs, and success criteria are gathered before scope is written.
-          </p>
-          <div class="process-focus-grid">
-            <span><em>Proof point</em><strong data-process-focus-proof>Goal and access list</strong></span>
-            <span><em>Client action</em><strong data-process-focus-action>Share project links</strong></span>
-            <span><em>Record</em><strong data-process-focus-record>Intake notes saved</strong></span>
-          </div>
-          <div class="process-focus-meter" aria-label="Process progress">
-            <span>Process progress</span>
-            <em aria-hidden="true"><i data-process-focus-meter style="--process-focus-level: 25%"></i></em>
-          </div>
-          <div class="process-focus-tags" aria-label="Current phase details">
-            <span data-process-focus-tag-1>Goals</span>
-            <span data-process-focus-tag-2>Access needs</span>
-            <span data-process-focus-tag-3>Success criteria</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="section quality-section">
-        <div class="quality-copy" data-reveal>
-          <h2 data-scramble>Checked Before Handoff</h2>
-          <p>
-            The final pass is focused on the details that make a project easier to trust:
-            mobile touch targets, notification routing, and clear follow-up copy.
-          </p>
-        </div>
-        <div class="quality-panel" data-reveal data-reveal-delay="120" data-hover-card aria-label="Launch quality checks">
-          <div class="quality-toolbar">
-            <span aria-hidden="true"></span>
-            <strong>Launch QA</strong>
-            <em>Review pass</em>
-          </div>
-          <div class="quality-window">
-            <span class="scan-line" aria-hidden="true"></span>
-            <div class="quality-row">
-              <span>01</span>
-              <strong>Mobile touch targets</strong>
-              <em>Pass</em>
-            </div>
-            <div class="quality-row">
-              <span>02</span>
-              <strong>Form notification reliability</strong>
-              <em>Pass</em>
-            </div>
-            <div class="quality-row">
-              <span>03</span>
-              <strong>SMS/Email auto-replies</strong>
-              <em>Pass</em>
-            </div>
-            <div class="quality-row">
-              <span>04</span>
-              <strong>Policy and support links</strong>
-              <em>Pass</em>
-            </div>
-          </div>
-        </div>
-        <div class="quality-notes" data-reveal data-reveal-delay="180">
-          <article>
-            <span>01</span>
-            <h3>Mobile Touch Targets</h3>
-            <p>Ensure headers, buttons, and form inputs are sized properly for phone screens so users can easily tap.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Notification Tests</h3>
-            <p>Test form submissions against multiple email accounts to verify delivery speed and routing.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Response Templates</h3>
-            <p>Deliver ready-to-use email/SMS copy for follow-ups and missed calls, customized for your audience.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="pricing" class="section section-soft">
-        <div class="section-heading" data-reveal>
-          <h2 data-scramble>Simple Pricing</h2>
-          <p>Fixed-scope packages. No hourly surprises.</p>
-        </div>
-        <div class="pricing-guide" data-reveal data-reveal-delay="80" data-pricing-guide aria-label="Package selection guide">
-          <span data-pricing-guide-step>
-            <small>01</small>
-            <strong>Audit</strong>
-            <em>Find conversion leaks</em>
-          </span>
-          <span data-pricing-guide-step>
-            <small>02</small>
-            <strong>CTAs</strong>
-            <em>Add mobile buttons</em>
-          </span>
-          <span data-pricing-guide-step>
-            <small>03</small>
-            <strong>Follow-Up</strong>
-            <em>Setup auto-replies</em>
-          </span>
-          <span data-pricing-guide-step>
-            <small>04</small>
-            <strong>Forms</strong>
-            <em>Build custom intake form</em>
-          </span>
-        </div>
-        <div class="pricing-focus" data-reveal data-reveal-delay="120" data-pricing-focus aria-live="polite">
-          <div class="pricing-focus-header">
-            <div>
-              <span>Selected package</span>
-              <strong data-pricing-focus-title>Lead Leak Audit</strong>
-            </div>
-            <em data-pricing-focus-label>Suggested start</em>
-          </div>
-          <p data-pricing-focus-copy>
-            A prioritized review of your website's contact form, mobile layouts, and response times.
-          </p>
-          <div class="pricing-focus-stats">
-            <span><em>Starting at</em><strong data-pricing-focus-price>$49 USD</strong></span>
-            <span><em>Timeline</em><strong data-pricing-focus-time>1-3 business days</strong></span>
-            <span><em>Best for</em><strong data-pricing-focus-fit>Finding conversion leaks</strong></span>
-          </div>
-          <div class="pricing-focus-meter" aria-label="Scope depth">
-            <span>Scope depth</span>
-            <em aria-hidden="true"><i data-pricing-focus-meter style="--pricing-focus-level: 38%"></i></em>
-          </div>
-          <div class="pricing-focus-tags" aria-label="Package highlights">
-            <span data-pricing-focus-tag-1>Lead leak map</span>
-            <span data-pricing-focus-tag-2>CTA recommendations</span>
-            <span data-pricing-focus-tag-3>Response copy</span>
-          </div>
-        </div>
-        <div class="pricing-grid" data-pricing-grid aria-label="Package comparison">
-          <article class="price-card" data-reveal data-hover-card data-price-card>
-            <span class="price-kicker">Audit</span>
-            <h3>Lead Leak Audit</h3>
-            <p>A prioritized review of your quote path, mobile layouts, and response times to find lost leads.</p>
-            <div class="price-fit">
-              <span>Best for</span>
-              <strong>Finding conversion leaks</strong>
-            </div>
-            <ul class="price-features" aria-label="Lead Leak Audit includes">
-              <li>Quote path review</li>
-              <li>Prioritized fix list</li>
-              <li>Response time check</li>
-            </ul>
-            <p class="price">Starting at <strong>$49 USD</strong></p>
-            <p class="price-note">1-3 business days</p>
-            <div class="price-actions">
-              <a class="button" href="#brief" data-pricing-brief="audit">Request Audit</a>
-              <a class="button button-secondary" href="#brief" data-pricing-brief="audit">Build Brief</a>
-            </div>
-          </article>
-          <article class="price-card price-card-featured" data-reveal data-hover-card data-price-card>
-            <span class="price-kicker">CTAs</span>
-            <span class="price-marker">Suggested start</span>
-            <h3>Mobile CTA Cleanup</h3>
-            <p>Make it easy for mobile visitors to contact you. Adds sticky call/quote buttons and touch-target checks.</p>
-            <div class="price-fit">
-              <span>Best for</span>
-              <strong>Mobile lead conversion</strong>
-            </div>
-            <ul class="price-features" aria-label="Mobile CTA Cleanup includes">
-              <li>Sticky call/quote buttons</li>
-              <li>Tap target optimization</li>
-              <li>Header/footer QA pass</li>
-            </ul>
-            <p class="price">Starting at <strong>$99 USD</strong></p>
-            <p class="price-note">3-7 business days</p>
-            <div class="price-actions">
-              <a class="button" href="#brief" data-pricing-brief="website">Request CTA Cleanup</a>
-              <a class="button button-secondary" href="#brief" data-pricing-brief="website">Build Brief</a>
-            </div>
-          </article>
-          <article class="price-card" data-reveal data-hover-card data-price-card>
-            <span class="price-kicker">Follow-Up</span>
-            <h3>Follow-Up Setup</h3>
-            <p>Connect your forms to instant email or SMS auto-replies so leads get a response in under 60 seconds.</p>
-            <div class="price-fit">
-              <span>Best for</span>
-              <strong>Instant response speed</strong>
-            </div>
-            <ul class="price-features" aria-label="Follow-Up Setup includes">
-              <li>Auto-reply trigger rules</li>
-              <li>SMS/Email copy templates</li>
-              <li>Notification routing</li>
-            </ul>
-            <p class="price">Starting at <strong>$149 USD</strong></p>
-            <p class="price-note">Scope dependent</p>
-            <div class="price-actions">
-              <a class="button" href="#brief" data-pricing-brief="automation">Request Follow-Up Setup</a>
-              <a class="button button-secondary" href="#brief" data-pricing-brief="automation">Build Brief</a>
-            </div>
-          </article>
-          <article class="price-card" data-reveal data-hover-card data-price-card>
-            <span class="price-kicker">Forms</span>
-            <h3>Intake Form Setup</h3>
-            <p>Setup a custom, multi-step quote request form that qualifies leads and maps fields to CRM/Sheets.</p>
-            <div class="price-fit">
-              <span>Best for</span>
-              <strong>Custom qualifying steps</strong>
-            </div>
-            <ul class="price-features" aria-label="Intake Form Setup includes">
-              <li>Multi-step layout build</li>
-              <li>CRM/Spreadsheet mapping</li>
-              <li>Field validation rules</li>
-            </ul>
-            <p class="price">Starting at <strong>$299 USD</strong></p>
-            <p class="price-note">Scope dependent</p>
-            <div class="price-actions">
-              <a class="button" href="#brief" data-pricing-brief="fix">Request Form Setup</a>
-              <a class="button button-secondary" href="#brief" data-pricing-brief="fix">Build Brief</a>
-            </div>
-          </article>
-        </div>
-
-        <div class="pricing-trust-bar" data-reveal>
-          <div class="trust-badge-item">
-            <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              <path d="m9 11 2 2 4-4" />
-            </svg>
-            <div>
-              <strong>Scope Agreed First</strong>
-              <p>Analyze your brief first. You only pay once we agree on exact deliverables and price.</p>
-            </div>
-          </div>
-          <div class="trust-badge-item">
-            <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-            <div>
-              <strong>Written Scope First</strong>
-              <p>Pricing, timeline, and deliverables are confirmed before any payment request is sent.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="brief" class="section brief-section">
-        <div class="brief-copy" data-reveal>
-          <h2 data-scramble>Build a Project Brief</h2>
-          <p>
-            Choose the package that matches your project and the request preview updates with
-            a practical starting scope, estimated delivery window, and email-ready next step.
-          </p>
-        </div>
-        <div class="brief-builder" data-reveal data-reveal-delay="120">
-          <div class="brief-options" aria-label="Project request type">
-            <button class="brief-option is-active" type="button" aria-pressed="true" data-brief="audit">
-              Lead Leak Audit
-            </button>
-            <button class="brief-option" type="button" aria-pressed="false" data-brief="website">
-              Mobile CTA Cleanup
-            </button>
-            <button class="brief-option" type="button" aria-pressed="false" data-brief="automation">
-              Follow-Up Setup
-            </button>
-            <button class="brief-option" type="button" aria-pressed="false" data-brief="fix">
-              Intake Form Setup
-            </button>
-          </div>
-          <div class="brief-output" data-hover-card aria-live="polite">
-            <span class="brief-label" data-brief-label>Selected scope</span>
-            <h3 data-brief-title>Lead Leak Audit</h3>
-            <p data-brief-copy>
-              A prioritized review of your website's contact form, mobile layouts, and response times to find lost leads.
+    <main id="main-content">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="hero-grid page-shell">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span> Website conversion repair for local service businesses</p>
+            <h1 id="hero-title">
+              <span class="sr-only">Turn more website visits into real quote requests.</span>
+              <span aria-hidden="true">
+                Turn more website visits into
+                <em data-decode="real quote requests.">real quote requests.</em>
+              </span>
+            </h1>
+            <p class="hero-lead">
+              We find where ready-to-hire visitors get stuck&mdash;then fix the calls-to-action,
+              forms, and follow-up that cost you leads.
             </p>
-
-            <div class="brief-intake-form">
-              <div class="intake-field">
-                <label for="intake-goal">Your Business Type & Services</label>
-                <input type="text" id="intake-goal" placeholder="e.g., Detailing, Landscaping, Cleaning" />
-              </div>
-              <div class="intake-field-row">
-                <div class="intake-field">
-                  <label for="intake-link">Your Website Link (Optional)</label>
-                  <input type="url" id="intake-link" placeholder="e.g., example.com" />
-                </div>
-                <div class="intake-field">
-                  <label for="intake-timeline">Target Timeline</label>
-                  <select id="intake-timeline">
-                    <option value="ASAP (critical fix)">ASAP (critical fix)</option>
-                    <option value="1-3 business days" selected>1-3 business days</option>
-                    <option value="1-2 weeks">1-2 weeks</option>
-                    <option value="Flexible">Flexible</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="brief-meta">
-              <div>
-                <span>Starting at</span>
-                <strong data-brief-price>$49 USD</strong>
-              </div>
-              <div>
-                <span>Typical delivery</span>
-                <strong data-brief-time>1-3 business days</strong>
-              </div>
-            </div>
-            <div class="brief-meter" aria-label="Scope profile">
-              <div>
-                <span>Complexity</span>
-                <strong data-brief-meter-complexity>Light</strong>
-                <em aria-hidden="true"><i style="--meter-width: 38%" data-brief-meter-complexity-bar></i></em>
-              </div>
-              <div>
-                <span>Turnaround</span>
-                <strong data-brief-meter-turnaround>Fast</strong>
-                <em aria-hidden="true"><i style="--meter-width: 82%" data-brief-meter-turnaround-bar></i></em>
-              </div>
-              <div>
-                <span>Handoff depth</span>
-                <strong data-brief-meter-handoff>Checklist</strong>
-                <em aria-hidden="true"><i style="--meter-width: 55%" data-brief-meter-handoff-bar></i></em>
-              </div>
-            </div>
-            <div class="brief-mail" aria-label="Email request preview">
-              <div class="brief-mail-top">
-                <span>Email draft preview</span>
-                <strong data-brief-email-subject>Lead Leak Audit</strong>
-              </div>
-              <div class="brief-mail-lines">
-                <span>
-                  <em>Business</em>
-                  <strong data-brief-email-goal>e.g., Detailing, Landscaping, Cleaning</strong>
-                </span>
-                <span>
-                  <em>Timeline</em>
-                  <strong data-brief-email-timeline>1-3 business days</strong>
-                </span>
-                <span>
-                  <em>Budget</em>
-                  <strong data-brief-email-budget>Starting at $49 USD</strong>
-                </span>
-              </div>
-              <div class="brief-mail-status" aria-label="Included request fields">
-                <span>Scope starter</span>
-                <span>Link field</span>
-                <span>Budget field</span>
-              </div>
-            </div>
-            <ul class="brief-deliverables" aria-label="Included deliverables">
-              <li data-brief-item-1>Quote path review</li>
-              <li data-brief-item-2>Prioritized fix list</li>
-              <li data-brief-item-3>Response time check</li>
-            </ul>
-            <div class="brief-actions-row">
-              <a
-                class="button"
-                data-brief-link
-                href="mailto:hello@quoteintakestudio.com?subject=Lead%20Leak%20Audit&body=Hi%20Quote%20Intake%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20Lead%20Leak%20Audit.%0A%0ABusiness%20type%3A%0AYour%20website%20link%3A%0ATarget%20timeline%3A%0APackage%20or%20project%20type%3A%20Lead%20Leak%20Audit%0ABudget%20range%3A%20Starting%20at%20%2449%20USD%0A"
-              >
-                Send Brief via Email
+            <div class="hero-actions">
+              <a class="button button-primary" href="#brief">
+                Get a $49 lead-leak audit <span aria-hidden="true">&nearr;</span>
               </a>
-              <button class="button button-secondary" type="button" data-copy-brief-btn>
-                Copy Compiled Brief
-              </button>
+              <a class="button button-quiet" href="lead-leak-audit-sample.html">
+                See a sample audit <span aria-hidden="true">&rarr;</span>
+              </a>
             </div>
+            <ul class="hero-assurances" aria-label="Project assurances">
+              <li>Fixed scope first</li>
+              <li>No login needed for an audit</li>
+              <li>Practical fixes, not a vague report</li>
+            </ul>
+          </div>
+
+          <div class="hero-proof" role="group" aria-label="Preview of a sample lead-leak audit">
+            <div class="report-sheet" data-motion-card>
+              <div class="report-topline">
+                <span class="report-label"><i></i> Sample report</span>
+                <span class="report-ref">QIS / LEAD PATH</span>
+              </div>
+              <div class="report-heading">
+                <div>
+                  <small>Website lead path</small>
+                  <strong>Where the request breaks</strong>
+                </div>
+                <span class="priority-stamp">5 findings</span>
+              </div>
+              <p id="report-path-hint" class="report-hint"><span></span> Select a stage to inspect the sample path</p>
+              <div class="path-map" role="group" aria-label="Interactive sample visitor path" aria-describedby="report-path-hint">
+                <button class="path-step is-clear" type="button" data-path-step="visit" aria-pressed="false" aria-controls="report-finding-detail"><span>01</span><strong>Visit</strong><small>Homepage</small></button>
+                <div class="path-line"></div>
+                <button class="path-step is-warning" type="button" data-path-step="tap" aria-pressed="false" aria-controls="report-finding-detail"><span>02</span><strong>Tap</strong><small>CTA buried</small></button>
+                <div class="path-line"></div>
+                <button class="path-step is-warning" type="button" data-path-step="submit" aria-pressed="false" aria-controls="report-finding-detail"><span>03</span><strong>Submit</strong><small>Next step unclear</small></button>
+                <div class="path-line"></div>
+                <button class="path-step is-critical is-active" type="button" data-path-step="reply" aria-pressed="true" aria-controls="report-finding-detail"><span>04</span><strong>Reply</strong><small>Too slow</small></button>
+              </div>
+              <div id="report-finding-detail" class="report-finding" data-finding-panel data-tone="critical" aria-live="polite" aria-atomic="true">
+                <span class="finding-index" data-finding-index>04</span>
+                <div>
+                  <small data-finding-kicker>Highest-priority leak</small>
+                  <strong data-finding-title>No instant follow-up after the contact form</strong>
+                </div>
+                <span class="finding-impact" data-finding-impact>High impact</span>
+              </div>
+              <div class="report-footer">
+                <span><i></i> Prioritized findings</span>
+                <span><i></i> 48-hour fix plan</span>
+                <span><i></i> Message templates</span>
+              </div>
+            </div>
+            <p class="proof-caption">
+              <span>01</span>
+              A real sample deliverable&mdash;clearly labeled, with no invented client results.
+            </p>
           </div>
         </div>
       </section>
 
-      <section id="payments" class="section details-section">
-        <div class="details-copy" data-reveal>
-          <h2>Payments, Delivery, and Support</h2>
-          <p>
-            Every project starts with a written scope so expectations are clear before payment.
-            Digital work and copy templates are delivered by email or direct website integration.
-          </p>
-          <div class="payment-flow" data-reveal data-payment-flow aria-label="Project approval workflow">
-            <div class="payment-flow-header">
-              <span>Approval path</span>
-              <strong>Scope first</strong>
-            </div>
-            <div class="payment-step is-active" data-payment-step>
-              <span class="payment-step-index">01</span>
-              <span>
-                <strong>Confirm scope</strong>
-                <small>Written deliverables, price, and timeline before payment.</small>
-              </span>
-            </div>
-            <div class="payment-step" data-payment-step>
-              <span class="payment-step-index">02</span>
-              <span>
-                <strong>Approve the quote</strong>
-                <small>Payment details are shared only after the project is agreed.</small>
-              </span>
-            </div>
-            <div class="payment-step" data-payment-step>
-              <span class="payment-step-index">03</span>
-              <span>
-                <strong>Deliver work</strong>
-                <small>Forms, CTAs, response templates, and setup notes delivered by email.</small>
-              </span>
-            </div>
-          </div>
+      <div class="trust-ribbon" role="group" aria-label="How projects work">
+        <div class="page-shell trust-grid">
+          <p><span>01</span><strong>Send your public site</strong><small>No passwords for the first review.</small></p>
+          <p><span>02</span><strong>Get the leak map</strong><small>Findings ranked by impact and effort.</small></p>
+          <p><span>03</span><strong>Choose what to fix</strong><small>Written scope before payment.</small></p>
         </div>
-        <div class="details-list">
-          <article class="deposit-card" data-hover-card tabindex="0">
-            <span class="detail-status">First step</span>
-            <h3>Request a written review</h3>
+      </div>
+
+      <section id="services" class="section section-light leaks-section" aria-labelledby="leaks-title">
+        <div class="page-shell">
+          <div class="section-heading">
+            <p class="section-kicker">What we look for</p>
+            <h2 id="leaks-title">A polished website can still leak ready-to-buy leads.</h2>
             <p>
-              Send your site and business details first. You get a clear scope before any payment step.
+              Most quote-path problems are small, visible, and fixable. We focus on the points
+              between &ldquo;I need this&rdquo; and &ldquo;request sent.&rdquo;
             </p>
-            <a
-              class="button"
-              href="mailto:hello@quoteintakestudio.com?subject=Quote%20Path%20Review&body=Hi%20Quote%20Intake%20Studio%2C%0A%0AI%27d%20like%20a%20review%20of%20my%20website%20quote%20path.%0A%0ABusiness%20type%3A%0AWebsite%20link%3A%0ATimeline%3A%0A"
-            >
-              Request a Review
-            </a>
-          </article>
-          <article class="is-detail-active" data-reveal data-hover-card data-detail-card tabindex="0" aria-current="true">
-            <span class="detail-status">Before payment</span>
-            <h3>Payment terms</h3>
-            <p>Prices are listed in USD. Payment details are shared after the project scope is confirmed.</p>
-          </article>
-          <article data-reveal data-hover-card data-detail-card tabindex="0">
-            <span class="detail-status">Clear approval</span>
-            <h3>No surprise billing</h3>
-            <p>You review the written quote, timeline, and deliverables before choosing whether to move forward.</p>
-          </article>
-          <article data-reveal data-hover-card data-detail-card tabindex="0">
-            <span class="detail-status">Written handoff</span>
-            <h3>Delivery timeline</h3>
-            <p>Small audits are usually delivered in 1-3 business days. Build and fix projects vary by scope.</p>
-          </article>
-          <article data-reveal data-hover-card data-detail-card tabindex="0">
-            <span class="detail-status">Support channel</span>
-            <h3>Customer support</h3>
-            <p>Support is available by email at <a href="mailto:hello@quoteintakestudio.com">hello@quoteintakestudio.com</a>.</p>
-          </article>
-        </div>
-        <div class="details-focus" data-reveal data-reveal-delay="140" data-hover-card data-detail-focus aria-live="polite">
-          <div class="details-focus-header">
-            <div>
-              <span>Assurance packet</span>
-              <strong data-detail-focus-title>Payment terms</strong>
-            </div>
-            <em data-detail-focus-label>Before payment</em>
           </div>
-          <p data-detail-focus-copy>
-            Written price, timeline, and deliverables are confirmed before any payment details are shared.
-          </p>
-          <div class="details-focus-grid">
-            <span><em>Primary check</em><strong data-detail-focus-check>Scope confirmed first</strong></span>
-            <span><em>Customer action</em><strong data-detail-focus-action>Review written quote</strong></span>
-            <span><em>Handoff record</em><strong data-detail-focus-record>Price and timeline saved</strong></span>
+
+          <div class="leak-grid">
+            <article class="leak-card">
+              <div class="leak-card-top"><span>01 / DISCOVERY</span><em>Mobile</em></div>
+              <div class="leak-visual leak-visual-cta" aria-hidden="true">
+                <div class="phone-frame">
+                  <i></i><i></i><i></i>
+                  <strong>Request a quote</strong>
+                </div>
+                <span class="visual-note">CTA appears too late</span>
+              </div>
+              <h3>The best action is buried.</h3>
+              <p>Mobile visitors scroll past weak or hard-to-tap buttons before they know what to do next.</p>
+            </article>
+
+            <article class="leak-card">
+              <div class="leak-card-top"><span>02 / SUBMISSION</span><em>Forms</em></div>
+              <div class="leak-visual leak-visual-form" aria-hidden="true">
+                <div class="form-lines"><i></i><i></i><i></i></div>
+                <div class="form-send">Send request <span>&rarr;</span></div>
+                <span class="visual-note">No clear confirmation</span>
+              </div>
+              <h3>The form ends in silence.</h3>
+              <p>Unclear confirmation and too many fields make a warm visitor wonder whether the request worked.</p>
+            </article>
+
+            <article class="leak-card">
+              <div class="leak-card-top"><span>03 / RESPONSE</span><em>Follow-up</em></div>
+              <div class="leak-visual leak-visual-reply" aria-hidden="true">
+                <div class="reply-pulse"><span>0:00</span><i></i><i></i><i></i></div>
+                <div class="reply-message">Thanks&mdash;we got your request.</div>
+                <span class="visual-note">Respond while intent is high</span>
+              </div>
+              <h3>The reply arrives too slowly.</h3>
+              <p>No immediate next step gives the lead time to contact the next business on the list.</p>
+            </article>
           </div>
-          <div class="details-focus-meter" aria-label="Assurance strength">
-            <span>Assurance strength</span>
-            <em aria-hidden="true"><i data-detail-focus-meter style="--detail-focus-level: 78%"></i></em>
-          </div>
-          <div class="details-focus-tags" aria-label="Assurance highlights">
-            <span data-detail-focus-tag-1>Written quote</span>
-            <span data-detail-focus-tag-2>Scope first</span>
-            <span data-detail-focus-tag-3>No surprise hourly billing</span>
-          </div>
-        </div>
-        <div class="policy-shortcuts" data-reveal data-reveal-delay="180" aria-label="Policy and support links">
-          <a href="refund-policy.html">Refund Policy</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Service</a>
-          <a href="#brief">Request Review</a>
-          <a href="mailto:hello@quoteintakestudio.com">Support Email</a>
-        </div>
-      </section>
-      <section id="faq" class="section section-soft faq-section">
-        <div class="section-heading" data-reveal>
-          <h2>FAQ</h2>
-          <p>Short answers before you send a project request.</p>
-        </div>
-        <div class="faq-list" data-reveal data-faq-list>
-          <details data-hover-card data-faq-item open>
-            <summary>What do customers receive?</summary>
-            <p>Deliverables depend on the package. You receive ready-to-use email/SMS copy templates, custom responsive forms, sticky mobile CTA code, or an actionable website lead-leak checklist.</p>
-          </details>
-          <details data-hover-card data-faq-item>
-            <summary>Do you work with my existing website?</summary>
-            <p>Yes. Quote Intake Studio can implement mobile CTAs, custom forms, and auto-responder notifications on WordPress, Squarespace, Wix, Webflow, Shopify, or custom HTML sites.</p>
-          </details>
-          <details data-hover-card data-faq-item>
-            <summary>Can I cancel after requesting a review?</summary>
-            <p>Yes. Since we confirm scope before payment, there is no risk of booking a project that isn't a fit. Revisions are included to ensure your forms or buttons function perfectly.</p>
-          </details>
-          <details data-hover-card data-faq-item>
-            <summary>Do you offer ongoing support?</summary>
-            <p>Most work is fixed-scope. We deliver clean code and copy templates that are easy to maintain yourself. Ongoing updates can be quoted separately as needed.</p>
-          </details>
         </div>
       </section>
 
-      <section id="contact" class="section contact-section">
-        <div class="contact-copy" data-reveal>
-          <h2>Contact</h2>
-          <p>Have a project in mind or want us to audit your quote path? Send a short note and we will reply with next steps.</p>
-          <div class="contact-route" data-reveal data-reveal-delay="120" data-contact-route aria-label="Project request response path">
-            <div class="contact-route-line" aria-hidden="true"></div>
-            <div class="contact-route-step is-active" data-contact-step aria-current="step">
-              <span>01</span>
-              <strong>Send request</strong>
-              <small>Share your business type, site link, and timeline in one short email.</small>
+      <section id="proof" class="section sample-section" aria-labelledby="sample-title">
+        <div class="page-shell sample-grid">
+          <div class="sample-copy">
+            <p class="section-kicker section-kicker-light">Proof before promises</p>
+            <h2 id="sample-title">See the work before you request it.</h2>
+            <p>
+              The sample audit uses a fictional local service business and no private client data.
+              It shows the exact structure: priority findings, why they matter, what to change, and
+              how to verify the fix.
+            </p>
+            <ul class="sample-includes">
+              <li><span>01</span><strong>Five prioritized findings</strong><small>Impact, fix, and proof needed.</small></li>
+              <li><span>02</span><strong>A 48-hour fix plan</strong><small>A clear order of operations.</small></li>
+              <li><span>03</span><strong>Ready-to-edit templates</strong><small>Form, missed-call, and review copy.</small></li>
+            </ul>
+            <a class="text-link text-link-light" href="lead-leak-audit-sample.html">
+              Open the complete sample audit <span aria-hidden="true">&nearr;</span>
+            </a>
+          </div>
+
+          <div class="audit-preview">
+            <div class="audit-preview-head">
+              <span>Sample / not a client report</span>
+              <strong>Lead Leak Audit</strong>
+              <small>Local service website</small>
             </div>
-            <div class="contact-route-step" data-contact-step>
-              <span>02</span>
-              <strong>Scope response</strong>
-              <small>Next steps, estimated price, and deliverables are sent back.</small>
-            </div>
-            <div class="contact-route-step" data-contact-step>
-              <span>03</span>
-              <strong>Confirm & start</strong>
-              <small>Payment link follows only after the project scope is confirmed.</small>
+            <ol class="audit-findings">
+              <li class="is-high">
+                <span>01</span>
+                <div><strong>No instant form follow-up</strong><small>Confirmation and next step are missing.</small></div>
+                <em>High</em>
+              </li>
+              <li class="is-medium-high">
+                <span>02</span>
+                <div><strong>Mobile CTA sits too low</strong><small>Ready visitors have to search for contact.</small></div>
+                <em>Med-high</em>
+              </li>
+              <li>
+                <span>03</span>
+                <div><strong>Missed-call fallback is unclear</strong><small>No visible recovery path.</small></div>
+                <em>Medium</em>
+              </li>
+              <li>
+                <span>04</span>
+                <div><strong>Proof is far from the form</strong><small>Trust and action are disconnected.</small></div>
+                <em>Medium</em>
+              </li>
+              <li class="is-high">
+                <span>05</span>
+                <div><strong>No written follow-up sequence</strong><small>Busy days create inconsistent replies.</small></div>
+                <em>High</em>
+              </li>
+            </ol>
+            <div class="audit-preview-foot">
+              <span>Next: fix plan</span>
+              <div><i></i><i></i><i></i><i></i></div>
+              <strong>Page 1 / 4</strong>
             </div>
           </div>
         </div>
-        <div class="contact-box" data-reveal data-reveal-delay="120" data-hover-card>
-          <div class="contact-card-top">
-            <span>Project request</span>
-            <strong data-contact-status>Lead Leak Audit ready</strong>
-          </div>
-          <div class="contact-email-row">
-            <a class="contact-email" href="mailto:hello@quoteintakestudio.com">hello@quoteintakestudio.com</a>
-            <button class="contact-copy-email" type="button" data-copy-email>Copy</button>
-          </div>
-          <ul class="contact-checklist" aria-label="Helpful details to include">
-            <li><span aria-hidden="true">01</span>Your business type & services</li>
-            <li><span aria-hidden="true">02</span>Current website link</li>
-            <li><span aria-hidden="true">03</span>Deadline or timeline</li>
-            <li><span aria-hidden="true">04</span>Selected package</li>
-          </ul>
-          <div class="contact-draft" aria-label="Email draft preview">
+      </section>
+
+      <section id="pricing" class="section pricing-section" aria-labelledby="pricing-title">
+        <div class="page-shell">
+          <div class="section-heading pricing-heading">
             <div>
-              <span>Subject</span>
-              <strong data-contact-subject>Lead Leak Audit</strong>
+              <p class="section-kicker">Fixed-scope services</p>
+              <h2 id="pricing-title">Start with the smallest useful fix.</h2>
             </div>
-            <div>
-              <span>Body fields</span>
-              <strong data-contact-fields>Business, link, timeline, Lead Leak Audit, budget</strong>
+            <p>
+              You receive a written scope, price, timeline, and deliverables before any payment
+              request. If the work is not a fit, you can stop there.
+            </p>
+          </div>
+
+          <div class="package-grid">
+            <article class="package-card package-card-featured">
+              <div class="package-number">01</div>
+              <div class="package-name">
+                <span>Best first step</span>
+                <h3>Lead Leak Audit</h3>
+              </div>
+              <p>A prioritized review of your quote path, mobile layout, and response flow.</p>
+              <ul>
+                <li>Quote-path review</li>
+                <li>Prioritized fix list</li>
+                <li>Response-time check</li>
+              </ul>
+              <div class="package-price"><span>Starting at</span><strong>$49</strong><small>1&ndash;3 business days</small></div>
+              <button class="button button-primary" type="button" data-package="audit">
+                Request this audit <span aria-hidden="true">&nearr;</span>
+              </button>
+            </article>
+
+            <article class="package-card">
+              <div class="package-number">02</div>
+              <div class="package-name">
+                <span>Mobile conversion</span>
+                <h3>Mobile CTA Cleanup</h3>
+              </div>
+              <p>Make it easier for phone visitors to call or request a quote at the right moment.</p>
+              <ul>
+                <li>Sticky call or quote button</li>
+                <li>Tap-target cleanup</li>
+                <li>Header and footer QA</li>
+              </ul>
+              <div class="package-price"><span>Starting at</span><strong>$99</strong><small>3&ndash;7 business days</small></div>
+              <button class="button button-outline" type="button" data-package="cta">
+                Request CTA cleanup <span aria-hidden="true">&nearr;</span>
+              </button>
+            </article>
+
+            <article class="package-card">
+              <div class="package-number">03</div>
+              <div class="package-name">
+                <span>Response speed</span>
+                <h3>Follow-Up Setup</h3>
+              </div>
+              <p>Connect incoming leads to immediate email or SMS confirmation and clear routing.</p>
+              <ul>
+                <li>Auto-reply trigger rules</li>
+                <li>Email or SMS templates</li>
+                <li>Notification routing</li>
+              </ul>
+              <div class="package-price"><span>Starting at</span><strong>$149</strong><small>Scope dependent</small></div>
+              <button class="button button-outline" type="button" data-package="followup">
+                Request follow-up setup <span aria-hidden="true">&nearr;</span>
+              </button>
+            </article>
+
+            <article class="package-card">
+              <div class="package-number">04</div>
+              <div class="package-name">
+                <span>Lead quality</span>
+                <h3>Intake Form Setup</h3>
+              </div>
+              <p>Build a focused request form that asks the right questions and routes clean data.</p>
+              <ul>
+                <li>Responsive form layout</li>
+                <li>Qualifying fields</li>
+                <li>CRM or spreadsheet mapping</li>
+              </ul>
+              <div class="package-price"><span>Starting at</span><strong>$299</strong><small>Scope dependent</small></div>
+              <button class="button button-outline" type="button" data-package="form">
+                Request form setup <span aria-hidden="true">&nearr;</span>
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" class="section process-section" aria-labelledby="process-title">
+        <span id="payments" class="anchor-target" aria-hidden="true"></span>
+        <div class="page-shell">
+          <div class="process-intro">
+            <p class="section-kicker section-kicker-light">Simple by design</p>
+            <h2 id="process-title">No mystery call. No surprise invoice.</h2>
+            <p>
+              Start asynchronously. Send the public details, review the written recommendation,
+              and choose whether to move forward.
+            </p>
+          </div>
+          <ol class="process-list">
+            <li>
+              <span>01</span>
+              <div><h3>Send the basics</h3><p>Your website, business type, and the action visitors should take.</p></div>
+              <em>5 minutes</em>
+            </li>
+            <li>
+              <span>02</span>
+              <div><h3>Review the scope</h3><p>See the deliverables, price, timeline, and anything needed from you.</p></div>
+              <em>Before payment</em>
+            </li>
+            <li>
+              <span>03</span>
+              <div><h3>Approve the work</h3><p>Payment is requested only after the written scope makes sense to you.</p></div>
+              <em>Your choice</em>
+            </li>
+            <li>
+              <span>04</span>
+              <div><h3>Get a clear handoff</h3><p>Receive the finished work, verification notes, and the next practical step.</p></div>
+              <em>Documented</em>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="brief" class="section brief-section" aria-labelledby="brief-title">
+        <div class="page-shell brief-grid">
+          <div class="brief-copy">
+            <p class="section-kicker">Start with a useful brief</p>
+            <h2 id="brief-title">Tell us where the quote path feels weak.</h2>
+            <p>
+              This form does not upload anything. It prepares an email in your own mail app so you
+              can review every detail before sending.
+            </p>
+            <div class="selected-package" aria-live="polite">
+              <span>Selected service</span>
+              <strong data-brief-name>Lead Leak Audit</strong>
+              <div>
+                <p><small>Starting at</small><b data-brief-price>$49 USD</b></p>
+                <p><small>Typical timeline</small><b data-brief-time>1&ndash;3 business days</b></p>
+              </div>
             </div>
           </div>
-          <p class="contact-response"><span>Typical reply</span><strong>Within 24 hours on business days</strong></p>
-          <a
-            class="button"
-            data-contact-link
-            href="mailto:hello@quoteintakestudio.com?subject=Lead%20Leak%20Audit&body=Hi%20Quote%20Intake%20Studio%2C%0A%0AI%27d%20like%20help%20with%20a%20Lead%20Leak%20Audit.%0A%0ABusiness%20type%3A%0AYour%20website%20link%3A%0ATarget%20timeline%3A%0APackage%20or%20project%20type%3A%20Lead%20Leak%20Audit%0ABudget%20range%3A%20Starting%20at%20%2449%20USD%0A"
-          >
-            Email selected scope
+
+          <form class="brief-form" data-brief-form>
+            <div class="field field-full">
+              <label for="brief-package">What would you like help with?</label>
+              <select id="brief-package" name="service" data-brief-select>
+                <option value="audit">Lead Leak Audit &mdash; starting at $49</option>
+                <option value="cta">Mobile CTA Cleanup &mdash; starting at $99</option>
+                <option value="followup">Follow-Up Setup &mdash; starting at $149</option>
+                <option value="form">Intake Form Setup &mdash; starting at $299</option>
+                <option value="unsure">Not sure yet &mdash; recommend a starting point</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="brief-business">Business type</label>
+              <input id="brief-business" name="business" type="text" placeholder="e.g. roofing company" autocomplete="organization-title">
+            </div>
+            <div class="field">
+              <label for="brief-url">Public website URL</label>
+              <input id="brief-url" name="url" type="url" placeholder="https://yourwebsite.com" inputmode="url">
+            </div>
+            <div class="field field-full">
+              <label for="brief-goal">What should visitors do?</label>
+              <textarea
+                id="brief-goal"
+                name="goal"
+                rows="4"
+                placeholder="Call, request a quote, book an estimate&mdash;plus anything that currently feels confusing."
+              ></textarea>
+            </div>
+            <div class="field field-full">
+              <label for="brief-timeline">Ideal timeline</label>
+              <select id="brief-timeline" name="timeline">
+                <option value="Flexible">Flexible</option>
+                <option value="This week">This week</option>
+                <option value="Within two weeks">Within two weeks</option>
+                <option value="This month">This month</option>
+              </select>
+            </div>
+            <button class="button button-primary form-submit" type="submit">
+              Prepare my email <span aria-hidden="true">&nearr;</span>
+            </button>
+            <p class="form-note">
+              Prefer to write it yourself?
+              <a href="mailto:hello@quoteintakestudio.com">hello@quoteintakestudio.com</a>
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <section id="faq" class="section faq-section" aria-labelledby="faq-title">
+        <div class="page-shell faq-grid">
+          <div class="faq-intro">
+            <p class="section-kicker">Good to know</p>
+            <h2 id="faq-title">Straight answers before you start.</h2>
+            <p>Still unsure? Email the site and your question. You do not need to book a call first.</p>
+            <a class="text-link" href="mailto:hello@quoteintakestudio.com?subject=Website%20quote-path%20question">
+              Ask by email <span aria-hidden="true">&nearr;</span>
+            </a>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>What do I need to send for an audit?<span aria-hidden="true"></span></summary>
+              <p>
+                Your public website URL, main service, and the action you want visitors to take.
+                Passwords, payment details, and private customer data are not needed for the first audit.
+              </p>
+            </details>
+            <details>
+              <summary>Do you work with existing websites?<span aria-hidden="true"></span></summary>
+              <p>
+                Yes. Work can be scoped for WordPress, Squarespace, Wix, Webflow, Shopify, or a custom
+                HTML site. Fit is confirmed before payment.
+              </p>
+            </details>
+            <details>
+              <summary>When do I pay?<span aria-hidden="true"></span></summary>
+              <p>
+                After you receive and approve the written scope. Price, timeline, and deliverables are
+                confirmed before any payment request is sent.
+              </p>
+            </details>
+            <details>
+              <summary>Is ongoing support available?<span aria-hidden="true"></span></summary>
+              <p>Most work is fixed-scope. Ongoing updates can be quoted separately when needed.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta" aria-labelledby="final-cta-title">
+        <div class="page-shell final-cta-inner">
+          <div>
+            <p>One public link is enough to start.</p>
+            <h2 id="final-cta-title">Find the leak before rebuilding the whole site.</h2>
+          </div>
+          <a class="button button-primary" href="#brief">
+            Request a website review <span aria-hidden="true">&nearr;</span>
           </a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div>
-        <a class="brand footer-brand" href="index.html" aria-label="Quote Intake Studio home">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" role="img">
-              <path d="M16 3 28 10v12l-12 7L4 22V10L16 3Z" />
-              <path d="m10 13 6-3 6 3-6 3-6-3Zm0 7 6 3 6-3" />
-            </svg>
-          </span>
-          <span>Quote Intake Studio</span>
+      <div class="page-shell footer-main">
+        <a class="brand brand-footer" href="#top" aria-label="Quote Intake Studio home">
+          <img src="assets/favicon.svg" alt="" width="38" height="38">
+          <span><strong>Quote Intake</strong><small>Studio</small></span>
         </a>
-        <p>Quote path and mobile conversion optimization for local service businesses.</p>
-        <address class="footer-address">
-          <span>Quote Intake Studio</span>
-          <span>PO Box 196</span>
-          <span>Kapaa, HI 96746</span>
-          <a href="mailto:hello@quoteintakestudio.com">hello@quoteintakestudio.com</a>
-        </address>
+        <div class="footer-links">
+          <div>
+            <span>Explore</span>
+            <a href="#services">What we fix</a>
+            <a href="#proof">Sample audit</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#brief">Project brief</a>
+          </div>
+          <div>
+            <span>Details</span>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="referrals.html">Referrals</a>
+            <a href="refund-policy.html">Refund policy</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+          </div>
+          <div>
+            <span>Contact</span>
+            <a href="mailto:hello@quoteintakestudio.com">hello@quoteintakestudio.com</a>
+            <p>PO Box 196<br>Kapaa, HI 96746</p>
+          </div>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="portfolio.html">Portfolio</a>
-        <a href="referrals.html">Referral Info</a>
-        <a href="#brief">Build Brief</a>
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#process">Process</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#payments">Payments</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
+      <div class="page-shell footer-bottom">
+        <p>&copy; <span data-current-year>2026</span> Quote Intake Studio</p>
+        <p>Clear scope. Useful fixes. No inflated promises.</p>
       </div>
-      <div class="footer-links">
-        <a href="refund-policy.html">Refund Policy</a>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-      </div>
-      <p class="copyright">&copy; 2026 Quote Intake Studio. All rights reserved.</p>
     </footer>
   </body>
 </html>
